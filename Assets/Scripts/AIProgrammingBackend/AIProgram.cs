@@ -1,19 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+/*
+ * A single AI program controls the flow between commands and gives statuses back to the AI Program.
+ */
 public class AIProgram
 {
-    IAICommand firstCommand;
     IAICommand currentCommand;
-    ProgramStatus status;
-
 
     public AIProgram(IAICommand initialCommand)
     {
-        firstCommand = initialCommand;
         currentCommand = initialCommand;
-        status = ProgramStatus.stopped;
     }
 
     public ProgramStatus StepProgram()
@@ -21,7 +15,7 @@ public class AIProgram
         if (currentCommand == null)
             return ProgramStatus.stopped;
 
-        var status = currentCommand.Run();
+        var status = currentCommand.Step();
         if (status == ProgramStatus.stopped)
             currentCommand = currentCommand.Next();
 

@@ -1,10 +1,10 @@
-using Mono.Cecil.Cil;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
+
+/*
+ * Class used for testing various AI Programs and commands.
+ */
 public class TestAIProgram : MonoBehaviour
 {
     [SerializeField] RobotController robotController;
@@ -12,10 +12,14 @@ public class TestAIProgram : MonoBehaviour
 
     void Start()
     {
+        //MovementTest();
         //IfElseCommandTest();
         MoveToCommandTest();
     }
 
+    /*
+     * Simple test for moving in a square and looping around.
+     */
     void MovementTest()
     {
         var moveUp1 = MoveCommand.MoveUpCommand(2);
@@ -36,6 +40,9 @@ public class TestAIProgram : MonoBehaviour
         AIProgramManager.StartProgram();
     }
 
+    /*
+     * Test for the IfElseCommand, where the robot moves up and down within a range.
+     */
     void IfElseCommandTest()
     {
         var moveUp = MoveCommand.MoveUpCommand(0.1f);
@@ -57,6 +64,9 @@ public class TestAIProgram : MonoBehaviour
         AIProgramManager.StartProgram();
     }
 
+    /*
+     * More complicated test for changing direction vectors and conditionals.
+     */
     void MoveToCommandTest()
     {
         //Func<Transform, bool> above = v => (v.position.y > 5);
@@ -82,6 +92,4 @@ public class TestAIProgram : MonoBehaviour
         AIProgramManager.SetActiveProgram(program);
         AIProgramManager.StartProgram();
     }
-
-
 }

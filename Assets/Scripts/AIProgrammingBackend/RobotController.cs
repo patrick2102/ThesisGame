@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
+/*
+ * Robot controller used by an AI program to control the behavior of the robot.
+ */
 public class RobotController : MonoBehaviour
 {
     public float speed = 50;
     [SerializeField] Rigidbody2D rb;
-
-    private void Start()
-    {
-
-    }
-
 
     public void MoveDirection(Vector3 direction)
     {
