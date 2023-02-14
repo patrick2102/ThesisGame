@@ -5,11 +5,20 @@ using UnityEngine.EventSystems;
 
 public class RobotController : MonoBehaviour
 {
-    public float speed = 100;
+    public float speed = 50;
+    [SerializeField] Rigidbody2D rb;
+
+    private void Start()
+    {
+
+    }
 
 
     public void MoveDirection(Vector3 direction)
     {
-        transform.position += speed * Time.deltaTime * direction;
+        direction.Normalize();
+
+        var force = speed * direction;
+        rb.AddForce(force);
     }
 }

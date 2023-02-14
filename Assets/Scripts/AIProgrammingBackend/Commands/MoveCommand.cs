@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using UnityEngine;
 
@@ -5,15 +6,15 @@ public class MoveCommand : IAICommand
 {
     float timer;
     float maxTimer;
-    Vector3 direction;
+    Func<Vector2> direction;
     RobotController robotController;
     public IAICommand next;
 
-    public MoveCommand(Vector2 direction, float maxTimer)
+    public MoveCommand(Func<Vector2> direction, float maxTimer)
     {
         timer = 0.0f;
         this.maxTimer = maxTimer;
-        this.direction = direction.normalized;
+        this.direction = direction;
         robotController = AIProgramManager.instance.robotController;
     }
     public IAICommand Next()
@@ -26,7 +27,7 @@ public class MoveCommand : IAICommand
 
         if (maxTimer > timer)
         {
-            robotController.MoveDirection(direction);
+            robotController.MoveDirection(direction());
             timer += Time.deltaTime;
             return ProgramStatus.running;
         }
@@ -39,19 +40,34 @@ public class MoveCommand : IAICommand
 
     public static MoveCommand MoveUpCommand(float timer)
     {
-        return new MoveCommand(new Vector2(0, 1), timer);
+        Func<Vector2> direction = () => new Vector2(0, 1);
+
+        return new MoveCommand(direction, timer);
     }
     public static MoveCommand MoveDownCommand(float timer)
     {
-        return new MoveCommand(new Vector2(0, -1), timer);
+        Func<Vector2> direction = () => new Vector2(0, -1);
+        return new MoveCommand(direction, timer);
     }
     public static MoveCommand MoveLeftCommand(float timer)
     {
-        return new MoveCommand(new Vector2(-1, 0), timer);
+        Func<Vector2> direction = () => new Vector2(-1, 0);
+        return new MoveCommand(direction, timer);
     }
     public static MoveCommand MoveRightCommand(float timer)
     {
-        return new MoveCommand(new Vector2(1, 0), timer);
+        Func<Vector2> direction = () => new Vector2(1, 0);
+        return new MoveCommand(direction, timer);
+    }
+
+    public static MoveCommand MoveTo(Func<Vector2> direction, float timer)
+    {
+        return new MoveCommand(direction, timer);
+    }
+    public static MoveCommand MoveFrom(Func<Vector2> direction, float timer)
+    {
+        Func<Vector2> oppositeDirection = () => -direction();
+        return new MoveCommand(oppositeDirection, timer);
     }
 
 }
