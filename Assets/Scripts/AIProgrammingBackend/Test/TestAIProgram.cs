@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 
@@ -12,7 +13,7 @@ public class TestAIProgram : MonoBehaviour
 
     void Start()
     {
-        //MovementTest();
+        //DirectionTest();
         //IfElseCommandTest();
         MoveToCommandTest();
     }
@@ -20,12 +21,12 @@ public class TestAIProgram : MonoBehaviour
     /*
      * Simple test for moving in a square and looping around.
      */
-    void MovementTest()
+    void DirectionTest()
     {
-        var moveUp1 = MoveCommand.MoveUpCommand(2);
-        var moveLeft1 = MoveCommand.MoveLeftCommand(2);
-        var moveDown1 = MoveCommand.MoveDownCommand(2);
-        var moveRight1 = MoveCommand.MoveRightCommand(2);
+        var moveUp1 = DirectionCommand.DirectionUpCommand(2);
+        var moveLeft1 = DirectionCommand.DirectionLeftCommand(2);
+        var moveDown1 = DirectionCommand.DirectionDownCommand(2);
+        var moveRight1 = DirectionCommand.DirectionRightCommand(2);
 
         moveUp1.next = moveLeft1;
         moveLeft1.next = moveDown1;
@@ -45,8 +46,8 @@ public class TestAIProgram : MonoBehaviour
      */
     void IfElseCommandTest()
     {
-        var moveUp = MoveCommand.MoveUpCommand(0.1f);
-        var moveDown = MoveCommand.MoveDownCommand(0.1f);
+        var moveUp = DirectionCommand.DirectionUpCommand(0.1f);
+        var moveDown = DirectionCommand.DirectionDownCommand(0.1f);
 
         Func<Transform, bool> above = v => (v.position.y > 5);
         Func<Transform, bool> below = v => (v.position.y < -5);
@@ -73,11 +74,11 @@ public class TestAIProgram : MonoBehaviour
         Func<Vector2> mousePosition = () => Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Func<Vector2> mouseDirection = () => Camera.main.ScreenToWorldPoint(Input.mousePosition) - robotController.transform.position;
 
-        Func<Vector2> goalPosition = () => new Vector3(0,5,0) - robotController.transform.position;
+        Func<Vector2> goalPosition = () => new Vector3(0, 5, 0) - robotController.transform.position;
 
 
-        var moveTo = MoveCommand.MoveTo(goalPosition, 0.1f);
-        var moveFrom = MoveCommand.MoveFrom(mouseDirection, 0.1f);
+        var moveTo = DirectionCommand.DirectionTo(goalPosition, 0.1f);
+        var moveFrom = DirectionCommand.DirectionFrom(mouseDirection, 0.1f);
 
         float closestAllowed = 2.0f;
         Func<Transform, bool> tooClose = v => (v.position - (Vector3)mousePosition()).magnitude < closestAllowed;
@@ -92,4 +93,43 @@ public class TestAIProgram : MonoBehaviour
         AIProgramManager.SetActiveProgram(program);
         AIProgramManager.StartProgram();
     }
+
+    /*
+    * More complicated test for changing direction vectors and conditionals.
+    */
+    //void ContinueCommandTest()
+    //{
+    //    Func<Vector2> mousePosition = () => Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //    Func<Vector2> mouseDirection = () => Camera.main.ScreenToWorldPoint(Input.mousePosition) - robotController.transform.position;
+
+    //    Func<Vector2> goalPosition = () => new Vector3(0, 5, 0) - robotController.transform.position;
+
+    //    var moveFrom = DirectionCommand.DirectionFrom(mouseDirection, 0.1f);
+
+    //    var moveUp1 = DirectionCommand.DirectionUpCommand(2);
+    //    var moveLeft1 = DirectionCommand.DirectionLeftCommand(2);
+    //    var moveDown1 = DirectionCommand.DirectionDownCommand(2);
+    //    var moveRight1 = DirectionCommand.DirectionRightCommand(2);
+
+    //    moveUp1.next = moveLeft1;
+    //    moveLeft1.next = moveDown1;
+    //    moveDown1.next = moveRight1;
+    //    moveRight1.next = moveUp1;
+
+    //    float closestAllowed = 2.0f;
+    //    Func<Transform, bool> tooClose = v => (v.position - (Vector3)mousePosition()).magnitude < closestAllowed;
+
+    //    var moveUp1Continue = ContinueCommand<Transform>(tooClose, )
+
+    //    var mouseTooCloseCondition = new IfElseCommand<Transform>(tooClose, robotController.transform, moveFrom, moveTo);
+
+
+
+
+    //    var program = new AIProgram(moveUp1);
+
+    //    AIProgramManager.SetActiveProgram(program);
+    //    AIProgramManager.StartProgram();
+    //}
+
 }
