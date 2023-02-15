@@ -49,11 +49,11 @@ public class TestAIProgram : MonoBehaviour
         var moveUp = DirectionCommand.DirectionUpCommand(0.1f);
         var moveDown = DirectionCommand.DirectionDownCommand(0.1f);
 
-        Func<Transform, bool> above = v => (v.position.y > 5);
-        Func<Transform, bool> below = v => (v.position.y < -5);
+        Func<bool> above = () => (robotController.transform.position.y > 5);
+        Func<bool> below = () => (robotController.transform.position.y < -5);
 
-        var upCondition = new IfElseCommand<Transform>(above, robotController.transform, moveDown, moveUp);
-        var downCondition = new IfElseCommand<Transform>(below, robotController.transform, moveUp, moveDown);
+        var upCondition = new IfElseCommand(above, moveDown, moveUp);
+        var downCondition = new IfElseCommand(below, moveUp, moveDown);
 
 
         moveUp.next = upCondition;
@@ -81,9 +81,9 @@ public class TestAIProgram : MonoBehaviour
         var moveFrom = DirectionCommand.DirectionFrom(mouseDirection, 0.1f);
 
         float closestAllowed = 2.0f;
-        Func<Transform, bool> tooClose = v => (v.position - (Vector3)mousePosition()).magnitude < closestAllowed;
+        Func<bool> tooClose = () => (robotController.transform.position - (Vector3)mousePosition()).magnitude < closestAllowed;
 
-        var mouseTooCloseCondition = new IfElseCommand<Transform>(tooClose, robotController.transform, moveFrom, moveTo);
+        var mouseTooCloseCondition = new IfElseCommand(tooClose, moveFrom, moveTo);
 
         moveTo.next = mouseTooCloseCondition;
         moveFrom.next = mouseTooCloseCondition;

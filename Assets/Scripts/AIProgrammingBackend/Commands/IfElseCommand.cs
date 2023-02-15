@@ -3,18 +3,16 @@ using System;
 /*
  * Command used for conditional logic.
  */
-public class IfElseCommand<T> : IAICommand
+public class IfElseCommand : IAICommand
 {
     IAICommand ifCommand; // The command that next is set to if the condition is true.
     IAICommand elseCommand; // The command that next is set to if the condition is false.
     IAICommand next;
 
-    T variable; // The variable used in the condition function.
-    Func<T, bool> condition; // The function that is used to check for the condition. Has to be manually set outside of the class.
+    Func<bool> condition; // The function that is used to check for the condition. Has to be manually set outside of the class.
 
-    public IfElseCommand(Func<T, bool> condition, T variable, IAICommand ifCommand, IAICommand elseCommand) 
+    public IfElseCommand(Func<bool> condition, IAICommand ifCommand, IAICommand elseCommand) 
     {
-        this.variable = variable;
         this.condition = condition;
         this.ifCommand = ifCommand;
         this.elseCommand = elseCommand;
@@ -31,7 +29,7 @@ public class IfElseCommand<T> : IAICommand
      */
     public ProgramStatus Step()
     {
-        var cond = condition(variable);
+        var cond = condition();
 
         if (cond)
             next = ifCommand;
