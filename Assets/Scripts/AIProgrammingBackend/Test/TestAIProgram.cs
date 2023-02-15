@@ -72,7 +72,6 @@ public class TestAIProgram : MonoBehaviour
     void MoveToCommandTest()
     {
         //Func<Transform, bool> above = v => (v.position.y > 5);
-        Func<Vector2> mousePosition = () => Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Func<Vector2> mouseDirection = () => Camera.main.ScreenToWorldPoint(Input.mousePosition) - robotController.transform.position;
 
         Func<Vector2> goalPosition = () => new Vector3(0, 5, 0) - robotController.transform.position;
@@ -82,7 +81,7 @@ public class TestAIProgram : MonoBehaviour
         var moveFrom = DirectionCommand.DirectionFrom(mouseDirection, 0.1f);
 
         float closestAllowed = 2.0f;
-        Func<bool> tooClose = () => (robotController.transform.position - (Vector3)mousePosition()).magnitude < closestAllowed;
+        Func<bool> tooClose = () => (robotController.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).magnitude < closestAllowed;
 
         var mouseTooCloseCondition = new IfElseCommand(tooClose, moveFrom, moveTo);
 
@@ -100,7 +99,6 @@ public class TestAIProgram : MonoBehaviour
     */
     void ContinueCommandTest()
     {
-        Func<Vector2> mousePosition = () => Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Func<Vector2> mouseDirection = () => Camera.main.ScreenToWorldPoint(Input.mousePosition) - robotController.transform.position;
 
         Func<Vector2> goalPosition = () => new Vector3(0, 5, 0) - robotController.transform.position;
@@ -120,7 +118,7 @@ public class TestAIProgram : MonoBehaviour
         var moveRight1 = MoveCommand.MoveTo(() => bottomRight, stopDist);
 
         float closestAllowed = 2.0f;
-        Func<bool> tooClose = () => (robotController.transform.position - (Vector3)mousePosition()).magnitude > closestAllowed;
+        Func<bool> tooClose = () => (robotController.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).magnitude > closestAllowed;
 
         var moveUp1Continue = new ContinueCommand(tooClose, moveUp1, moveFrom);
         var moveLeft1Continue = new ContinueCommand(tooClose, moveLeft1, moveFrom);
