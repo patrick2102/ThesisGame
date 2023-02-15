@@ -5,10 +5,10 @@ public class MoveCommand : IAICommand
 {
     Func<Vector2> target;
     RobotController robotController;
-    float stopDistance = 1.0f;
+    float stopDistance;
     public IAICommand next;
 
-    public MoveCommand(Func<Vector2> targetPosition, float stopDistance)
+    public MoveCommand(Func<Vector2> targetPosition, float stopDistance = 0.1f)
     {
         this.stopDistance = stopDistance;
         target = targetPosition;
@@ -44,15 +44,15 @@ public class MoveCommand : IAICommand
 
     #region Predefined Move Commands
 
-    public static MoveCommand MoveTo(Func<Vector2> target, float timer)
+    public static MoveCommand MoveTo(Func<Vector2> target, float stopDist = 0.1f)
     {
-        return new MoveCommand(target, timer);
+        return new MoveCommand(target, stopDist);
     }
 
-    public static MoveCommand MoveFrom(Func<Vector2> target, float timer)
+    public static MoveCommand MoveFrom(Func<Vector2> target, float stopDist = 0.1f)
     {
         Func<Vector2> oppositeTarget = () => -target();
-        return new MoveCommand(oppositeTarget, timer);
+        return new MoveCommand(oppositeTarget, stopDist);
     }
     #endregion
 }

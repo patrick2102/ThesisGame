@@ -15,7 +15,8 @@ public class TestAIProgram : MonoBehaviour
     {
         //DirectionTest();
         //IfElseCommandTest();
-        MoveToCommandTest();
+        //MoveToCommandTest();
+        ContinueCommandTest();
     }
 
     /*
@@ -97,39 +98,44 @@ public class TestAIProgram : MonoBehaviour
     /*
     * More complicated test for changing direction vectors and conditionals.
     */
-    //void ContinueCommandTest()
-    //{
-    //    Func<Vector2> mousePosition = () => Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //    Func<Vector2> mouseDirection = () => Camera.main.ScreenToWorldPoint(Input.mousePosition) - robotController.transform.position;
+    void ContinueCommandTest()
+    {
+        Func<Vector2> mousePosition = () => Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Func<Vector2> mouseDirection = () => Camera.main.ScreenToWorldPoint(Input.mousePosition) - robotController.transform.position;
 
-    //    Func<Vector2> goalPosition = () => new Vector3(0, 5, 0) - robotController.transform.position;
+        Func<Vector2> goalPosition = () => new Vector3(0, 5, 0) - robotController.transform.position;
 
-    //    var moveFrom = DirectionCommand.DirectionFrom(mouseDirection, 0.1f);
+        var moveFrom = DirectionCommand.DirectionFrom(mouseDirection, 0.1f);
 
-    //    var moveUp1 = DirectionCommand.DirectionUpCommand(2);
-    //    var moveLeft1 = DirectionCommand.DirectionLeftCommand(2);
-    //    var moveDown1 = DirectionCommand.DirectionDownCommand(2);
-    //    var moveRight1 = DirectionCommand.DirectionRightCommand(2);
+        var topRight = new Vector2(5, 5);
+        var topLeft = new Vector2(-5, 5);
+        var bottomLeft = new Vector2(-5, -5);
+        var bottomRight = new Vector2(5, -5);
 
-    //    moveUp1.next = moveLeft1;
-    //    moveLeft1.next = moveDown1;
-    //    moveDown1.next = moveRight1;
-    //    moveRight1.next = moveUp1;
+        var stopDist = 0.5f;
 
-    //    float closestAllowed = 2.0f;
-    //    Func<Transform, bool> tooClose = v => (v.position - (Vector3)mousePosition()).magnitude < closestAllowed;
+        var moveUp1 = MoveCommand.MoveTo(() => topRight, stopDist);
+        var moveLeft1 = MoveCommand.MoveTo(() => topLeft, stopDist);
+        var moveDown1 = MoveCommand.MoveTo(() => bottomLeft, stopDist);
+        var moveRight1 = MoveCommand.MoveTo(() => bottomRight, stopDist);
 
-    //    var moveUp1Continue = ContinueCommand<Transform>(tooClose, )
+        float closestAllowed = 2.0f;
+        Func<bool> tooClose = () => (robotController.transform.position - (Vector3)mousePosition()).magnitude > closestAllowed;
 
-    //    var mouseTooCloseCondition = new IfElseCommand<Transform>(tooClose, robotController.transform, moveFrom, moveTo);
+        var moveUp1Continue = new ContinueCommand(tooClose, moveUp1, moveFrom);
+        var moveLeft1Continue = new ContinueCommand(tooClose, moveLeft1, moveFrom);
+        var moveDown1Continue = new ContinueCommand(tooClose, moveDown1, moveFrom);
+        var moveRight1Continue = new ContinueCommand(tooClose, moveRight1, moveFrom);
 
+        moveUp1Continue.next = moveLeft1Continue;
+        moveLeft1Continue.next = moveDown1Continue;
+        moveDown1Continue.next = moveRight1Continue;
+        moveRight1Continue.next = moveUp1Continue;
 
+        var program = new AIProgram(moveUp1Continue);
 
-
-    //    var program = new AIProgram(moveUp1);
-
-    //    AIProgramManager.SetActiveProgram(program);
-    //    AIProgramManager.StartProgram();
-    //}
+        AIProgramManager.SetActiveProgram(program);
+        AIProgramManager.StartProgram();
+    }
 
 }
