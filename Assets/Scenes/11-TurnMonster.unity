@@ -1436,7 +1436,7 @@ MonoBehaviour:
   aggroRangeRadius: 8
   rotateSpeed: 2
   alignAngleRange: 20
-  moveMultiplier: 45
+  moveMultiplier: 1600
 --- !u!60 &1471806012
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1989,7 +1989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e621e07937619a4d98bd0d5fe7da477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveMultiplier: 3
+  moveMultiplier: 1200
 --- !u!212 &2097051091
 SpriteRenderer:
   m_ObjectHideFlags: 0

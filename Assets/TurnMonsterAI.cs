@@ -14,8 +14,10 @@ public class TurnMonsterAI : MonoBehaviour
     public int moveMultiplier;
 
     // Saving the player-tagged and robot-tagged gameObjects to only have to look for them once
-    private GameObject playerObject;
+    // private GameObject playerObject;
     // provate GameObject robotObject;
+
+    private bool FacingTarget;
 
     private Rigidbody2D turnMonsterRB2D;
 
@@ -25,7 +27,7 @@ public class TurnMonsterAI : MonoBehaviour
 
     private void Awake()
     {
-        playerObject = GameObject.FindWithTag("Player");
+        // playerObject = GameObject.FindWithTag("Player");
         turnMonsterRB2D = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -38,7 +40,10 @@ public class TurnMonsterAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(FacingTarget)
+        {
+            MoveForward();
+        }
     }
 
     void FixedUpdate()
@@ -88,16 +93,18 @@ public class TurnMonsterAI : MonoBehaviour
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed);
 
-        // Since this method already is handling rotation and the intended behavior is that the monster starts
-        // moving when facing angle aligns well enough, the call to move is made here
         if (Quaternion.Angle(transform.rotation, targetRotation) < alignAngleRange)
         {
-            MoveForward();
+            FacingTarget = true;
+        }
+        else
+        {
+            FacingTarget = false;
         }
     }
 
     void MoveForward()
     {
-        turnMonsterRB2D.AddForce(transform.up * moveMultiplier);
+        turnMonsterRB2D.AddForce(transform.up * moveMultiplier * Time.deltaTime);
     }
 }

@@ -24,19 +24,19 @@ public class move_test : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(KeyCode.RightArrow)) {
-            playerRB2D.AddForce(transform.right * moveMultiplier);
+            playerRB2D.AddForce(transform.right * moveMultiplier * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            playerRB2D.AddForce(-transform.right * moveMultiplier);
+            playerRB2D.AddForce(-transform.right * moveMultiplier * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            playerRB2D.AddForce(transform.up * moveMultiplier);
+            playerRB2D.AddForce(transform.up * moveMultiplier * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            playerRB2D.AddForce(-transform.up * moveMultiplier);
+            playerRB2D.AddForce(-transform.up * moveMultiplier * Time.deltaTime);
         }
     }
 }
