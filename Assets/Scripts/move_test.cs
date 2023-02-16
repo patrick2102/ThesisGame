@@ -6,13 +6,12 @@ public class move_test : MonoBehaviour
 {
 
     public int moveMultiplier;
-    Vector3 tempPos;
 
-    private Rigidbody2D rb2D;
+    private Rigidbody2D playerRB2D;
 
     private void Awake()
     {
-        rb2D = gameObject.GetComponent<Rigidbody2D>();
+        playerRB2D = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Start is called before the first frame update
@@ -25,19 +24,19 @@ public class move_test : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(KeyCode.RightArrow)) {
-            rb2D.AddForce(transform.right * moveMultiplier);
+            playerRB2D.AddForce(transform.right * moveMultiplier);
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            rb2D.AddForce(-transform.right * moveMultiplier);
+            playerRB2D.AddForce(-transform.right * moveMultiplier);
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            rb2D.AddForce(transform.up * moveMultiplier);
+            playerRB2D.AddForce(transform.up * moveMultiplier);
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            rb2D.AddForce(-transform.up * moveMultiplier);
+            playerRB2D.AddForce(-transform.up * moveMultiplier);
         }
     }
 }
