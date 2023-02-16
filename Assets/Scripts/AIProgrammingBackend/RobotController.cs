@@ -10,7 +10,7 @@ public class RobotController : MonoBehaviour
 
     public void MoveDirection(Vector3 direction)
     {
-        direction.Normalize();
+        direction = direction.normalized;
 
         var force = speed * direction;
         rb.AddForce(force);

@@ -1,24 +1,17 @@
 using System;
 using UnityEngine;
 
-/*
- * Commands to do with moving the robot. The commands use a Func<Vector2> to control the directions that the robot should move. 
- */
 public class MoveCommand : IAICommand
 {
-    float timer; // Timer to that counts up to maxTimer to control time before going to the next command
-    float maxTimer;
-    Func<Vector2> direction; // A function that returns a vector. The reason behind the Function is to allow dynamic directions
-                             // that can change during runtime. Otherwise the direction would have to be manually changed outside of the class if necessary.
-                             // Example in the case where the robot has to follow a moving target. 
+    Func<Vector2> target;
     RobotController robotController;
+    float stopDistance;
     public IAICommand next;
 
-    public MoveCommand(Func<Vector2> direction, float maxTimer)
+    public MoveCommand(Func<Vector2> targetPosition, float stopDistance = 0.1f)
     {
-        timer = 0.0f;
-        this.maxTimer = maxTimer;
-        this.direction = direction;
+        this.stopDistance = stopDistance;
+        target = targetPosition;
         robotController = AIProgramManager.instance.robotController;
     }
     public IAICommand Next()
@@ -31,16 +24,15 @@ public class MoveCommand : IAICommand
      */
     public ProgramStatus Step()
     {
-
-        if (maxTimer > timer)
+        var direction = (target() - (Vector2)robotController.transform.position);
+        var distToTarget = (direction).magnitude;
+        if (distToTarget > stopDistance)
         {
-            robotController.MoveDirection(direction());
-            timer += Time.deltaTime;
+            robotController.MoveDirection(direction);
             return ProgramStatus.running;
         }
         else
         {
-            timer = 0;
             return ProgramStatus.stopped;
         }
     }
@@ -51,40 +43,16 @@ public class MoveCommand : IAICommand
      */
 
     #region Predefined Move Commands
-    public static MoveCommand MoveUpCommand(float timer)
-    {
-        Func<Vector2> direction = () => new Vector2(0, 1);
 
-        return new MoveCommand(direction, timer);
+    public static MoveCommand MoveTo(Func<Vector2> target, float stopDist = 0.1f)
+    {
+        return new MoveCommand(target, stopDist);
     }
 
-    public static MoveCommand MoveDownCommand(float timer)
+    public static MoveCommand MoveFrom(Func<Vector2> target, float stopDist = 0.1f)
     {
-        Func<Vector2> direction = () => new Vector2(0, -1);
-        return new MoveCommand(direction, timer);
-    }
-
-    public static MoveCommand MoveLeftCommand(float timer)
-    {
-        Func<Vector2> direction = () => new Vector2(-1, 0);
-        return new MoveCommand(direction, timer);
-    }
-
-    public static MoveCommand MoveRightCommand(float timer)
-    {
-        Func<Vector2> direction = () => new Vector2(1, 0);
-        return new MoveCommand(direction, timer);
-    }
-
-    public static MoveCommand MoveTo(Func<Vector2> direction, float timer)
-    {
-        return new MoveCommand(direction, timer);
-    }
-
-    public static MoveCommand MoveFrom(Func<Vector2> direction, float timer)
-    {
-        Func<Vector2> oppositeDirection = () => -direction();
-        return new MoveCommand(oppositeDirection, timer);
+        Func<Vector2> oppositeTarget = () => -target();
+        return new MoveCommand(oppositeTarget, stopDist);
     }
     #endregion
 }
