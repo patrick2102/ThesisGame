@@ -17,21 +17,25 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     public KeyCode openUIButton;
 
+    public NodeScript mousedOverNode;
     public NodeScript selectedNode;
 
     public Vector2 startConnectionPos;
 
     public static AIProgramFrontendManager instance; // Instance used to ensure singleton behavior.
 
-    public bool drawConnection = false;
-
     private Camera cam;
+
+    [SerializeField] private GameObject commandList;
 
     private void Awake()
     {
         cam = Camera.main;
         if (instance == null)
+        {
+            commandList.SetActive(false);
             instance = this;
+        }
         else if (instance != this)
             Destroy(gameObject);
     }
@@ -41,10 +45,8 @@ public class AIProgramFrontendManager : MonoBehaviour
     {
         if (Input.GetKeyUp(openUIButton))
         {
+
         }
-
-
-
     }
 
     private void FixedUpdate()
@@ -63,9 +65,9 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     }
 
-    void CreateCurcuitBoard(CircuitBoardData cbd)
+    public void SetMousedOverNode(NodeScript node)
     {
-
+        mousedOverNode = node;
     }
 
     public void LeftClickNode(NodeScript node)
@@ -74,21 +76,17 @@ public class AIProgramFrontendManager : MonoBehaviour
         {
             StartConnectingNodes(node);
         }
-        else if (currentState == FrontEndStates.connectingNodes)
+    }
+
+    public void UnclickNode(NodeScript node)
+    {
+        if (currentState == FrontEndStates.connectingNodes)
         {
-            if (node.Equals(selectedNode))
-            {
-                currentState = FrontEndStates.none;
-                selectedNode = null;
-                
-            }
-            else if (node.neighbours.Contains(selectedNode))
+            currentState = FrontEndStates.none;
+
+            if (node.neighbours.Contains(mousedOverNode))
             {
                 ConnectNodes(node);
-            }
-            else
-            {
-                Debug.Log("Invalid connection");
             }
         }
     }
@@ -97,13 +95,19 @@ public class AIProgramFrontendManager : MonoBehaviour
     {
         if (currentState == FrontEndStates.none)
         {
-            AddCommand();
+            AddCommand(node);
+        }
+        else if (currentState == FrontEndStates.addingCommand)
+        {
+            currentState = FrontEndStates.none;
+            selectedNode = null;
+
+            commandList.SetActive(false);
         }
     }
 
     void StartConnectingNodes(NodeScript node)
     {
-        selectedNode = node;
         startConnectionPos = cam.ScreenToWorldPoint(Input.mousePosition);
         currentState = FrontEndStates.connectingNodes;
     }
@@ -116,17 +120,34 @@ public class AIProgramFrontendManager : MonoBehaviour
 
         activeConnections.Add((startConnectionPos, connectPoint));
 
-        //throw new NotImplementedException();
+        mousedOverNode.command.SetNext(node.command);
+        node.command.SetPrev(mousedOverNode.command);
     }
 
-    void AddCommand()
+    void AddCommand(NodeScript node)
     {
         currentState = FrontEndStates.addingCommand;
+        selectedNode = node;
 
-
-
-        throw new NotImplementedException();
+        commandList.SetActive(true);
     }
 
+    public void SelectCommand(CommandButton commandButton)
+    {
+        currentState = FrontEndStates.none;
 
+        var nextCommand = selectedNode.command.Next();
+        var prevCommand = selectedNode.command.Prev();
+
+        selectedNode.command = commandButton.command;
+
+        selectedNode.command.SetNext(nextCommand);
+        selectedNode.command.SetPrev(prevCommand);
+        prevCommand.SetNext(selectedNode.command);
+
+        selectedNode.nodeText.text = commandButton.commandButtonText.text;
+
+        selectedNode = null;
+        commandList.SetActive(false);
+    }
 }

@@ -11,4 +11,9 @@ public interface IAICommand
     ProgramStatus Step();
 
     IAICommand Next();
+
+    IAICommand Prev();
+
+    void SetNext(IAICommand command);
+    void SetPrev(IAICommand command);
 }

@@ -7,6 +7,7 @@ public class MoveCommand : IAICommand
     RobotController robotController;
     float stopDistance;
     public IAICommand next;
+    IAICommand prev;
 
     public MoveCommand(Func<Vector2> targetPosition, float stopDistance = 0.1f)
     {
@@ -17,6 +18,10 @@ public class MoveCommand : IAICommand
     public IAICommand Next()
     {
         return next;
+    }
+    public IAICommand Prev()
+    {
+        return prev;
     }
 
     /*
@@ -36,6 +41,10 @@ public class MoveCommand : IAICommand
             return ProgramStatus.stopped;
         }
     }
+    public void SetPrev(IAICommand command)
+    {
+        prev = command;
+    }
 
 
     /*
@@ -54,5 +63,11 @@ public class MoveCommand : IAICommand
         Func<Vector2> oppositeTarget = () => -target();
         return new MoveCommand(oppositeTarget, stopDist);
     }
+
+    public void SetNext(IAICommand command)
+    {
+        throw new NotImplementedException();
+    }
+
     #endregion
 }

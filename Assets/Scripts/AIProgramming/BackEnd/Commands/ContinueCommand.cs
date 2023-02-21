@@ -7,6 +7,7 @@ public class ContinueCommand : IAICommand
 
     Func<bool> condition; // The function that is used to check for the condition. Has to be manually set outside of the class.
     public IAICommand next;
+    IAICommand prev;
 
     public ContinueCommand(Func<bool> condition, IAICommand continueCommand, IAICommand altCommand)
     {
@@ -18,6 +19,11 @@ public class ContinueCommand : IAICommand
     public IAICommand Next()
     {
         return next;
+    }
+
+    public IAICommand Prev()
+    {
+        return Prev();
     }
 
     /*
@@ -39,5 +45,14 @@ public class ContinueCommand : IAICommand
             return ProgramStatus.running;
         }
 
+    }
+
+    public void SetNext(IAICommand command)
+    {
+        throw new NotImplementedException();
+    }
+    public void SetPrev(IAICommand command)
+    {
+        prev = command;
     }
 }
