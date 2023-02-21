@@ -4,18 +4,21 @@ using UnityEngine;
  * The AI Program Manager handles the changing of programs and running the various AI programs. 
  * For AI programs to work, this is the only script that is needed on a game object in a scene.
  */
-public class AIProgramManager : MonoBehaviour
+public class AIProgramBackendManager : MonoBehaviour
 {
     AIProgram activeProgram; // Program currently set to run if runningProgram = true.
     bool runningProgram; // Bool for stopping and starting programs. 
     public RobotController robotController; // Robot controller that can be accessed by the various commands.
 
-    public static AIProgramManager instance; // Instance used to ensure singleton behavior.
+
+    public static AIProgramBackendManager instance; // Instance used to ensure singleton behavior.
 
     private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+        }
         else if (instance != this)
             Destroy(gameObject);
     }
@@ -38,5 +41,6 @@ public class AIProgramManager : MonoBehaviour
         {
             activeProgram.StepProgram();
         }
+
     }
 }

@@ -4,11 +4,11 @@ using UnityEngine;
 /*
  * Commands to do with moving the robot. The commands use a Func<Vector2> to control the directions that the robot should move. 
  */
-public class DirectionCommand : IAICommand
+public class DirectionCommand : MonoBehaviour, IAICommand
 {
     float timer; // Timer to that counts up to maxTimer to control time before going to the next command
-    float maxTimer;
-    Func<Vector2> direction; // A function that returns a vector. The reason behind the Function is to allow dynamic directions
+    [SerializeField] float maxTimer;
+    [SerializeField] Func<Vector2> direction; // A function that returns a vector. The reason behind the Function is to allow dynamic directions
                              // that can change during runtime. Otherwise the direction would have to be manually changed outside of the class if necessary.
                              // Example in the case where the robot has to follow a moving target. 
     RobotController robotController;
@@ -19,7 +19,7 @@ public class DirectionCommand : IAICommand
         timer = 0.0f;
         this.maxTimer = maxTimer;
         this.direction = direction;
-        robotController = AIProgramManager.instance.robotController;
+        robotController = AIProgramBackendManager.instance.robotController;
     }
 
     public IAICommand Next()

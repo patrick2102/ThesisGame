@@ -12,7 +12,7 @@ public class MoveCommand : IAICommand
     {
         this.stopDistance = stopDistance;
         target = targetPosition;
-        robotController = AIProgramManager.instance.robotController;
+        robotController = AIProgramBackendManager.instance.robotController;
     }
     public IAICommand Next()
     {

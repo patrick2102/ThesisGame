@@ -9,7 +9,7 @@ using UnityEngine;
 public class TestAIProgram : MonoBehaviour
 {
     [SerializeField] RobotController robotController;
-    [SerializeField] AIProgramManager AIProgramManager;
+    [SerializeField] AIProgramBackendManager AIProgramManager;
 
     void Start()
     {
