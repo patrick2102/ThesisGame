@@ -139,11 +139,16 @@ public class AIProgramFrontendManager : MonoBehaviour
         var nextCommand = selectedNode.command.Next();
         var prevCommand = selectedNode.command.Prev();
 
+        Destroy(selectedNode.command.transform.gameObject);
+
         selectedNode.command = Instantiate(commandButton.command);
+        selectedNode.command.transform.SetParent(selectedNode.transform);
+
 
         selectedNode.command.SetNext(nextCommand);
         selectedNode.command.SetPrev(prevCommand);
         prevCommand.SetNext(selectedNode.command);
+        nextCommand.SetPrev(selectedNode.command);
 
         selectedNode.nodeText.text = commandButton.commandButtonText.text;
 

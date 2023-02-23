@@ -16,14 +16,12 @@ public class NodeScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler,
 
     [SerializeField] NodeType nodeType;
 
-    [SerializeField] private SkipCommand commandPrefab;
     public AICommand command;
     public Text nodeText;
 
     public void Awake()
     {
         activeConnections = new Queue<NodeScript>();
-        command = Instantiate(commandPrefab);
     }
 
 
