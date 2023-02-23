@@ -2323,6 +2323,8 @@ MonoBehaviour:
   - {fileID: 613234183893550763, guid: 1b3e318dbfe40794cbda9188f458776f, type: 3}
   - {fileID: 7417230432537691460, guid: afffba07d6a4f944e963fa22aad3eef2, type: 3}
   - {fileID: 5813596060008942954, guid: 5a220c0b2fad9734bbcd6a46ee799a8f, type: 3}
+  - {fileID: 7417230432537691460, guid: 68413838b1e49934abffb4ddafa9bd7e, type: 3}
+  - {fileID: 5813596060008942954, guid: c8350b89bbfdaf344b5c9b6dc70a3e52, type: 3}
   buttonPrefab: {fileID: 3343758346377340338, guid: 5b0c85ff933eb3b4994658132184251a, type: 3}
 --- !u!1 &2114182036
 GameObject:

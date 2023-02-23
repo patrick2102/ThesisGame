@@ -13,8 +13,8 @@ public class CommandList : MonoBehaviour
         foreach (var command in commands)
         {
             var button = Instantiate(buttonPrefab);
-            button.command = Instantiate(command);
-            button.commandButtonText.text = command.ToString();
+            button.command = command;
+            button.commandButtonText.text = command.name;
             button.transform.SetParent(transform, false);
         }
     }
