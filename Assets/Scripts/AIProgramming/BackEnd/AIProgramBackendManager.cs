@@ -42,5 +42,28 @@ public class AIProgramBackendManager : MonoBehaviour
             activeProgram.StepProgram();
         }
 
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            Debug.Log("Printing commands:");
+            var command = activeProgram.currentCommand;
+
+            int maxDepth = 100;
+
+            while (maxDepth > 0)
+            {
+                Debug.Log("Command: " + command);
+
+                command = command.Next();
+
+                maxDepth--;
+
+                if (command == null)
+                    break;
+            }
+
+            Debug.Log("\n");
+        
+        }
+
     }
 }

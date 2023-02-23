@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AIProgram
 {
-    IAICommand currentCommand;
+    public IAICommand currentCommand;
 
     public AIProgram(IAICommand initialCommand)
     {

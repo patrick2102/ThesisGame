@@ -13,9 +13,17 @@ PrefabInstance:
       value: Output
       objectReference: {fileID: 0}
     - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
+      propertyPath: command
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: nodeType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
+      propertyPath: commandPrefab
+      value: 
+      objectReference: {fileID: 613234183893550763, guid: 1b3e318dbfe40794cbda9188f458776f, type: 3}
     - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: neighbours.Array.size
       value: 1

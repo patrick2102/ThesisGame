@@ -120,8 +120,8 @@ public class AIProgramFrontendManager : MonoBehaviour
 
         activeConnections.Add((startConnectionPos, connectPoint));
 
-        mousedOverNode.command.SetNext(node.command);
-        node.command.SetPrev(mousedOverNode.command);
+        node.command.SetNext(mousedOverNode.command);
+        mousedOverNode.command.SetPrev(node.command);
     }
 
     void AddCommand(NodeScript node)
@@ -139,7 +139,7 @@ public class AIProgramFrontendManager : MonoBehaviour
         var nextCommand = selectedNode.command.Next();
         var prevCommand = selectedNode.command.Prev();
 
-        selectedNode.command = commandButton.command;
+        selectedNode.command = Instantiate(commandButton.command);
 
         selectedNode.command.SetNext(nextCommand);
         selectedNode.command.SetPrev(prevCommand);

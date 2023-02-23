@@ -172,4 +172,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neighbours: []
   nodeType: 1
+  commandPrefab: {fileID: 613234183893550763, guid: 1b3e318dbfe40794cbda9188f458776f, type: 3}
+  command: {fileID: 0}
   nodeText: {fileID: 5595581387964285559}

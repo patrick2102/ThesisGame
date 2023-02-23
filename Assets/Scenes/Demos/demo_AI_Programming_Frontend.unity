@@ -1964,22 +1964,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 2114182037}
     m_Modifications:
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: command
-      value: 
-      objectReference: {fileID: 613234183893550763, guid: 1b3e318dbfe40794cbda9188f458776f, type: 3}
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: neighbours.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: neighbours.Array.data[0]
-      value: 
-      objectReference: {fileID: 2125407002}
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: neighbours.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5595581388246365701, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2233,22 +2217,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 2114182037}
     m_Modifications:
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: command
-      value: 
-      objectReference: {fileID: 613234183893550763, guid: 1b3e318dbfe40794cbda9188f458776f, type: 3}
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: neighbours.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: neighbours.Array.data[0]
-      value: 
-      objectReference: {fileID: 1645309955}
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: neighbours.Array.data[1]
-      value: 
-      objectReference: {fileID: 1645309955}
     - target: {fileID: 5595581388246365701, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2345,17 +2313,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5595581388246365701, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
   m_PrefabInstance: {fileID: 1801632419}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1801632421 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-  m_PrefabInstance: {fileID: 1801632419}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8da0d9e24f034104db455f3780bdfd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1811847342
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,17 +2691,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6987291963231749404, guid: 75644743d91f20f4294d2ac4926b7cbb, type: 3}
   m_PrefabInstance: {fileID: 2125407000}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2125407002 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6987291963231749405, guid: 75644743d91f20f4294d2ac4926b7cbb, type: 3}
-  m_PrefabInstance: {fileID: 2125407000}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8da0d9e24f034104db455f3780bdfd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5595581389021519917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2753,22 +2699,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 2114182037}
     m_Modifications:
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: command
-      value: 
-      objectReference: {fileID: 613234183893550763, guid: 1b3e318dbfe40794cbda9188f458776f, type: 3}
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: neighbours.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: neighbours.Array.data[0]
-      value: 
-      objectReference: {fileID: 1801632421}
-    - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
-      propertyPath: neighbours.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5595581388246365701, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
