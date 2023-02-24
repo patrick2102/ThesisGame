@@ -5,15 +5,6 @@ using UnityEngine.EventSystems;
 
 public class StartButton : MonoBehaviour, IPointerClickHandler
 {
-    public NodeScript startNode;
-    private AIProgram program;
-
-    public void Start()
-    {
-        program = new AIProgram(startNode.command);
-        AIProgramBackendManager.instance.SetActiveProgram(program);
-    }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         //AIProgramFrontendManager.instance.star

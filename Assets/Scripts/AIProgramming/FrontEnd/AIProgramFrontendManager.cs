@@ -17,8 +17,8 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     public KeyCode openUIButton;
 
-    public NodeScript mousedOverNode;
-    public NodeScript selectedNode;
+    public CircuitNode mousedOverNode;
+    public CircuitNode selectedNode;
 
     public Vector2 startConnectionPos;
 
@@ -65,12 +65,12 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     }
 
-    public void SetMousedOverNode(NodeScript node)
+    public void SetMousedOverNode(CircuitNode node)
     {
         mousedOverNode = node;
     }
 
-    public void LeftClickNode(NodeScript node)
+    public void LeftClickNode(CircuitNode node)
     {
         if (currentState == FrontEndStates.none)
         {
@@ -78,7 +78,7 @@ public class AIProgramFrontendManager : MonoBehaviour
         }
     }
 
-    public void UnclickNode(NodeScript node)
+    public void UnclickNode(CircuitNode node)
     {
         if (currentState == FrontEndStates.connectingNodes)
         {
@@ -91,7 +91,7 @@ public class AIProgramFrontendManager : MonoBehaviour
         }
     }
 
-    public void RightClickNode(NodeScript node)
+    public void RightClickNode(CircuitNode node)
     {
         if (currentState == FrontEndStates.none)
         {
@@ -106,13 +106,13 @@ public class AIProgramFrontendManager : MonoBehaviour
         }
     }
 
-    void StartConnectingNodes(NodeScript node)
+    void StartConnectingNodes(CircuitNode node)
     {
         startConnectionPos = cam.ScreenToWorldPoint(Input.mousePosition);
         currentState = FrontEndStates.connectingNodes;
     }
 
-    void ConnectNodes(NodeScript node)
+    void ConnectNodes(CircuitNode node)
     {
         currentState = FrontEndStates.none;
 
@@ -124,7 +124,7 @@ public class AIProgramFrontendManager : MonoBehaviour
         mousedOverNode.command.SetPrev(node.command);
     }
 
-    void AddCommand(NodeScript node)
+    void AddCommand(CircuitNode node)
     {
         currentState = FrontEndStates.addingCommand;
         selectedNode = node;

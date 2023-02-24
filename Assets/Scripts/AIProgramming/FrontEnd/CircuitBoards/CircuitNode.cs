@@ -1,27 +1,25 @@
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class NodeScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    private enum NodeType
-    {
-        InputNode, CircuitNode, OutputNode
-    }
 
-    public List<NodeScript> neighbours;
-    public Queue<NodeScript> activeConnections;
+
+    public List<CircuitNode> neighbours;
+    public Queue<CircuitNode> activeConnections;
 
     [SerializeField] NodeType nodeType;
 
     public AICommand command;
     public Text nodeText;
 
+    public int id;
+
     public void Awake()
     {
-        activeConnections = new Queue<NodeScript>();
+        activeConnections = new Queue<CircuitNode>();
     }
 
 
