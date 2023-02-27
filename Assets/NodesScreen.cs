@@ -34,12 +34,18 @@ public class NodesScreen : MonoBehaviour
 
         screen = gameObject.GetComponent<RectTransform>();
 
+        //Create grid of nodes
+        //TODO use tool to generate grid nodes instead of being hardcoded
+        gridRepresentation = new NodeType[(int)grideSize.x, (int)grideSize.y]; //TODO replace with tool that can generate gridnodes
         circuitNodes = new CircuitNode[(int)grideSize.x, (int)grideSize.y];
 
-
-
-        //Create grid of nodes
-        gridRepresentation = new NodeType[,] { { NodeType.CircuitNode, NodeType.CircuitNode }, { NodeType.CircuitNode, NodeType.CircuitNode } };
+        for (int i = 0; i < (int)grideSize.x;  i++)
+        {
+            for (int j = 0; j < (int)grideSize.y; j++)
+            {
+                gridRepresentation[i, j] = NodeType.CircuitNode;
+            }
+        }
 
         GenerateCircuit(gridRepresentation);
     }
