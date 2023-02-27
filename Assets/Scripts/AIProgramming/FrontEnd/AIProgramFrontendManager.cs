@@ -1,41 +1,30 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AIProgramFrontendManager : MonoBehaviour
 {
+    [SerializeField] private KeyCode openUIButton;
+    [SerializeField] private GameObject commandView;
+    [SerializeField] private GameObject nodesView;
 
-    public enum FrontEndStates
+    private CircuitNode selectedNode;
+    private Dictionary<CircuitNode, (Vector2, Vector2)> nodesWithActiveOutputs = new Dictionary<CircuitNode, (Vector2, Vector2)>();
+    private Vector2 startConnectionPos;
+
+    private enum FrontEndStates
     {
         connectingNodes, addingCommand, open, closed
     }
-
-    public FrontEndStates currentState = FrontEndStates.closed;
-    public FrontEndStates prevState = FrontEndStates.open;
-
-    private List<(Vector2, Vector2)> activeConnections = new List<(Vector2, Vector2)>();
-
-    public KeyCode openUIButton;
-
-    public CircuitNode selectedNode;
-    public AICommand selectedCommand;
-
-    public Vector2 startConnectionPos;
+    private FrontEndStates currentState = FrontEndStates.closed;
 
     public static AIProgramFrontendManager instance; // Instance used to ensure singleton behavior.
 
-    private Camera cam;
-
-    [SerializeField] private GameObject commandList;
-    [SerializeField] private GameObject nodesView;
-
     private void Awake()
     {
-        cam = Camera.main;
         if (instance == null)
         {
-            commandList.SetActive(false);
+            currentState = FrontEndStates.closed;
+            commandView.SetActive(false);
             nodesView.SetActive(false);
             instance = this;
         }
@@ -48,18 +37,23 @@ public class AIProgramFrontendManager : MonoBehaviour
     {
         if (Input.GetKeyUp(openUIButton))
         {
-            if(currentState != FrontEndStates.closed)
-            {
-                commandList.SetActive(false);
-                nodesView.SetActive(false);
-                currentState = FrontEndStates.closed;
-            }
-            if (currentState == FrontEndStates.closed)
-            {
-                commandList.SetActive(false);
-                nodesView.SetActive(true);
-                currentState = FrontEndStates.open;
-            }
+            ToggleUI();
+        }
+    }
+
+    private void ToggleUI()
+    {
+        if (currentState != FrontEndStates.closed)
+        {
+            commandView.SetActive(false);
+            nodesView.SetActive(false);
+            currentState = FrontEndStates.closed;
+        }
+        else if (currentState == FrontEndStates.closed)
+        {
+            commandView.SetActive(false);
+            nodesView.SetActive(true);
+            currentState = FrontEndStates.open;
         }
     }
 
@@ -67,11 +61,12 @@ public class AIProgramFrontendManager : MonoBehaviour
     {
         if (currentState == FrontEndStates.connectingNodes)
         {
-            Debug.DrawLine(startConnectionPos, (Vector2)cam.ScreenToWorldPoint(Input.mousePosition), Color.red);
+            Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
         }
 
-        foreach (var c in activeConnections)
+        foreach (var a in nodesWithActiveOutputs)
         {
+            var c = a.Value;
             Debug.DrawLine(c.Item1, c.Item2, Color.green);
         }
 
@@ -82,9 +77,6 @@ public class AIProgramFrontendManager : MonoBehaviour
         if (currentState == FrontEndStates.connectingNodes)
         {
             selectedNode = node;
-            //Debug.Log(selectedNode);
-            if(node != null)
-                selectedCommand = node.command;
         }
     }
 
@@ -92,7 +84,7 @@ public class AIProgramFrontendManager : MonoBehaviour
     {
         if (currentState == FrontEndStates.open)
         {
-            startConnectionPos = cam.ScreenToWorldPoint(Input.mousePosition);
+            startConnectionPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             currentState = FrontEndStates.connectingNodes;
         }
     }
@@ -105,7 +97,7 @@ public class AIProgramFrontendManager : MonoBehaviour
 
             if (node.neighbours.Contains(selectedNode))
             {
-                ConnectNodes(node.command);
+                ConnectNodes(node);
             }
         }
     }
@@ -121,49 +113,37 @@ public class AIProgramFrontendManager : MonoBehaviour
             currentState = FrontEndStates.open;
             selectedNode = null;
 
-            commandList.SetActive(false);
+            commandView.SetActive(false);
         }
     }
 
-    void ConnectNodes(IAICommand command)
+    private void ConnectNodes(CircuitNode node)
     {
         currentState = FrontEndStates.open;
 
-        //FIXME temporary debug drawline to show nodes are 
-        var connectPoint = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-        activeConnections.Add((startConnectionPos, connectPoint));
+        //FIXME temporary debug drawline to show nodes are connected 
+        var connectPoint = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        command.ConnectCommands(selectedCommand);
+        nodesWithActiveOutputs[node] = (startConnectionPos, connectPoint);
+
+        node.SetNextNode(selectedNode);
     }
 
-    void OpenCommandScreen(CircuitNode node)
+    private void OpenCommandScreen(CircuitNode node)
     {
         currentState = FrontEndStates.addingCommand;
         selectedNode = node;
-        selectedCommand = node.command;
 
-        commandList.SetActive(true);
+        commandView.SetActive(true);
     }
 
-    public void SelectCommand(CommandButton commandButton)
+    public void ChangeCommand(CommandButton commandButton)
     {
         currentState = FrontEndStates.open;
 
-        var nextCommand = selectedNode.command.Next();
-        var prevCommand = selectedNode.command.Prev();
-
-        Destroy(selectedNode.command.transform.gameObject);
-
-        selectedNode.command = Instantiate(commandButton.command);
-        selectedNode.command.transform.SetParent(selectedNode.transform);
-
-        selectedNode.command.ConnectCommands(nextCommand);
-        prevCommand.ConnectCommands(selectedNode.command);
-
-        selectedNode.nodeText.text = commandButton.commandButtonText.text;
+        selectedNode.ChangeCommand(commandButton.command);
 
         selectedNode = null;
-        //selectedCommand = null;
-        commandList.SetActive(false);
+        commandView.SetActive(false);
     }
 }

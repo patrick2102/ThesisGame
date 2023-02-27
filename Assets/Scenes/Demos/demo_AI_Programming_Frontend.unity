@@ -629,12 +629,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b022623fa9f06409ab3419e0f4dc4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 2
   openUIButton: 105
   selectedNode: {fileID: 0}
-  selectedCommand: {fileID: 0}
   startConnectionPos: {x: 0, y: 0}
-  commandList: {fileID: 698800560}
+  commandView: {fileID: 2114182036}
   nodesView: {fileID: 1082865783}
 --- !u!4 &708094810
 Transform:
@@ -1241,7 +1239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777773e56e5de054d839c44bdf9fd176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grideSize: {x: 1, y: 1}
+  grideSize: {x: 2, y: 2}
   inputNodePrefab: {fileID: 4011044678714221662, guid: fe378cb1dea9c8646be93ffe9447f2be, type: 3}
   outputNodePrefab: {fileID: 6987291963231749405, guid: 75644743d91f20f4294d2ac4926b7cbb, type: 3}
   circuitNodePrefab: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}

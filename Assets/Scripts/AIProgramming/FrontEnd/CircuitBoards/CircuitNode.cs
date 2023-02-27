@@ -1,19 +1,17 @@
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public int id;
     public List<CircuitNode> neighbours;
 
     [SerializeField] NodeType nodeType;
-
-    public AICommand command;
-    public Text nodeText;
-
-    public int id;
+    [SerializeField] private CircuitNode nextNode;
+    [SerializeField] private AICommand command;
+    [SerializeField] private Text nodeText;
 
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -43,6 +41,30 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     public void OnPointerExit(PointerEventData eventData)
     {
         AIProgramFrontendManager.instance.SetMousedOverNode(null);
+    }
+
+    public CircuitNode GetNextNode()
+    {
+        return nextNode;
+    }
+
+    public void SetNextNode(CircuitNode newNextNode)
+    {
+        nextNode = newNextNode;
+    }
+
+    public void ChangeCommand(AICommand newCommand)
+    {
+        Destroy(command);
+        command = Instantiate(newCommand);
+        command.transform.SetParent(transform);
+
+        nodeText.text = newCommand.name;
+    }
+
+    public AICommand GetCommand()
+    {
+        return command;
     }
 
     public override string ToString()

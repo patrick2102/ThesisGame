@@ -135,7 +135,7 @@ public class NodesScreen : MonoBehaviour
         outNode.neighbours.Add(circuitNodes[(int)grideSize.x - 1, 0]);
 
 
-        program = new AIProgram(inputNode.command);
+        program = new AIProgram(inputNode);
         AIProgramBackendManager.instance.SetActiveProgram(program);
 
     }
