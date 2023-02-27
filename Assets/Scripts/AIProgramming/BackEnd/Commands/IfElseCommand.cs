@@ -8,6 +8,7 @@ public class IfElseCommand : IAICommand
     IAICommand ifCommand; // The command that next is set to if the condition is true.
     IAICommand elseCommand; // The command that next is set to if the condition is false.
     IAICommand next;
+    IAICommand prev;
 
     Func<bool> condition; // The function that is used to check for the condition. Has to be manually set outside of the class.
 
@@ -22,6 +23,21 @@ public class IfElseCommand : IAICommand
     public IAICommand Next()
     {
         return next;
+    }
+
+    public IAICommand Prev()
+    {
+        return prev;
+    }
+
+    public void SetNext(IAICommand command)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetPrev(IAICommand command)
+    {
+        prev = command;
     }
 
     /*

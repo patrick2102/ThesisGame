@@ -1,9 +1,11 @@
 /*
  * A single AI program controls the flow between commands and gives statuses back to the AI Program.
  */
+using UnityEngine;
+
 public class AIProgram
 {
-    IAICommand currentCommand;
+    public IAICommand currentCommand;
 
     public AIProgram(IAICommand initialCommand)
     {
