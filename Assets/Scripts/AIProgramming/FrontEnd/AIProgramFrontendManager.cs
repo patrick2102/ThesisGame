@@ -17,8 +17,8 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     public KeyCode openUIButton;
 
-    public CircuitNode mousedOverNode;
     public CircuitNode selectedNode;
+    public AICommand selectedCommand;
 
     public Vector2 startConnectionPos;
 
@@ -53,8 +53,6 @@ public class AIProgramFrontendManager : MonoBehaviour
     {
         if (currentState == FrontEndStates.connectingNodes)
         {
-            //Debug.Log("Line start: " + startConnectionPos);
-            //Debug.Log("Line end: " + (Vector2)cam.ScreenToWorldPoint(Input.mousePosition));
             Debug.DrawLine(startConnectionPos, (Vector2)cam.ScreenToWorldPoint(Input.mousePosition), Color.red);
         }
 
@@ -67,14 +65,21 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     public void SetMousedOverNode(CircuitNode node)
     {
-        mousedOverNode = node;
+        if (currentState == FrontEndStates.connectingNodes)
+        {
+            selectedNode = node;
+            //Debug.Log(selectedNode);
+            if(node != null)
+                selectedCommand = node.command;
+        }
     }
 
-    public void LeftClickNode(CircuitNode node)
+    public void LeftClickNode()
     {
         if (currentState == FrontEndStates.none)
         {
-            StartConnectingNodes(node);
+            startConnectionPos = cam.ScreenToWorldPoint(Input.mousePosition);
+            currentState = FrontEndStates.connectingNodes;
         }
     }
 
@@ -84,9 +89,9 @@ public class AIProgramFrontendManager : MonoBehaviour
         {
             currentState = FrontEndStates.none;
 
-            if (node.neighbours.Contains(mousedOverNode))
+            if (node.neighbours.Contains(selectedNode))
             {
-                ConnectNodes(node);
+                ConnectNodes(node.command);
             }
         }
     }
@@ -106,28 +111,24 @@ public class AIProgramFrontendManager : MonoBehaviour
         }
     }
 
-    void StartConnectingNodes(CircuitNode node)
-    {
-        startConnectionPos = cam.ScreenToWorldPoint(Input.mousePosition);
-        currentState = FrontEndStates.connectingNodes;
-    }
-
-    void ConnectNodes(CircuitNode node)
+    void ConnectNodes(IAICommand command)
     {
         currentState = FrontEndStates.none;
 
+        //FIXME temporary debug drawline to show nodes are 
         var connectPoint = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-
         activeConnections.Add((startConnectionPos, connectPoint));
 
-        node.command.SetNext(mousedOverNode.command);
-        mousedOverNode.command.SetPrev(node.command);
+        //node.ConnectTo(selectedNode);
+
+        command.ConnectCommands(selectedCommand);
     }
 
     void AddCommand(CircuitNode node)
     {
         currentState = FrontEndStates.addingCommand;
         selectedNode = node;
+        selectedCommand = node.command;
 
         commandList.SetActive(true);
     }
@@ -144,11 +145,16 @@ public class AIProgramFrontendManager : MonoBehaviour
         selectedNode.command = Instantiate(commandButton.command);
         selectedNode.command.transform.SetParent(selectedNode.transform);
 
+        selectedNode.command.ConnectCommands(nextCommand);
+        prevCommand.ConnectCommands(selectedCommand);
 
-        selectedNode.command.SetNext(nextCommand);
-        selectedNode.command.SetPrev(prevCommand);
-        prevCommand.SetNext(selectedNode.command);
-        nextCommand.SetPrev(selectedNode.command);
+        //TODO add insertion of node between two nodes
+
+        //selectedNode.command.SetNext(nextCommand);
+        //selectedNode.command.SetPrev(prevCommand);
+
+        //prevCommand.SetNext(selectedNode.command);
+        //nextCommand.SetPrev(selectedNode.command);
 
         selectedNode.nodeText.text = commandButton.commandButtonText.text;
 

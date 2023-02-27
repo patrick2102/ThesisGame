@@ -53,11 +53,6 @@ public class NodesScreen : MonoBehaviour
 
     private void GenerateCircuit(NodeType[,] gridRepresentation)
     {
-        var bottomRight = screen.rect.max;
-        var topLeft = screen.rect.min;
-
-        //var stepSizeX = grideSize.x / (screen.rect.max.x - screen.rect.min.x);
-        //var stepSizeY = grideSize.y / (screen.rect.max.y - screen.rect.min.y);
         var stepSizeX =  (screen.rect.width) / grideSize.x;
         var stepSizeY = (screen.rect.height) / grideSize.y;
 
@@ -66,8 +61,6 @@ public class NodesScreen : MonoBehaviour
         var border = stepSize / 2;
 
         int idCounter = 0;
-
-
 
         //Instantiate nodes and add to circuitGrid:
         for (int i = 0; i < grideSize.x; i++)

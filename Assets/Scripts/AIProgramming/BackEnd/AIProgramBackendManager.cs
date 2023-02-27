@@ -9,8 +9,6 @@ public class AIProgramBackendManager : MonoBehaviour
     AIProgram activeProgram; // Program currently set to run if runningProgram = true.
     bool runningProgram; // Bool for stopping and starting programs. 
     public RobotController robotController; // Robot controller that can be accessed by the various commands.
-
-
     public static AIProgramBackendManager instance; // Instance used to ensure singleton behavior.
 
     private void Awake()

@@ -16,6 +16,12 @@ public abstract class AICommand : MonoBehaviour, IAICommand
         return prev;
     }
 
+    public void ConnectCommands(IAICommand nextCommand)
+    {
+        SetNext(nextCommand);
+        nextCommand.SetPrev(this);
+    }
+
     public void SetNext(IAICommand command)
     {
         next = command;

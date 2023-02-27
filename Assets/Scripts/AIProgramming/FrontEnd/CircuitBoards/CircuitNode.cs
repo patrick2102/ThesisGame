@@ -1,14 +1,12 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-
-
     public List<CircuitNode> neighbours;
-    public Queue<CircuitNode> activeConnections;
 
     [SerializeField] NodeType nodeType;
 
@@ -16,13 +14,6 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     public Text nodeText;
 
     public int id;
-
-    public void Awake()
-    {
-        activeConnections = new Queue<CircuitNode>();
-    }
-
-
 
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -40,7 +31,7 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            AIProgramFrontendManager.instance.LeftClickNode(this);
+            AIProgramFrontendManager.instance.LeftClickNode();
         }
     }
 
@@ -52,5 +43,16 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     public void OnPointerExit(PointerEventData eventData)
     {
         AIProgramFrontendManager.instance.SetMousedOverNode(null);
+    }
+
+    public void ConnectTo(CircuitNode toNode)
+    {
+        command.SetNext(toNode.command);
+        toNode.command.SetPrev(command);
+    }
+
+    public override string ToString()
+    {
+        return gameObject.name + "{nodeType = " + nodeType + " id = " + id + "}";
     }
 }
