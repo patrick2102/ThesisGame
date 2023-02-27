@@ -45,12 +45,6 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         AIProgramFrontendManager.instance.SetMousedOverNode(null);
     }
 
-    public void ConnectTo(CircuitNode toNode)
-    {
-        command.SetNext(toNode.command);
-        toNode.command.SetPrev(command);
-    }
-
     public override string ToString()
     {
         return gameObject.name + "{nodeType = " + nodeType + " id = " + id + "}";

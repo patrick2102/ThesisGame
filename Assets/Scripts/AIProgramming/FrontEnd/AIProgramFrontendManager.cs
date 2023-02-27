@@ -8,10 +8,11 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     public enum FrontEndStates
     {
-        connectingNodes, addingCommand, none
+        connectingNodes, addingCommand, open, closed
     }
 
-    public FrontEndStates currentState = FrontEndStates.none;
+    public FrontEndStates currentState = FrontEndStates.closed;
+    public FrontEndStates prevState = FrontEndStates.open;
 
     private List<(Vector2, Vector2)> activeConnections = new List<(Vector2, Vector2)>();
 
@@ -27,6 +28,7 @@ public class AIProgramFrontendManager : MonoBehaviour
     private Camera cam;
 
     [SerializeField] private GameObject commandList;
+    [SerializeField] private GameObject nodesView;
 
     private void Awake()
     {
@@ -34,6 +36,7 @@ public class AIProgramFrontendManager : MonoBehaviour
         if (instance == null)
         {
             commandList.SetActive(false);
+            nodesView.SetActive(false);
             instance = this;
         }
         else if (instance != this)
@@ -45,7 +48,18 @@ public class AIProgramFrontendManager : MonoBehaviour
     {
         if (Input.GetKeyUp(openUIButton))
         {
-
+            if(currentState != FrontEndStates.closed)
+            {
+                commandList.SetActive(false);
+                nodesView.SetActive(false);
+                currentState = FrontEndStates.closed;
+            }
+            if (currentState == FrontEndStates.closed)
+            {
+                commandList.SetActive(false);
+                nodesView.SetActive(true);
+                currentState = FrontEndStates.open;
+            }
         }
     }
 
@@ -76,7 +90,7 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     public void LeftClickNode()
     {
-        if (currentState == FrontEndStates.none)
+        if (currentState == FrontEndStates.open)
         {
             startConnectionPos = cam.ScreenToWorldPoint(Input.mousePosition);
             currentState = FrontEndStates.connectingNodes;
@@ -87,7 +101,7 @@ public class AIProgramFrontendManager : MonoBehaviour
     {
         if (currentState == FrontEndStates.connectingNodes)
         {
-            currentState = FrontEndStates.none;
+            currentState = FrontEndStates.open;
 
             if (node.neighbours.Contains(selectedNode))
             {
@@ -98,13 +112,13 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     public void RightClickNode(CircuitNode node)
     {
-        if (currentState == FrontEndStates.none)
+        if (currentState == FrontEndStates.open)
         {
-            AddCommand(node);
+            OpenCommandScreen(node);
         }
         else if (currentState == FrontEndStates.addingCommand)
         {
-            currentState = FrontEndStates.none;
+            currentState = FrontEndStates.open;
             selectedNode = null;
 
             commandList.SetActive(false);
@@ -113,18 +127,16 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     void ConnectNodes(IAICommand command)
     {
-        currentState = FrontEndStates.none;
+        currentState = FrontEndStates.open;
 
         //FIXME temporary debug drawline to show nodes are 
         var connectPoint = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
         activeConnections.Add((startConnectionPos, connectPoint));
 
-        //node.ConnectTo(selectedNode);
-
         command.ConnectCommands(selectedCommand);
     }
 
-    void AddCommand(CircuitNode node)
+    void OpenCommandScreen(CircuitNode node)
     {
         currentState = FrontEndStates.addingCommand;
         selectedNode = node;
@@ -135,7 +147,7 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     public void SelectCommand(CommandButton commandButton)
     {
-        currentState = FrontEndStates.none;
+        currentState = FrontEndStates.open;
 
         var nextCommand = selectedNode.command.Next();
         var prevCommand = selectedNode.command.Prev();
@@ -145,20 +157,13 @@ public class AIProgramFrontendManager : MonoBehaviour
         selectedNode.command = Instantiate(commandButton.command);
         selectedNode.command.transform.SetParent(selectedNode.transform);
 
-        //selectedNode.command.ConnectCommands(nextCommand);
-        //prevCommand.ConnectCommands(selectedCommand);
-
-        //TODO add insertion of node between two nodes
-
-        selectedNode.command.SetNext(nextCommand);
-        selectedNode.command.SetPrev(prevCommand);
-
-        prevCommand.SetNext(selectedNode.command);
-        nextCommand.SetPrev(selectedNode.command);
+        selectedNode.command.ConnectCommands(nextCommand);
+        prevCommand.ConnectCommands(selectedNode.command);
 
         selectedNode.nodeText.text = commandButton.commandButtonText.text;
 
         selectedNode = null;
+        //selectedCommand = null;
         commandList.SetActive(false);
     }
 }

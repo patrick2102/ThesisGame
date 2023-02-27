@@ -6,6 +6,7 @@ public abstract class AICommand : MonoBehaviour, IAICommand
 {
     public IAICommand next;
     public IAICommand prev;
+
     public IAICommand Next()
     {
         return next;
