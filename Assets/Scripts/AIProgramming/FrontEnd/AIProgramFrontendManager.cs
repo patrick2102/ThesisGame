@@ -145,16 +145,16 @@ public class AIProgramFrontendManager : MonoBehaviour
         selectedNode.command = Instantiate(commandButton.command);
         selectedNode.command.transform.SetParent(selectedNode.transform);
 
-        selectedNode.command.ConnectCommands(nextCommand);
-        prevCommand.ConnectCommands(selectedCommand);
+        //selectedNode.command.ConnectCommands(nextCommand);
+        //prevCommand.ConnectCommands(selectedCommand);
 
         //TODO add insertion of node between two nodes
 
-        //selectedNode.command.SetNext(nextCommand);
-        //selectedNode.command.SetPrev(prevCommand);
+        selectedNode.command.SetNext(nextCommand);
+        selectedNode.command.SetPrev(prevCommand);
 
-        //prevCommand.SetNext(selectedNode.command);
-        //nextCommand.SetPrev(selectedNode.command);
+        prevCommand.SetNext(selectedNode.command);
+        nextCommand.SetPrev(selectedNode.command);
 
         selectedNode.nodeText.text = commandButton.commandButtonText.text;
 
