@@ -55,4 +55,9 @@ public class ContinueCommand : IAICommand
     {
         prev = command;
     }
+
+    public void ConnectCommands(IAICommand command)
+    {
+        throw new NotImplementedException();
+    }
 }

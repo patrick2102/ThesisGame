@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 613234183893550763, guid: 1b3e318dbfe40794cbda9188f458776f, type: 3}
     - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: neighbours.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5595581388246365701, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: m_Pivot.x

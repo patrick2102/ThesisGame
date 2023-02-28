@@ -19,6 +19,10 @@ public class IfElseCommand : IAICommand
         this.elseCommand = elseCommand;
     }
 
+    public void ConnectCommands(IAICommand command)
+    {
+        throw new NotImplementedException();
+    }
 
     public IAICommand Next()
     {
