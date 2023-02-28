@@ -8,7 +8,7 @@ public class CircuitInterpreter : MonoBehaviour
 {
     public static void WriteString()
     {
-        string path = Application.dataPath + "/txt-level-files/test.txt";
+        string path = Application.dataPath + "/txt-level-files/4x4.txt";
         //Write some text to the test.txt file
         StreamWriter writer = new StreamWriter(path, true);
         writer.WriteLine("Test");
@@ -21,7 +21,7 @@ public class CircuitInterpreter : MonoBehaviour
 
     public static NodeType[,] ReadString()
     {
-        string path = Application.dataPath + "/txt-level-files/test.txt";
+        string path = Application.dataPath + "/txt-level-files/4x4.txt";
         //Read the text directly from the test.txt file
         StreamReader reader = new StreamReader(path);
         
