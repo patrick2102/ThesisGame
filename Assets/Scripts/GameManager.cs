@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     private (Vector3, Quaternion)[] monsterSpawns;
 
     public CheckpointTrigger lastCheckPoint;
-    public CheckpointTrigger[] checkPoints;
 
     public void Awake()
     {
@@ -36,9 +35,6 @@ public class GameManager : MonoBehaviour
 
         monsters = GameObject.FindGameObjectsWithTag(GameObjectTags.Monster.ToString());
         monsterSpawns = GameObject.FindGameObjectsWithTag(GameObjectTags.Monster.ToString()).Select(x => (x.transform.position, x.transform.rotation)).ToArray();
-
-        lastCheckPoint.checkpointTriggered = true;
-        checkPoints = GameObject.FindGameObjectsWithTag(GameObjectTags.Checkpoint.ToString()).Select(x => x.GetComponent<CheckpointTrigger>()).ToArray();
 
         Restart();
     }
@@ -63,17 +59,6 @@ public class GameManager : MonoBehaviour
             var spawnPos = monsterSpawns[i];
             monsters[i].transform.SetPositionAndRotation(spawnPos.Item1, spawnPos.Item2);
         }
-
-        //Go through checkpoints and set them to triggered if their checkpointorder is smaller than the last 
-        for (int i = 0; i < checkPoints.Length; i++)
-        {
-            var ckp = checkPoints[i];
-            if (ckp.checkpointOrder < lastCheckPoint.checkpointOrder)
-                ckp.checkpointTriggered = true;
-            else
-                ckp.checkpointTriggered = false;
-        }
-        lastCheckPoint.checkpointTriggered = true;
     }
 
     public void PlayerDeath()
@@ -85,15 +70,15 @@ public class GameManager : MonoBehaviour
     public void RobotDeath()
     {
         Debug.Log("Robot should break down?");
+        Restart();
     }
 
     public void TriggerCheckpoint(CheckpointTrigger newCheckpoint)
     {
-        if (lastCheckPoint.checkpointOrder <= newCheckpoint.checkpointOrder)
+        if (lastCheckPoint.checkpointOrder < newCheckpoint.checkpointOrder)
         {
             Debug.Log("Checkpoint triggered");
             lastCheckPoint = newCheckpoint;
-            lastCheckPoint.checkpointTriggered = true;
         }
     }
 }

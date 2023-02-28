@@ -72,6 +72,8 @@ public class TurnMonsterAI : MonoBehaviour
             }
         }
 
+        FacingTarget = false;
+
         if (closestDistance < 99)
         {
             TurnToTargetThenMove(objectWithClosestDistance.transform.position);
