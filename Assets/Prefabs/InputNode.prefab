@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: nodeType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: neighbours.Array.size

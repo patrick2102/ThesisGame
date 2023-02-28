@@ -30,6 +30,7 @@ public class AIProgramBackendManager : MonoBehaviour
     public void StartProgram()
     {
         runningProgram = true;
+        CircuitInterpreter.ReadString();
     }
 
     void Update()

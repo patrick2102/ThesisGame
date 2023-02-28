@@ -171,12 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8da0d9e24f034104db455f3780bdfd96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   neighbours: []
+  nodeType: 2
   nextNode: {fileID: 0}
-  nodeType: 1
   command: {fileID: 8275842128769878118}
   nodeText: {fileID: 5595581387964285559}
-  id: 0
 --- !u!1 &7910874195708061149
 GameObject:
   m_ObjectHideFlags: 0

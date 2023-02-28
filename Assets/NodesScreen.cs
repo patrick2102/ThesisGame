@@ -1,5 +1,6 @@
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEngine.EventSystems.StandaloneInputModule;
 
 public class NodesScreen : MonoBehaviour
 {
@@ -34,18 +35,9 @@ public class NodesScreen : MonoBehaviour
 
         screen = gameObject.GetComponent<RectTransform>();
 
-        //Create grid of nodes
-        //TODO use tool to generate grid nodes instead of being hardcoded
-        gridRepresentation = new NodeType[(int)grideSize.x, (int)grideSize.y]; //TODO replace with tool that can generate gridnodes
-        circuitNodes = new CircuitNode[(int)grideSize.x, (int)grideSize.y];
+        gridRepresentation = CircuitInterpreter.ReadString();
 
-        for (int i = 0; i < (int)grideSize.x;  i++)
-        {
-            for (int j = 0; j < (int)grideSize.y; j++)
-            {
-                gridRepresentation[i, j] = NodeType.CircuitNode;
-            }
-        }
+        circuitNodes = new CircuitNode[gridRepresentation.GetLength(0), gridRepresentation.GetLength(1)];
 
         GenerateCircuit(gridRepresentation);
     }
@@ -53,8 +45,11 @@ public class NodesScreen : MonoBehaviour
 
     private void GenerateCircuit(NodeType[,] gridRepresentation)
     {
-        var stepSizeX =  (screen.rect.width) / grideSize.x;
-        var stepSizeY = (screen.rect.height) / grideSize.y;
+        var stepSizeX = (screen.rect.width) / (gridRepresentation.GetLength(1));
+        var stepSizeY = (screen.rect.height) / (gridRepresentation.GetLength(0));
+
+        Debug.Log(gridRepresentation.GetLength(0));
+        Debug.Log(gridRepresentation.GetLength(1));
 
         var stepSize = new Vector2(stepSizeX, stepSizeY);
 
@@ -63,47 +58,48 @@ public class NodesScreen : MonoBehaviour
         int idCounter = 0;
 
         //Instantiate nodes and add to circuitGrid:
-        for (int i = 0; i < grideSize.x; i++)
+        for (int i = 0; i < gridRepresentation.GetLength(0); i++)
         {
-            for (int j = 0; j < grideSize.y; j++)
+            for (int j = 0; j < gridRepresentation.GetLength(1); j++)
             {
                 var node = GridRepresentationInterpreter(gridRepresentation[i, j]);
 
                 if (node != null)
                 {
-                    var offSet = border + (stepSize * new Vector2(i, j));
+                    var offSet = border + (stepSize * new Vector2(j, gridRepresentation.GetLength(0) - i - 1));
 
                     node.transform.SetParent(transform);
                     node.transform.position = offSet;
                     node.id = idCounter++;
                 }
+                if (gridRepresentation[i,j] == NodeType.InputNode)
+                {
+                    program = new AIProgram(node);
+                }
                 circuitNodes[i,j] = node;
             }
         }
 
-
-
         //Create connection between nodes:
-
-        for (int i = 0; i < grideSize.x; i++)
+        for (int i = 0; i < gridRepresentation.GetLength(0); i++)
         {
-            for (int j = 0; j < grideSize.y; j++)
+            for (int j = 0; j < gridRepresentation.GetLength(1); j++)
             {
                 CircuitNode rightNode = null;
                 CircuitNode downNode = null;
 
-                if (i < grideSize.x-1)
+                if (i < gridRepresentation.GetLength(0) - 1)
                     rightNode = circuitNodes[i + 1, j];
 
-                if (j < grideSize.y - 1)
+                if (j < gridRepresentation.GetLength(1) - 1)
                     downNode = circuitNodes[i, j + 1];
 
-                if (rightNode != null)
+                if (rightNode != null && circuitNodes[i + 1, j] != null && circuitNodes[i, j] != null)
                 {
                     circuitNodes[i, j].neighbours.Add(circuitNodes[i + 1, j]);
                     circuitNodes[i + 1, j].neighbours.Add(circuitNodes[i, j]);
                 }
-                if (downNode != null)
+                if (downNode != null && circuitNodes[i, j + 1] != null && circuitNodes[i, j] != null)
                 {
                     circuitNodes[i, j].neighbours.Add(circuitNodes[i, j + 1]);
                     circuitNodes[i, j + 1].neighbours.Add(circuitNodes[i, j]);
@@ -113,31 +109,28 @@ public class NodesScreen : MonoBehaviour
 
 
         //Instantiate Input and output nodes
-        var inputNode = Instantiate(inputNodePrefab);
-        inputNode.transform.SetParent(transform);
-        var offSetInput = Vector3.up * (border.y / 2);
+        //var inputNode = Instantiate(inputNodePrefab);
+        //inputNode.transform.SetParent(transform);
+        //var offSetInput = Vector3.up * (border.y / 2);
 
-        inputNode.transform.position += circuitNodes[0, (int)grideSize.y - 1].transform.position + offSetInput;
-        inputNode.id = idCounter++;
-
-
-        var outNode = Instantiate(outputNodePrefab);
-        outNode.transform.SetParent(transform);
-        var offSetOutput = Vector3.up * (border.y / 2);
-        outNode.transform.position += circuitNodes[(int)grideSize.x-1, 0].transform.position - offSetOutput;
+        //inputNode.transform.position += circuitNodes[0, gridRepresentation.GetLength(1) - 1].transform.position + offSetInput;
+        //inputNode.id = idCounter++;
 
 
-        circuitNodes[0, (int)grideSize.y-1].neighbours.Add(inputNode);
-        inputNode.neighbours.Add(circuitNodes[0, (int)grideSize.y - 1]);
+        //var outNode = Instantiate(outputNodePrefab);
+        //outNode.transform.SetParent(transform);
+        //var offSetOutput = Vector3.up * (border.y / 2);
+        //outNode.transform.position += circuitNodes[gridRepresentation.GetLength(0)-1, 0].transform.position - offSetOutput;
 
 
-        circuitNodes[(int)grideSize.x - 1, 0].neighbours.Add(outNode);
-        outNode.neighbours.Add(circuitNodes[(int)grideSize.x - 1, 0]);
+        //circuitNodes[0, gridRepresentation.GetLength(1)-1].neighbours.Add(inputNode);
+        //inputNode.neighbours.Add(circuitNodes[0, gridRepresentation.GetLength(1) - 1]);
 
 
-        program = new AIProgram(inputNode);
+        //circuitNodes[gridRepresentation.GetLength(0) - 1, 0].neighbours.Add(outNode);
+        //outNode.neighbours.Add(circuitNodes[gridRepresentation.GetLength(0) - 1, 0]);
+
         AIProgramBackendManager.instance.SetActiveProgram(program);
-
     }
 
     private CircuitNode GridRepresentationInterpreter(NodeType node)
@@ -146,8 +139,11 @@ public class NodesScreen : MonoBehaviour
         {
             case NodeType.CircuitNode:
                 return Instantiate(circuitNodePrefab);
+            case NodeType.OutputNode:
+                return Instantiate(outputNodePrefab);
+            case NodeType.InputNode:
+                return Instantiate(inputNodePrefab);
         }
-
 
         return null;
     }
