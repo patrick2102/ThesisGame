@@ -16,4 +16,6 @@ public interface IAICommand
 
     void SetNext(IAICommand command);
     void SetPrev(IAICommand command);
+
+    void ConnectCommands(IAICommand command);
 }

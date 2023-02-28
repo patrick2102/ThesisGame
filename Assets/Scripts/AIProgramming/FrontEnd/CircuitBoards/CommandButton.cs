@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,8 +11,7 @@ public class CommandButton : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            AIProgramFrontendManager.instance.SelectCommand(this);
-            //AIProgramFrontendManager.instance.LeftClickNode(this);
+            AIProgramFrontendManager.instance.ChangeCommand(this);
             Debug.Log("Command clicked");
         }
     }

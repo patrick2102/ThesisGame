@@ -5,24 +5,13 @@ using UnityEngine.UI;
 
 public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-
-
+    public int id;
     public List<CircuitNode> neighbours;
-    public Queue<CircuitNode> activeConnections;
 
     [SerializeField] NodeType nodeType;
-
-    public AICommand command;
-    public Text nodeText;
-
-    public int id;
-
-    public void Awake()
-    {
-        activeConnections = new Queue<CircuitNode>();
-    }
-
-
+    [SerializeField] private CircuitNode nextNode;
+    [SerializeField] private AICommand command;
+    [SerializeField] private Text nodeText;
 
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -40,7 +29,7 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            AIProgramFrontendManager.instance.LeftClickNode(this);
+            AIProgramFrontendManager.instance.LeftClickNode();
         }
     }
 
@@ -52,5 +41,34 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     public void OnPointerExit(PointerEventData eventData)
     {
         AIProgramFrontendManager.instance.SetMousedOverNode(null);
+    }
+
+    public CircuitNode GetNextNode()
+    {
+        return nextNode;
+    }
+
+    public void SetNextNode(CircuitNode newNextNode)
+    {
+        nextNode = newNextNode;
+    }
+
+    public void ChangeCommand(AICommand newCommand)
+    {
+        Destroy(command);
+        command = Instantiate(newCommand);
+        command.transform.SetParent(transform);
+
+        nodeText.text = newCommand.name;
+    }
+
+    public AICommand GetCommand()
+    {
+        return command;
+    }
+
+    public override string ToString()
+    {
+        return gameObject.name + "{nodeType = " + nodeType + " id = " + id + "}";
     }
 }
