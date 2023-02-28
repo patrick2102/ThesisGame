@@ -1,6 +1,6 @@
-@XXXXX
-@NNNNX
-INNNNN
-@XXXNN
-@XXNNN
-@@@O@@
+@XXXX
+@NNNN
+INNNN
+@XXXN
+@XXNN
+@@@O@

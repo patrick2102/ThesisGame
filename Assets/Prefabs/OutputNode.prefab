@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 6884055721447684991}
     - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: nodeType
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5595581388246365700, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: commandPrefab

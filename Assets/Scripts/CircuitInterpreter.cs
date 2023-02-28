@@ -27,20 +27,30 @@ public class CircuitInterpreter : MonoBehaviour
         
         String txtLevel = reader.ReadToEnd();
 
+        // This does not function on Unix systems, as they have different line endings
         var array = txtLevel.Split('\n');
 
-        var curcuitBoardColumns = array[0].Length - 1; //Minus 1 to not count the "\n" character
+        var curcuitBoardColumns = array[0].Length -1; //Minus 1 to not count the "\r" character
+
+        Debug.Log(curcuitBoardColumns);
+
         var curcuitBoardRows = array.Length;
 
         NodeType[,] gridRepresentation;
-        //Vector2 grideSize;
 
-        gridRepresentation = new NodeType[curcuitBoardColumns, curcuitBoardRows]; //TODO replace with tool that can generate gridnodes
+        Debug.Log(array[0]);
+        Debug.Log(array[1]);
+
+        Debug.Log("ROWS = " + curcuitBoardRows);
+        Debug.Log(curcuitBoardColumns);
+        
+
+        gridRepresentation = new NodeType[curcuitBoardRows, curcuitBoardColumns]; //TODO replace with tool that can generate gridnodes
         //var circuitNodes = new CircuitNode[(int)grideSize.x, (int)grideSize.y];
 
-        for (int i = 0; i < curcuitBoardColumns; i++)
+        for (int i = 0; i < curcuitBoardRows; i++)
         {
-            for (int j = 0; j < curcuitBoardRows; j++)
+            for (int j = 0; j < curcuitBoardColumns; j++)
             {
                 char c = array[i][j];
 

@@ -45,8 +45,11 @@ public class NodesScreen : MonoBehaviour
 
     private void GenerateCircuit(NodeType[,] gridRepresentation)
     {
-        var stepSizeX =  (screen.rect.width) / gridRepresentation.GetLength(0);
-        var stepSizeY = (screen.rect.height) / gridRepresentation.GetLength(1);
+        var stepSizeX = (screen.rect.width) / (gridRepresentation.GetLength(1));
+        var stepSizeY = (screen.rect.height) / (gridRepresentation.GetLength(0));
+
+        Debug.Log(gridRepresentation.GetLength(0));
+        Debug.Log(gridRepresentation.GetLength(1));
 
         var stepSize = new Vector2(stepSizeX, stepSizeY);
 
@@ -63,15 +66,15 @@ public class NodesScreen : MonoBehaviour
 
                 if (node != null)
                 {
-                    var offSet = border + (stepSize * new Vector2(i, j));
+                    var offSet = border + (stepSize * new Vector2(j, gridRepresentation.GetLength(0) - i - 1));
 
                     node.transform.SetParent(transform);
                     node.transform.position = offSet;
                     node.id = idCounter++;
                 }
-                if(node == inputNodePrefab)
+                if (gridRepresentation[i,j] == NodeType.InputNode)
                 {
-                    program = new AIProgram(node.command);
+                    program = new AIProgram(node);
                 }
                 circuitNodes[i,j] = node;
             }
