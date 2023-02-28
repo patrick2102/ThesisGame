@@ -4,8 +4,6 @@ using static UnityEngine.EventSystems.StandaloneInputModule;
 
 public class NodesScreen : MonoBehaviour
 {
-    public Vector2 grideSize;
-
     public CircuitNode inputNodePrefab;
     public CircuitNode outputNodePrefab;
     public CircuitNode circuitNodePrefab;
@@ -42,18 +40,21 @@ public class NodesScreen : MonoBehaviour
         GenerateCircuit(gridRepresentation);
     }
 
-
     private void GenerateCircuit(NodeType[,] gridRepresentation)
     {
         var stepSizeX = (screen.rect.width) / (gridRepresentation.GetLength(1));
-        var stepSizeY = (screen.rect.height) / (gridRepresentation.GetLength(0));
+        // Hardcoded a minus value to the height to make some room for run button at the bottom
+        var stepSizeY = (screen.rect.height - 20.0f) / (gridRepresentation.GetLength(0));
 
-        Debug.Log(gridRepresentation.GetLength(0));
-        Debug.Log(gridRepresentation.GetLength(1));
+        // Decreased stepsize further to make room for run button in at the bottom of screen
+        stepSizeY -= 15.0f;
 
         var stepSize = new Vector2(stepSizeX, stepSizeY);
 
         var border = stepSize / 2;
+
+        // Added a value to raise the point from which the circuit board is drawn, to make room for the rum button
+        border.y += 80.0f;
 
         int idCounter = 0;
 
@@ -107,29 +108,6 @@ public class NodesScreen : MonoBehaviour
             }
         }
 
-
-        //Instantiate Input and output nodes
-        //var inputNode = Instantiate(inputNodePrefab);
-        //inputNode.transform.SetParent(transform);
-        //var offSetInput = Vector3.up * (border.y / 2);
-
-        //inputNode.transform.position += circuitNodes[0, gridRepresentation.GetLength(1) - 1].transform.position + offSetInput;
-        //inputNode.id = idCounter++;
-
-
-        //var outNode = Instantiate(outputNodePrefab);
-        //outNode.transform.SetParent(transform);
-        //var offSetOutput = Vector3.up * (border.y / 2);
-        //outNode.transform.position += circuitNodes[gridRepresentation.GetLength(0)-1, 0].transform.position - offSetOutput;
-
-
-        //circuitNodes[0, gridRepresentation.GetLength(1)-1].neighbours.Add(inputNode);
-        //inputNode.neighbours.Add(circuitNodes[0, gridRepresentation.GetLength(1) - 1]);
-
-
-        //circuitNodes[gridRepresentation.GetLength(0) - 1, 0].neighbours.Add(outNode);
-        //outNode.neighbours.Add(circuitNodes[gridRepresentation.GetLength(0) - 1, 0]);
-
         AIProgramBackendManager.instance.SetActiveProgram(program);
     }
 
@@ -147,39 +125,4 @@ public class NodesScreen : MonoBehaviour
 
         return null;
     }
-
-    //private void CreateNeighbours(int x, int y)
-    //{
-    //    //Check neighbours for possible connections:
-
-    //    var node = circuitNodes[x, y];
-
-
-    //    if
-    //    var leftNode = circuitNodes[x-1, y];
-    //    var rightNode = circuitNodes[x+1, y];
-    //    var upNode = circuitNodes[x, y+1];
-    //    var downNode = circuitNodes[x, y-1];
-
-    //    if (leftNode != null)
-    //    {
-    //        circuitNodes[x, y].neighbours.Add(circuitNodes[x - 1, y]);
-    //    }
-    //    if (rightNode != null)
-    //    {
-    //        circuitNodes[x, y].neighbours.Add(circuitNodes[x + 1, y]);
-
-    //    }
-    //    if (upNode != null)
-    //    {
-    //        circuitNodes[x, y].neighbours.Add(circuitNodes[x, y + 1]);
-
-    //    }
-    //    if (downNode != null)
-    //    {
-    //        circuitNodes[x, y].neighbours.Add(circuitNodes[x, y - 1]);
-
-    //    }
-    //}
-
 }
