@@ -1,18 +1,8 @@
 using UnityEngine;
 
-public class DeathTrigger : MonoBehaviour
+public class DeathTrigger : TriggerBase
 {
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        HandleTriggers(collision.gameObject.tag);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        HandleTriggers(collision.gameObject.tag);
-    }
-
-    private void HandleTriggers(string tag)
+    public override void HandleTrigger(string tag)
     {
         switch (tag)
         {
