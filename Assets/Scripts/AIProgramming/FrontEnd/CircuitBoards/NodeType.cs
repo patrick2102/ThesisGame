@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum NodeType
 {
-        InputNode, CircuitNode, OutputNode
+        BlankNode, InputNode, CircuitNode, OutputNode
 }
