@@ -5,21 +5,21 @@ using UnityEngine;
 
 public class AIProgram
 {
-    public IAICommand currentCommand;
+    public CircuitNode currentNode;
 
-    public AIProgram(IAICommand initialCommand)
+    public AIProgram(CircuitNode initialNode)
     {
-        currentCommand = initialCommand;
+        currentNode = initialNode;
     }
 
     public ProgramStatus StepProgram()
     {
-        if (currentCommand == null)
+        if (currentNode == null)
             return ProgramStatus.stopped;
 
-        var status = currentCommand.Step();
+        var status = currentNode.GetCommand().Step();
         if (status == ProgramStatus.stopped)
-            currentCommand = currentCommand.Next();
+            currentNode = currentNode.GetNextNode();
 
         return ProgramStatus.running;
     }

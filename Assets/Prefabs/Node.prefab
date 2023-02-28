@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: SkipCommand
 --- !u!1 &5595581388246365706
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,9 +172,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   neighbours: []
+  nextNode: {fileID: 0}
   nodeType: 1
   command: {fileID: 8275842128769878118}
   nodeText: {fileID: 5595581387964285559}
+  id: 0
 --- !u!1 &7910874195708061149
 GameObject:
   m_ObjectHideFlags: 0

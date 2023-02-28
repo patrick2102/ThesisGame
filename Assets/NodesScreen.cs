@@ -45,11 +45,6 @@ public class NodesScreen : MonoBehaviour
 
     private void GenerateCircuit(NodeType[,] gridRepresentation)
     {
-        var bottomRight = screen.rect.max;
-        var topLeft = screen.rect.min;
-
-        //var stepSizeX = gridRepresentation.GetLength(0) / (screen.rect.max.x - screen.rect.min.x);
-        //var stepSizeY = gridRepresentation.GetLength(1) / (screen.rect.max.y - screen.rect.min.y);
         var stepSizeX =  (screen.rect.width) / gridRepresentation.GetLength(0);
         var stepSizeY = (screen.rect.height) / gridRepresentation.GetLength(1);
 

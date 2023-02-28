@@ -1,39 +1,31 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AIProgramFrontendManager : MonoBehaviour
 {
+    [SerializeField] private KeyCode openUIButton;
+    [SerializeField] private GameObject commandView;
+    [SerializeField] private GameObject nodesView;
 
-    public enum FrontEndStates
+    private CircuitNode selectedNode;
+    private Dictionary<CircuitNode, (Vector2, Vector2)> nodesWithActiveOutputs = new Dictionary<CircuitNode, (Vector2, Vector2)>();
+    private Vector2 startConnectionPos;
+
+    private enum FrontEndStates
     {
-        connectingNodes, addingCommand, none
+        connectingNodes, addingCommand, open, closed
     }
-
-    public FrontEndStates currentState = FrontEndStates.none;
-
-    private List<(Vector2, Vector2)> activeConnections = new List<(Vector2, Vector2)>();
-
-    public KeyCode openUIButton;
-
-    public CircuitNode mousedOverNode;
-    public CircuitNode selectedNode;
-
-    public Vector2 startConnectionPos;
+    private FrontEndStates currentState = FrontEndStates.closed;
 
     public static AIProgramFrontendManager instance; // Instance used to ensure singleton behavior.
 
-    private Camera cam;
-
-    [SerializeField] private GameObject commandList;
-
     private void Awake()
     {
-        cam = Camera.main;
         if (instance == null)
         {
-            commandList.SetActive(false);
+            currentState = FrontEndStates.closed;
+            commandView.SetActive(false);
+            nodesView.SetActive(false);
             instance = this;
         }
         else if (instance != this)
@@ -45,7 +37,23 @@ public class AIProgramFrontendManager : MonoBehaviour
     {
         if (Input.GetKeyUp(openUIButton))
         {
+            ToggleUI();
+        }
+    }
 
+    private void ToggleUI()
+    {
+        if (currentState != FrontEndStates.closed)
+        {
+            commandView.SetActive(false);
+            nodesView.SetActive(false);
+            currentState = FrontEndStates.closed;
+        }
+        else if (currentState == FrontEndStates.closed)
+        {
+            commandView.SetActive(false);
+            nodesView.SetActive(true);
+            currentState = FrontEndStates.open;
         }
     }
 
@@ -53,13 +61,12 @@ public class AIProgramFrontendManager : MonoBehaviour
     {
         if (currentState == FrontEndStates.connectingNodes)
         {
-            //Debug.Log("Line start: " + startConnectionPos);
-            //Debug.Log("Line end: " + (Vector2)cam.ScreenToWorldPoint(Input.mousePosition));
-            Debug.DrawLine(startConnectionPos, (Vector2)cam.ScreenToWorldPoint(Input.mousePosition), Color.red);
+            Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
         }
 
-        foreach (var c in activeConnections)
+        foreach (var a in nodesWithActiveOutputs)
         {
+            var c = a.Value;
             Debug.DrawLine(c.Item1, c.Item2, Color.green);
         }
 
@@ -67,14 +74,18 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     public void SetMousedOverNode(CircuitNode node)
     {
-        mousedOverNode = node;
+        if (currentState == FrontEndStates.connectingNodes)
+        {
+            selectedNode = node;
+        }
     }
 
-    public void LeftClickNode(CircuitNode node)
+    public void LeftClickNode()
     {
-        if (currentState == FrontEndStates.none)
+        if (currentState == FrontEndStates.open)
         {
-            StartConnectingNodes(node);
+            startConnectionPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            currentState = FrontEndStates.connectingNodes;
         }
     }
 
@@ -82,9 +93,9 @@ public class AIProgramFrontendManager : MonoBehaviour
     {
         if (currentState == FrontEndStates.connectingNodes)
         {
-            currentState = FrontEndStates.none;
+            currentState = FrontEndStates.open;
 
-            if (node.neighbours.Contains(mousedOverNode))
+            if (node.neighbours.Contains(selectedNode))
             {
                 ConnectNodes(node);
             }
@@ -93,66 +104,46 @@ public class AIProgramFrontendManager : MonoBehaviour
 
     public void RightClickNode(CircuitNode node)
     {
-        if (currentState == FrontEndStates.none)
+        if (currentState == FrontEndStates.open)
         {
-            AddCommand(node);
+            OpenCommandScreen(node);
         }
         else if (currentState == FrontEndStates.addingCommand)
         {
-            currentState = FrontEndStates.none;
+            currentState = FrontEndStates.open;
             selectedNode = null;
 
-            commandList.SetActive(false);
+            commandView.SetActive(false);
         }
     }
 
-    void StartConnectingNodes(CircuitNode node)
+    private void ConnectNodes(CircuitNode node)
     {
-        startConnectionPos = cam.ScreenToWorldPoint(Input.mousePosition);
-        currentState = FrontEndStates.connectingNodes;
+        currentState = FrontEndStates.open;
+
+        //FIXME temporary debug drawline to show nodes are connected 
+        var connectPoint = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        nodesWithActiveOutputs[node] = (startConnectionPos, connectPoint);
+
+        node.SetNextNode(selectedNode);
     }
 
-    void ConnectNodes(CircuitNode node)
-    {
-        currentState = FrontEndStates.none;
-
-        var connectPoint = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-
-        activeConnections.Add((startConnectionPos, connectPoint));
-
-        node.command.SetNext(mousedOverNode.command);
-        mousedOverNode.command.SetPrev(node.command);
-    }
-
-    void AddCommand(CircuitNode node)
+    private void OpenCommandScreen(CircuitNode node)
     {
         currentState = FrontEndStates.addingCommand;
         selectedNode = node;
 
-        commandList.SetActive(true);
+        commandView.SetActive(true);
     }
 
-    public void SelectCommand(CommandButton commandButton)
+    public void ChangeCommand(CommandButton commandButton)
     {
-        currentState = FrontEndStates.none;
+        currentState = FrontEndStates.open;
 
-        var nextCommand = selectedNode.command.Next();
-        var prevCommand = selectedNode.command.Prev();
-
-        Destroy(selectedNode.command.transform.gameObject);
-
-        selectedNode.command = Instantiate(commandButton.command);
-        selectedNode.command.transform.SetParent(selectedNode.transform);
-
-
-        selectedNode.command.SetNext(nextCommand);
-        selectedNode.command.SetPrev(prevCommand);
-        prevCommand.SetNext(selectedNode.command);
-        nextCommand.SetPrev(selectedNode.command);
-
-        selectedNode.nodeText.text = commandButton.commandButtonText.text;
+        selectedNode.ChangeCommand(commandButton.command);
 
         selectedNode = null;
-        commandList.SetActive(false);
+        commandView.SetActive(false);
     }
 }

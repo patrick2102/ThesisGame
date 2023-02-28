@@ -69,5 +69,10 @@ public class MoveCommand : IAICommand
         throw new NotImplementedException();
     }
 
+    public void ConnectCommands(IAICommand command)
+    {
+        throw new NotImplementedException();
+    }
+
     #endregion
 }

@@ -9,8 +9,6 @@ public class AIProgramBackendManager : MonoBehaviour
     AIProgram activeProgram; // Program currently set to run if runningProgram = true.
     bool runningProgram; // Bool for stopping and starting programs. 
     public RobotController robotController; // Robot controller that can be accessed by the various commands.
-
-
     public static AIProgramBackendManager instance; // Instance used to ensure singleton behavior.
 
     private void Awake()
@@ -43,28 +41,27 @@ public class AIProgramBackendManager : MonoBehaviour
             activeProgram.StepProgram();
         }
 
-        if (Input.GetKeyUp(KeyCode.P))
+        if (Input.GetKeyUp(KeyCode.P) && activeProgram != null)
         {
             Debug.Log("Printing commands:");
-            var command = activeProgram.currentCommand;
+            var node = activeProgram.currentNode;
 
             int maxDepth = 100;
 
             while (maxDepth > 0)
             {
-                Debug.Log("Command: " + command);
+                if (node == null)
+                    break;
 
-                command = command.Next();
+                Debug.Log("Command: " + node.GetCommand());
+
+                node = node.GetNextNode();
 
                 maxDepth--;
 
-                if (command == null)
-                    break;
             }
 
             Debug.Log("\n");
-        
         }
-
     }
 }
