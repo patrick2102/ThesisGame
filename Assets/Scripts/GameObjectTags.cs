@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum GameObjectTags
 {
-    Player, Robot
+    Player, Robot, Monster, Checkpoint
 }
