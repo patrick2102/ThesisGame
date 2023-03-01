@@ -26,10 +26,15 @@ public class AIProgramBackendManager : MonoBehaviour
     {
         activeProgram = program;
     }
+    public void ResetActiveProgram()
+    {
+        activeProgram.ResetProgram();
+    }
 
     public void StartProgram()
     {
         runningProgram = true;
+        // What does this call do?
         CircuitInterpreter.ReadString();
     }
 
@@ -60,7 +65,6 @@ public class AIProgramBackendManager : MonoBehaviour
                 maxDepth--;
 
             }
-
             Debug.Log("\n");
         }
     }

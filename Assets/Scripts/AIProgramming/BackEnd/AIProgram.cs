@@ -6,10 +6,12 @@ using UnityEngine;
 public class AIProgram
 {
     public CircuitNode currentNode;
+    public CircuitNode initialNodeForResetting;
 
     public AIProgram(CircuitNode initialNode)
     {
         currentNode = initialNode;
+        initialNodeForResetting = initialNode;
     }
 
     public ProgramStatus StepProgram()
@@ -22,5 +24,10 @@ public class AIProgram
             currentNode = currentNode.GetNextNode();
 
         return ProgramStatus.running;
+    }
+
+    public void ResetProgram()
+    {
+        currentNode = initialNodeForResetting;
     }
 }

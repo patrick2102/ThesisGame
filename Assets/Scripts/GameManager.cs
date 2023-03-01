@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -44,12 +45,13 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.R))
         {
             Restart();
+            AIProgramBackendManager.instance.ResetActiveProgram();
         }
     }
 
     private void Restart()
     { 
-        //Spawn player and robot back at checkpoint
+        //Spawn player and robot back at checkpoint:
         player.transform.SetPositionAndRotation(lastCheckPoint.GetSpawnPoint().position, lastCheckPoint.GetSpawnPoint().rotation);
         robot.transform.SetPositionAndRotation(lastCheckPoint.GetSpawnPoint().position + new Vector3(1, 0,0), lastCheckPoint.GetSpawnPoint().rotation);
 

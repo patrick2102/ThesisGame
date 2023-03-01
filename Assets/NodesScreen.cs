@@ -75,6 +75,7 @@ public class NodesScreen : MonoBehaviour
                 }
                 if (gridRepresentation[i,j] == NodeType.InputNode)
                 {
+
                     program = new AIProgram(node);
                 }
                 circuitNodes[i,j] = node;
@@ -107,7 +108,6 @@ public class NodesScreen : MonoBehaviour
                 }
             }
         }
-
         AIProgramBackendManager.instance.SetActiveProgram(program);
     }
 

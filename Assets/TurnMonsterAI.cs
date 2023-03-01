@@ -69,6 +69,13 @@ public class TurnMonsterAI : MonoBehaviour
                         objectWithClosestDistance = col.gameObject;
                     }
                     break;
+                case "Robot":
+                    if (temp < closestDistance)
+                    {
+                        closestDistance = temp;
+                        objectWithClosestDistance = col.gameObject;
+                    }
+                    break;
             }
         }
 
