@@ -32,18 +32,9 @@ public class CircuitInterpreter : MonoBehaviour
 
         var curcuitBoardColumns = array[0].Length -1; //Minus 1 to not count the "\r" character
 
-        Debug.Log(curcuitBoardColumns);
-
         var curcuitBoardRows = array.Length;
 
         NodeType[,] gridRepresentation;
-
-        Debug.Log(array[0]);
-        Debug.Log(array[1]);
-
-        Debug.Log("ROWS = " + curcuitBoardRows);
-        Debug.Log(curcuitBoardColumns);
-        
 
         gridRepresentation = new NodeType[curcuitBoardRows, curcuitBoardColumns]; //TODO replace with tool that can generate gridnodes
         //var circuitNodes = new CircuitNode[(int)grideSize.x, (int)grideSize.y];
