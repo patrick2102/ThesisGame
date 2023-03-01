@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private GameObject[] monsters;
     private (Vector3, Quaternion)[] monsterSpawns;
 
+    [SerializeField] private AIProgramBackendManager aiProgramBackendManager;
+
     public CheckpointTrigger lastCheckPoint;
 
     public void Awake()
@@ -61,6 +63,8 @@ public class GameManager : MonoBehaviour
             var spawnPos = monsterSpawns[i];
             monsters[i].transform.SetPositionAndRotation(spawnPos.Item1, spawnPos.Item2);
         }
+
+        aiProgramBackendManager.ResetProgram();
     }
 
     public void PlayerDeath()

@@ -64,11 +64,11 @@ public class AIProgramFrontendManager : MonoBehaviour
             Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
         }
 
-        foreach (var a in nodesWithActiveOutputs)
-        {
-            var c = a.Value;
-            Debug.DrawLine(c.Item1, c.Item2, Color.green);
-        }
+        //foreach (var a in nodesWithActiveOutputs)
+        //{
+        //    var c = a.Value;
+        //    Debug.DrawLine(c.Item1, c.Item2, Color.green);
+        //}
 
     }
 
@@ -122,9 +122,9 @@ public class AIProgramFrontendManager : MonoBehaviour
         currentState = FrontEndStates.open;
 
         //FIXME temporary debug drawline to show nodes are connected 
-        var connectPoint = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //var connectPoint = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        nodesWithActiveOutputs[node] = (startConnectionPos, connectPoint);
+        //nodesWithActiveOutputs[node] = (startConnectionPos, connectPoint);
 
         node.SetNextNode(selectedNode);
     }
