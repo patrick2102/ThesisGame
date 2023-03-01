@@ -12,6 +12,35 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     [SerializeField] private CircuitNode nextNode;
     [SerializeField] private AICommand command;
     [SerializeField] private Text nodeText;
+    [SerializeField] private LineRenderer nodeConnectionPrefab;
+    private LineRenderer nodeConnection;
+
+    public void Start()
+    {
+        nodeConnection = Instantiate(nodeConnectionPrefab);
+    }
+
+    public void FixedUpdate()
+    {
+        if (nextNode != null)
+        {
+            nodeConnection.gameObject.SetActive(true);
+
+            //var nodeRectTransform = transform;
+            //var nextNodeRectTransform = nextNode.transform;
+
+            //Vector2 offset = nextNodeRectTransform.position - nodeRectTransform.position;
+
+            //offset = new Vector2(Mathf.Clamp(offset.x, -25.0f, 25.0f), Mathf.Clamp(offset.y, -25.0f, 25.0f));
+
+            nodeConnection.SetPosition(0, transform.position);
+            nodeConnection.SetPosition(1, nextNode.transform.position);
+        }
+        else
+        {
+            nodeConnection.gameObject.SetActive(false);
+        }
+    }
 
     public void OnPointerUp(PointerEventData eventData)
     {
