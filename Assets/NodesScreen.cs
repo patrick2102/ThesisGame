@@ -42,8 +42,12 @@ public class NodesScreen : MonoBehaviour
 
     private void GenerateCircuit(NodeType[,] gridRepresentation)
     {
+        //var stepSize = (Vector2)Camera.main.ScreenToWorldPoint(new Vector2(screen.rect.width, screen.rect.height));
+
+        //var stepSizeX = (stepSize.x) / (gridRepresentation.GetLength(1));
         var stepSizeX = (screen.rect.width) / (gridRepresentation.GetLength(1));
         // Hardcoded a minus value to the height to make some room for run button at the bottom
+        //var stepSizeY = (stepSize.y) / (gridRepresentation.GetLength(0));
         var stepSizeY = (screen.rect.height - 20.0f) / (gridRepresentation.GetLength(0));
 
         // Decreased stepsize further to make room for run button in at the bottom of screen
@@ -53,7 +57,7 @@ public class NodesScreen : MonoBehaviour
 
         var border = stepSize / 2;
 
-        // Added a value to raise the point from which the circuit board is drawn, to make room for the rum button
+        // Added a value to raise the point from which the circuit board is drawn, to make room for the run button
         border.y += 80.0f;
 
         int idCounter = 0;
@@ -68,9 +72,9 @@ public class NodesScreen : MonoBehaviour
                 if (node != null)
                 {
                     var offSet = border + (stepSize * new Vector2(j, gridRepresentation.GetLength(0) - i - 1));
-
                     node.transform.SetParent(transform);
-                    node.transform.position = offSet;
+                    node.transform.localScale = new Vector3(1, 1, 1);
+                    node.GetComponent<RectTransform>().anchoredPosition = offSet;
                     node.id = idCounter++;
                 }
                 if (gridRepresentation[i,j] == NodeType.InputNode)
