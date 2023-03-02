@@ -18,6 +18,7 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     public void Start()
     {
         nodeConnection = Instantiate(nodeConnectionPrefab);
+        nodeConnection.transform.SetParent(transform);
     }
 
     public void FixedUpdate()
