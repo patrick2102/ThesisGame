@@ -37,18 +37,13 @@ public class TurnMonsterAI : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(FacingTarget)
-        {
-            MoveForward();
-        }
-    }
-
     void FixedUpdate()
     {
         CheckAggroRange();
+        if (FacingTarget)
+        {
+            MoveForward();
+        }
     }
 
     void CheckAggroRange()
@@ -63,6 +58,13 @@ public class TurnMonsterAI : MonoBehaviour
             switch (col.gameObject.tag)
             {
                 case "Player":
+                    if (temp < closestDistance)
+                    {
+                        closestDistance = temp;
+                        objectWithClosestDistance = col.gameObject;
+                    }
+                    break;
+                case "Robot":
                     if (temp < closestDistance)
                     {
                         closestDistance = temp;
@@ -107,6 +109,6 @@ public class TurnMonsterAI : MonoBehaviour
 
     void MoveForward()
     {
-        turnMonsterRB2D.AddForce(transform.up * moveMultiplier * Time.deltaTime);
+        turnMonsterRB2D.velocity = (transform.up).normalized * moveMultiplier;
     }
 }
