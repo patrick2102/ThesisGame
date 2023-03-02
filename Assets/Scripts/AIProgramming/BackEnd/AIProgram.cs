@@ -21,7 +21,7 @@ public class AIProgram
         currentNode = firstNode;
     }
 
-    public ProgramStatus StepProgram()
+    public ProgramStatus StepProgram(RobotController rbc)
     {
         if (currentNode == null)
         {
@@ -29,7 +29,7 @@ public class AIProgram
             return ProgramStatus.stopped;
         }
 
-        var status = currentNode.GetCommand().Step();
+        var status = currentNode.GetCommand().Step(rbc);
         if (status == ProgramStatus.stopped)
             currentNode = currentNode.GetNextNode();
 

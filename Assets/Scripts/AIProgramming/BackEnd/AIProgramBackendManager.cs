@@ -6,7 +6,7 @@ using UnityEngine;
  */
 public class AIProgramBackendManager : MonoBehaviour
 {
-    AIProgram activeProgram; // Program currently set to run if runningProgram = true.
+    public AIProgram activeProgram; // Program currently set to run if runningProgram = true.
     ProgramStatus runningProgram; // Bool for stopping and starting programs. 
     public RobotController robotController; // Robot controller that can be accessed by the various commands.
     public static AIProgramBackendManager instance; // Instance used to ensure singleton behavior.
@@ -27,6 +27,12 @@ public class AIProgramBackendManager : MonoBehaviour
         activeProgram = program;
         runningProgram = ProgramStatus.stopped;
     }
+
+    public AIProgram GetActiveProgram()
+    {
+        return activeProgram;
+    }
+
     public void ResetActiveProgram()
     {
         activeProgram.ResetProgram();
@@ -52,7 +58,7 @@ public class AIProgramBackendManager : MonoBehaviour
         // If activeProgram is set and runningProgram=true, then step program each frame.
         if (activeProgram != null && (runningProgram == ProgramStatus.running))
         {
-            activeProgram.StepProgram();
+            activeProgram.StepProgram(robotController);
         }
 
         if (Input.GetKeyUp(KeyCode.P) && activeProgram != null)

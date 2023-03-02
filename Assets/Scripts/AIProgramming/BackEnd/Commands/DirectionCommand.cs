@@ -20,12 +20,12 @@ public class DirectionCommand : AICommand
     /*
      * Make a step with the command, and if the timer reaches its limit, then reset the time and return stopped status. Resetting the timer is done to allow for loops.
      */
-    public override ProgramStatus Step()
+    public override ProgramStatus Step(RobotController rbc)
     {
 
         if (maxTimer > timer)
         {
-            AIProgramBackendManager.instance.robotController.MoveDirection(direction);
+            rbc.MoveDirection(direction);
             timer += Time.deltaTime;
             return ProgramStatus.running;
         }
