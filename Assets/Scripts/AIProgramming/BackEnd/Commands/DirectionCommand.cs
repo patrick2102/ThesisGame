@@ -7,8 +7,8 @@ using UnityEngine;
 public class DirectionCommand : AICommand
 {
     float timer; // Timer to that counts up to maxTimer to control time before going to the next command
-    [SerializeField] float maxTimer;
-    [SerializeField] Vector2 direction;
+    [SerializeField] public float maxTimer;
+    [SerializeField] public Vector2 direction;
 
     public DirectionCommand(Vector2 direction, float maxTimer)
     {

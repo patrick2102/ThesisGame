@@ -2246,6 +2246,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurnMonster
       objectReference: {fileID: 0}
+    - target: {fileID: 6252305590682732751, guid: c27c9b527c8fa134d849bb67bc5b76c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c27c9b527c8fa134d849bb67bc5b76c4, type: 3}
@@ -2367,6 +2371,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robot character
       objectReference: {fileID: 0}
+    - target: {fileID: 1263074286403823846, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+      propertyPath: speed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8938137038349458981, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+      propertyPath: m_LinearDrag
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
@@ -2381,6 +2393,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b658f08dac22d5408fc14a5a8f7468e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &1992498641 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 8938137038349458981, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+  m_PrefabInstance: {fileID: 1992498639}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2015813732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,3 +2628,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b352db49bfccb949bf54ed9e001276f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  robotSimulation: {fileID: 1992498640}
+  robotPathPrefab: {fileID: 181909880706479413, guid: 2a55c9e02308e354c90cf0c2461c35bf, type: 3}
+  robotRB: {fileID: 1992498641}

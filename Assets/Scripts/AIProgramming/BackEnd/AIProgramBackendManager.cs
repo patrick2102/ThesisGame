@@ -53,12 +53,12 @@ public class AIProgramBackendManager : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // If activeProgram is set and runningProgram=true, then step program each frame.
         if (activeProgram != null && (runningProgram == ProgramStatus.running))
         {
-            activeProgram.StepProgram(robotController);
+            runningProgram = activeProgram.StepProgram(robotController);
         }
 
         if (Input.GetKeyUp(KeyCode.P) && activeProgram != null)
