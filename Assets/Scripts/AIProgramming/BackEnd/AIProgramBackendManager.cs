@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 /*
@@ -21,7 +22,12 @@ public class AIProgramBackendManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    //Set the active program, which will run in Update()
+    private void Start()
+    {
+        activeProgram = new AIProgram(NodesScreen.instance.inputNode);
+    }
+
+    //Set the active program, which will run in FixedUpdate()
     public void SetActiveProgram(AIProgram program)
     {
         activeProgram = program;
@@ -41,7 +47,7 @@ public class AIProgramBackendManager : MonoBehaviour
     public void StartProgram()
     {
         runningProgram = ProgramStatus.running;
-        CircuitInterpreter.ReadString();
+        RobotMovementVisualiser.instance.updatePath = false;
     }
 
     public void ResetProgram()
@@ -60,6 +66,12 @@ public class AIProgramBackendManager : MonoBehaviour
         {
             runningProgram = activeProgram.StepProgram(robotController);
         }
+
+        if(runningProgram == ProgramStatus.running)
+            RobotMovementVisualiser.instance.updatePath = false;
+        else
+            RobotMovementVisualiser.instance.updatePath = true;
+
 
         if (Input.GetKeyUp(KeyCode.P) && activeProgram != null)
         {

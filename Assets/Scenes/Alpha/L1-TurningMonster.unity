@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!224 &173861923 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5306639975805801062, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
-  m_PrefabInstance: {fileID: 1359936775}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &179030351
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1736,6 +1731,22 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2129273452, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
+      propertyPath: robotRB
+      value: 
+      objectReference: {fileID: 1992498641}
+    - target: {fileID: 2129273452, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
+      propertyPath: robotSimulation
+      value: 
+      objectReference: {fileID: 1992498640}
+    - target: {fileID: 5306639975164119938, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000015377998
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306639975164119938, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00018106695
+      objectReference: {fileID: 0}
     - target: {fileID: 5306639975236793956, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1766,6 +1777,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5306639975700343523, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306639975700343523, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5306639975805801083, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
@@ -1824,6 +1839,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AiProgramManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5306639976963603017, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5306639976963603018, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1840,11 +1859,12 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5306639977021554362, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5306639975805801062, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2129273451}
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 50fd5b38fe9341e48bf0eac4dcc1190f, type: 3}
 --- !u!1 &1469068781
 GameObject:
@@ -2579,55 +2599,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ecdda9e44d62942907eb6268c8bce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2129273450
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2129273451}
-  - component: {fileID: 2129273452}
-  m_Layer: 5
-  m_Name: RobotMovementVisualiser
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2129273451
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2129273450}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 173861923}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2129273452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2129273450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b352db49bfccb949bf54ed9e001276f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  robotSimulation: {fileID: 1992498640}
-  robotPathPrefab: {fileID: 181909880706479413, guid: 2a55c9e02308e354c90cf0c2461c35bf, type: 3}
-  robotRB: {fileID: 1992498641}

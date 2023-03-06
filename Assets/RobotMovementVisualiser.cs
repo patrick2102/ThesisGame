@@ -7,7 +7,18 @@ public class RobotMovementVisualiser : MonoBehaviour
     [SerializeField] private LineRenderer robotPathPrefab;
      private LineRenderer robotPath;
     [SerializeField] private Rigidbody2D robotRB;
+    public static RobotMovementVisualiser instance;
+    public bool updatePath = true;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+            Destroy(gameObject);
+    }
 
     private void Start()
     {
@@ -19,9 +30,13 @@ public class RobotMovementVisualiser : MonoBehaviour
         //Show robot path
         //UpdatePath();
 
-        if (Input.GetKeyUp(KeyCode.L))
+        if (updatePath)
+        {
+            robotPath.gameObject.SetActive(true);
             UpdatePath();
-
+        }
+        else
+            robotPath.gameObject.SetActive(false);
     }
 
     private void UpdatePath()
@@ -29,6 +44,8 @@ public class RobotMovementVisualiser : MonoBehaviour
         var simulation = AIProgramBackendManager.instance.GetActiveProgram();
 
         robotPath.positionCount = 10;
+
+        int maxDepth = 100;
 
         if (simulation != null)
         {
@@ -49,6 +66,8 @@ public class RobotMovementVisualiser : MonoBehaviour
 
                 node = node.GetNextNode();
                 count++;
+                if (count > maxDepth)
+                    break;
             }
 
             robotPath.positionCount = count;
