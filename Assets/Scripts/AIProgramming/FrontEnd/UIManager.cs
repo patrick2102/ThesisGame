@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject menuView;
     [SerializeField] private GameObject commandView;
     [SerializeField] private GameObject nodesView;
+    [SerializeField] private GameObject interactView;
 
     private CircuitNode selectedNode;
     private Vector2 startConnectionPos;
@@ -37,16 +38,17 @@ public class UIManager : MonoBehaviour
         menuView.SetActive(false);
         commandView.SetActive(false);
         nodesView.SetActive(false);
+        interactView.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(openUIButton))
-        {
-            SetUI(UIState.nodeScreen);
-        }
-        else if (Input.GetKeyUp(KeyCode.Escape))
+        //if (Input.GetKeyUp(openUIButton))
+        //{
+        //    SetUI(UIState.nodeScreen);
+        //}
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
             SetUI(UIState.menuScreen);
         }
@@ -74,12 +76,14 @@ public class UIManager : MonoBehaviour
             menuView.SetActive(false);
             commandView.SetActive(false);
             nodesView.SetActive(true);
+            interactView.SetActive(false);
         }
         else if (newState == UIState.commandScreen)
         {
             menuView.SetActive(false);
             commandView.SetActive(true);
             nodesView.SetActive(true);
+            interactView.SetActive(false);
         }
 
         else if (newState == UIState.menuScreen)
@@ -87,6 +91,7 @@ public class UIManager : MonoBehaviour
             menuView.SetActive(true);
             commandView.SetActive(false);
             nodesView.SetActive(false);
+            interactView.SetActive(false);
         }
 
         else if (newState == UIState.closed)
@@ -94,25 +99,10 @@ public class UIManager : MonoBehaviour
             menuView.SetActive(false);
             commandView.SetActive(false);
             nodesView.SetActive(false);
+            interactView.SetActive(false);
 
         }
         currentState = newState;
-    }
-
-    private void ToggleUI()
-    {
-        if (currentState != UIState.closed)
-        {
-            commandView.SetActive(false);
-            nodesView.SetActive(false);
-            currentState = UIState.closed;
-        }
-        else if (currentState == UIState.closed)
-        {
-            commandView.SetActive(false);
-            nodesView.SetActive(true);
-            currentState = UIState.nodeScreen;
-        }
     }
 
     private void FixedUpdate()
@@ -138,6 +128,11 @@ public class UIManager : MonoBehaviour
             startConnectionPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             currentState = UIState.connectingNodes;
         }
+    }
+
+    public void SetInteractScreen(bool active)
+    {
+        interactView.SetActive(active);
     }
 
     public void UnclickNode(CircuitNode node)
