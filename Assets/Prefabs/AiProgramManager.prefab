@@ -49,9 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b352db49bfccb949bf54ed9e001276f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotSimulation: {fileID: 0}
+  robotSimulation: {fileID: 1263074286403823846, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
   robotPathPrefab: {fileID: 181909880706479413, guid: 2a55c9e02308e354c90cf0c2461c35bf, type: 3}
-  robotRB: {fileID: 0}
+  robotRB: {fileID: 8938137038349458981, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+  updatePath: 1
 --- !u!1 &2555077158081056191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,7 +1022,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5306639976315372945}
   - component: {fileID: 5306639976315372946}
-  - component: {fileID: 5306639976315372947}
   m_Layer: 0
   m_Name: AiProgramManager
   m_TagString: Untagged
@@ -1044,7 +1044,7 @@ Transform:
   - {fileID: 5306639975805801062}
   - {fileID: 5306639976166563568}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5306639976315372946
 MonoBehaviour:
@@ -1061,19 +1061,6 @@ MonoBehaviour:
   openUIButton: 105
   commandView: {fileID: 5306639976274343803}
   nodesView: {fileID: 5306639975210276512}
---- !u!114 &5306639976315372947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5306639976315372956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97456d264c14ddc4d9a4c0ac1bb9c629, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  robotController: {fileID: 0}
 --- !u!1 &5306639976417448460
 GameObject:
   m_ObjectHideFlags: 0

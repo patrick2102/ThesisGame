@@ -5,8 +5,7 @@ public class StartButton : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        AIProgramBackendManager.instance.StartProgram();
-        AIProgram.activeProgram.ResetProgram();
+        AIProgram.activeProgram.StartProgram();
         Debug.Log("Run program");
     }
 }

@@ -9,12 +9,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [SerializeField] private AIProgram aiProgramPrefab;
     public GameObject player;
     public GameObject robot;
     private GameObject[] monsters;
     private (Vector3, Quaternion)[] monsterSpawns;
 
-    private AIProgramBackendManager aiProgramBackendManager;
 
     public CheckpointTrigger lastCheckPoint;
 
@@ -39,13 +39,13 @@ public class GameManager : MonoBehaviour
         monsters = GameObject.FindGameObjectsWithTag(GameObjectTags.Monster.ToString());
         monsterSpawns = GameObject.FindGameObjectsWithTag(GameObjectTags.Monster.ToString()).Select(x => (x.transform.position, x.transform.rotation)).ToArray();
 
-        aiProgramBackendManager = AIProgramBackendManager.instance;
         Restart();
     }
 
-    public void Start()
+    private void Start()
     {
-        aiProgramBackendManager = AIProgramBackendManager.instance;
+        var program = Instantiate(aiProgramPrefab);
+        program.SetupProgram(robot.GetComponent<RobotController>(), NodesScreen.instance.inputNode);
     }
 
     private void Update()
@@ -76,8 +76,9 @@ public class GameManager : MonoBehaviour
             monsters[i].GetComponent<Rigidbody2D>().angularVelocity = 0;
             monsters[i].transform.SetPositionAndRotation(spawnPos.Item1, spawnPos.Item2);
         }
-        if(aiProgramBackendManager != null)
-            aiProgramBackendManager.ResetProgram();
+        if(AIProgram.activeProgram != null)
+            AIProgram.activeProgram.ResetProgram();
+            //aiProgramBackendManager.ResetProgram();
     }
 
     public void PlayerDeath()

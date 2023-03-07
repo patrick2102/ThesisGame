@@ -9,6 +9,7 @@ public class AIProgram : MonoBehaviour
     public CircuitNode currentNode;
     public CircuitNode initialNodeForResetting;
     public static AIProgram activeProgram;
+    public RobotController robotController;
     ProgramStatus status;
 
     private void Awake()
@@ -21,31 +22,43 @@ public class AIProgram : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void SetupProgram(CircuitNode initialNode)
+    public void SetupProgram(RobotController rbc, CircuitNode initialNode)
     {
+        robotController = rbc;
         firstNode = initialNode;
         currentNode = initialNode;
         initialNodeForResetting = initialNode;
+        status = ProgramStatus.stopped;
     }
 
-    public void Reset()
+    public void FixedUpdate()
     {
-        currentNode = firstNode;
+        if (status == ProgramStatus.running)
+        {
+            status = activeProgram.StepProgram(robotController);
+            RobotMovementVisualiser.instance.updatePath = false;
+        }
+        else
+        {
+            RobotMovementVisualiser.instance.updatePath = true;
+        }
     }
 
-    //public ProgramStatus StartProgram()
-    //{
-    //    if (status == ProgramStatus.stopped)
-    //    {
-    //        status = ProgramStatus.running;
-    //    }
-    //}
+    public ProgramStatus StartProgram()
+    {
+        if (status == ProgramStatus.stopped)
+        {
+            status = ProgramStatus.running;
+            RobotMovementVisualiser.instance.updatePath = false;
+        }
+        return status;
+    }
 
     public ProgramStatus StepProgram(RobotController rbc)
     {
         if (currentNode == null)
         {
-            Reset();
+            ResetProgram();
             return ProgramStatus.stopped;
         }
 
@@ -59,5 +72,6 @@ public class AIProgram : MonoBehaviour
     public void ResetProgram()
     {
         currentNode = initialNodeForResetting;
+        status = ProgramStatus.stopped;
     }
 }

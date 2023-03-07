@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3999240982422555502
 MonoBehaviour:
@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b86668afc86e54ab71d63c95402ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aiProgramPrefab: {fileID: 6166094547326657517, guid: 71ade2e500f5f9a4db3a1a01b400d89e, type: 3}
   player: {fileID: 0}
   robot: {fileID: 0}
   lastCheckPoint: {fileID: 0}

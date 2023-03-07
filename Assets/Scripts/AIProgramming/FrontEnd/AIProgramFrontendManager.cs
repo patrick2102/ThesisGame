@@ -8,7 +8,6 @@ public class AIProgramFrontendManager : MonoBehaviour
     [SerializeField] private GameObject nodesView;
 
     private CircuitNode selectedNode;
-    private Dictionary<CircuitNode, (Vector2, Vector2)> nodesWithActiveOutputs = new Dictionary<CircuitNode, (Vector2, Vector2)>();
     private Vector2 startConnectionPos;
 
     private enum FrontEndStates
