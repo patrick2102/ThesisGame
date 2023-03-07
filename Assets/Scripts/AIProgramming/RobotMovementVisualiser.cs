@@ -4,8 +4,7 @@ using UnityEngine;
 public class RobotMovementVisualiser : MonoBehaviour
 {
     [SerializeField] private RobotController robotSimulation;
-    [SerializeField] private LineRenderer robotPathPrefab;
-     private LineRenderer robotPath;
+    [SerializeField] private LineRenderer robotPath;
     [SerializeField] private Rigidbody2D robotRB;
     public static RobotMovementVisualiser instance;
     public bool updatePath = true;
@@ -20,18 +19,13 @@ public class RobotMovementVisualiser : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void Start()
-    {
-        robotPath = Instantiate(robotPathPrefab);
-    }
-
     private void FixedUpdate()
     {
         //Show robot path
         //UpdatePath();
 
         if (updatePath)
-        {
+        {   
             robotPath.gameObject.SetActive(true);
             UpdatePath();
         }
