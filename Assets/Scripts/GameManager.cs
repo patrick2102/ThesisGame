@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {
@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        SetupScene();
     }
 
     private void Update()
@@ -45,11 +46,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.R))
         {
             Restart();
-            AIProgram.activeProgram.ResetProgram();
         }
     }
 
-    private void Restart()
+    public void Restart()
     {
         //Spawn player and robot back at checkpoint:
 
@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitUntil(() => load.isDone);
 
-        SetupScene();
+        //SetupScene();
     }
 
     public void ExitGame()

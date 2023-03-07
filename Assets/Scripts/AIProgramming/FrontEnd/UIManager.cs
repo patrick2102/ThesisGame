@@ -4,17 +4,20 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private KeyCode openUIButton;
+    [SerializeField] private GameObject menuView;
     [SerializeField] private GameObject commandView;
     [SerializeField] private GameObject nodesView;
 
     private CircuitNode selectedNode;
     private Vector2 startConnectionPos;
 
-    private enum FrontEndStates
+    public enum UIState
     {
-        connectingNodes, addingCommand, open, closed
+        connectingNodes, commandScreen, nodeScreen, closed, menuScreen
     }
-    private FrontEndStates currentState = FrontEndStates.closed;
+
+    private UIState currentState = UIState.closed;
+    private UIState prevState = UIState.closed;
 
     public static UIManager instance; // Instance used to ensure singleton behavior.
 
@@ -22,13 +25,18 @@ public class UIManager : MonoBehaviour
     {
         if (instance == null)
         {
-            currentState = FrontEndStates.closed;
-            commandView.SetActive(false);
-            nodesView.SetActive(false);
             instance = this;
         }
         else if (instance != this)
             Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        currentState = UIState.closed;
+        menuView.SetActive(false);
+        commandView.SetActive(false);
+        nodesView.SetActive(false);
     }
 
     // Update is called once per frame
@@ -36,44 +44,88 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyUp(openUIButton))
         {
-            ToggleUI();
+            SetUI(UIState.nodeScreen);
         }
+        else if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            SetUI(UIState.menuScreen);
+        }
+    }
+
+    private UIState GetNewUIState(UIState newState)
+    {
+        var state = currentState;
+        currentState = (currentState == newState ? UIState.closed : newState);
+        prevState = state;
+        return currentState;
+    }
+
+    public void CloseUI()
+    {
+        SetUI(UIState.closed);
+    }
+
+    public void SetUI(UIState state)
+    {
+        var newState = GetNewUIState(state);
+
+        if (newState == UIState.nodeScreen)
+        {
+            menuView.SetActive(false);
+            commandView.SetActive(false);
+            nodesView.SetActive(true);
+        }
+        else if (newState == UIState.commandScreen)
+        {
+            menuView.SetActive(false);
+            commandView.SetActive(true);
+            nodesView.SetActive(true);
+        }
+
+        else if (newState == UIState.menuScreen)
+        {
+            menuView.SetActive(true);
+            commandView.SetActive(false);
+            nodesView.SetActive(false);
+        }
+
+        else if (newState == UIState.closed)
+        {
+            menuView.SetActive(false);
+            commandView.SetActive(false);
+            nodesView.SetActive(false);
+
+        }
+        currentState = newState;
     }
 
     private void ToggleUI()
     {
-        if (currentState != FrontEndStates.closed)
+        if (currentState != UIState.closed)
         {
             commandView.SetActive(false);
             nodesView.SetActive(false);
-            currentState = FrontEndStates.closed;
+            currentState = UIState.closed;
         }
-        else if (currentState == FrontEndStates.closed)
+        else if (currentState == UIState.closed)
         {
             commandView.SetActive(false);
             nodesView.SetActive(true);
-            currentState = FrontEndStates.open;
+            currentState = UIState.nodeScreen;
         }
     }
 
     private void FixedUpdate()
     {
-        if (currentState == FrontEndStates.connectingNodes)
+        if (currentState == UIState.connectingNodes)
         {
             Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
         }
-
-        //foreach (var a in nodesWithActiveOutputs)
-        //{
-        //    var c = a.Value;
-        //    Debug.DrawLine(c.Item1, c.Item2, Color.green);
-        //}
-
     }
 
     public void SetMousedOverNode(CircuitNode node)
     {
-        if (currentState == FrontEndStates.connectingNodes)
+        if (currentState == UIState.connectingNodes)
         {
             selectedNode = node;
         }
@@ -81,18 +133,18 @@ public class UIManager : MonoBehaviour
 
     public void LeftClickNode()
     {
-        if (currentState == FrontEndStates.open)
+        if (currentState == UIState.nodeScreen)
         {
             startConnectionPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            currentState = FrontEndStates.connectingNodes;
+            currentState = UIState.connectingNodes;
         }
     }
 
     public void UnclickNode(CircuitNode node)
     {
-        if (currentState == FrontEndStates.connectingNodes)
+        if (currentState == UIState.connectingNodes)
         {
-            currentState = FrontEndStates.open;
+            currentState = UIState.nodeScreen;
 
             if (node.neighbours.Contains(selectedNode))
             {
@@ -103,13 +155,13 @@ public class UIManager : MonoBehaviour
 
     public void RightClickNode(CircuitNode node)
     {
-        if (currentState == FrontEndStates.open)
+        if (currentState == UIState.nodeScreen)
         {
             OpenCommandScreen(node);
         }
-        else if (currentState == FrontEndStates.addingCommand)
+        else if (currentState == UIState.commandScreen)
         {
-            currentState = FrontEndStates.open;
+            currentState = UIState.nodeScreen;
             selectedNode = null;
 
             commandView.SetActive(false);
@@ -118,31 +170,29 @@ public class UIManager : MonoBehaviour
 
     private void ConnectNodes(CircuitNode node)
     {
-        currentState = FrontEndStates.open;
+        currentState = UIState.nodeScreen;
 
         //FIXME temporary debug drawline to show nodes are connected 
-        //var connectPoint = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        //nodesWithActiveOutputs[node] = (startConnectionPos, connectPoint);
 
         node.SetNextNode(selectedNode);
     }
 
     private void OpenCommandScreen(CircuitNode node)
     {
-        currentState = FrontEndStates.addingCommand;
+        //currentState = UIState.commandScreen;
         selectedNode = node;
 
-        commandView.SetActive(true);
+        SetUI(UIState.commandScreen);
     }
 
     public void ChangeCommand(CommandButton commandButton)
     {
-        currentState = FrontEndStates.open;
+        //currentState = UIState.nodeScreen;
 
         selectedNode.ChangeCommand(commandButton.command);
 
         selectedNode = null;
-        commandView.SetActive(false);
+        SetUI(UIState.nodeScreen);
+        //commandView.SetActive(false);
     }
 }
