@@ -41,7 +41,8 @@ public class RobotMovementVisualiser : MonoBehaviour
 
     private void UpdatePath()
     {
-        var simulation = AIProgramBackendManager.instance.GetActiveProgram();
+        //var simulation = AIProgramBackendManager.instance.GetActiveProgram();
+        var simulation = AIProgram.activeProgram;
 
         robotPath.positionCount = 10;
 
@@ -65,7 +66,7 @@ public class RobotMovementVisualiser : MonoBehaviour
                 positions.Add(robotPosition);
 
                 node = node.GetNextNode();
-                count++;
+                count++;  
                 if (count > maxDepth)
                     break;
             }

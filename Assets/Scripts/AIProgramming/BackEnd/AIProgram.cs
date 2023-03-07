@@ -3,13 +3,25 @@
  */
 using UnityEngine;
 
-public class AIProgram
+public class AIProgram : MonoBehaviour
 {
     public CircuitNode firstNode;
     public CircuitNode currentNode;
     public CircuitNode initialNodeForResetting;
+    public static AIProgram activeProgram;
+    ProgramStatus status;
 
-    public AIProgram(CircuitNode initialNode)
+    private void Awake()
+    {
+        if (activeProgram == null)
+        {
+            activeProgram = this;
+        }
+        else if (activeProgram != this)
+            Destroy(gameObject);
+    }
+
+    public void SetupProgram(CircuitNode initialNode)
     {
         firstNode = initialNode;
         currentNode = initialNode;
@@ -20,6 +32,14 @@ public class AIProgram
     {
         currentNode = firstNode;
     }
+
+    //public ProgramStatus StartProgram()
+    //{
+    //    if (status == ProgramStatus.stopped)
+    //    {
+    //        status = ProgramStatus.running;
+    //    }
+    //}
 
     public ProgramStatus StepProgram(RobotController rbc)
     {

@@ -7,7 +7,8 @@ using UnityEngine;
  */
 public class AIProgramBackendManager : MonoBehaviour
 {
-    public AIProgram activeProgram; // Program currently set to run if runningProgram = true.
+    [SerializeField] private AIProgram aiProgramPrefab;
+    private AIProgram activeProgram; // Program currently set to run if runningProgram = true.
     ProgramStatus runningProgram; // Bool for stopping and starting programs. 
     public RobotController robotController; // Robot controller that can be accessed by the various commands.
     public static AIProgramBackendManager instance; // Instance used to ensure singleton behavior.
@@ -24,19 +25,8 @@ public class AIProgramBackendManager : MonoBehaviour
 
     private void Start()
     {
-        activeProgram = new AIProgram(NodesScreen.instance.inputNode);
-    }
-
-    //Set the active program, which will run in FixedUpdate()
-    public void SetActiveProgram(AIProgram program)
-    {
-        activeProgram = program;
-        runningProgram = ProgramStatus.stopped;
-    }
-
-    public AIProgram GetActiveProgram()
-    {
-        return activeProgram;
+        activeProgram = Instantiate(aiProgramPrefab);
+        activeProgram.SetupProgram(NodesScreen.instance.inputNode);
     }
 
     public void ResetActiveProgram()

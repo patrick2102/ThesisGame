@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] monsters;
     private (Vector3, Quaternion)[] monsterSpawns;
 
-    [SerializeField] private AIProgramBackendManager aiProgramBackendManager;
+    private AIProgramBackendManager aiProgramBackendManager;
 
     public CheckpointTrigger lastCheckPoint;
 
@@ -39,7 +39,13 @@ public class GameManager : MonoBehaviour
         monsters = GameObject.FindGameObjectsWithTag(GameObjectTags.Monster.ToString());
         monsterSpawns = GameObject.FindGameObjectsWithTag(GameObjectTags.Monster.ToString()).Select(x => (x.transform.position, x.transform.rotation)).ToArray();
 
+        aiProgramBackendManager = AIProgramBackendManager.instance;
         Restart();
+    }
+
+    public void Start()
+    {
+        aiProgramBackendManager = AIProgramBackendManager.instance;
     }
 
     private void Update()
@@ -47,7 +53,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.R))
         {
             Restart();
-            AIProgramBackendManager.instance.ResetActiveProgram();
+            AIProgram.activeProgram.ResetProgram();
         }
     }
 
@@ -70,8 +76,8 @@ public class GameManager : MonoBehaviour
             monsters[i].GetComponent<Rigidbody2D>().angularVelocity = 0;
             monsters[i].transform.SetPositionAndRotation(spawnPos.Item1, spawnPos.Item2);
         }
-
-        aiProgramBackendManager.ResetProgram();
+        if(aiProgramBackendManager != null)
+            aiProgramBackendManager.ResetProgram();
     }
 
     public void PlayerDeath()
