@@ -49,9 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b352db49bfccb949bf54ed9e001276f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotSimulation: {fileID: 1263074286403823846, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+  robotSimulation: {fileID: 0}
   robotPathPrefab: {fileID: 181909880706479413, guid: 2a55c9e02308e354c90cf0c2461c35bf, type: 3}
-  robotRB: {fileID: 8938137038349458981, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+  robotRB: {fileID: 0}
   updatePath: 1
 --- !u!1 &2555077158081056191
 GameObject:
@@ -258,7 +258,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000011444092, y: -0.00008427018}
+  m_AnchoredPosition: {x: -0.000005722046, y: -0.00041751523}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5306639975164119937
@@ -1044,7 +1044,7 @@ Transform:
   - {fileID: 5306639975805801062}
   - {fileID: 5306639976166563568}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5306639976315372946
 MonoBehaviour:
@@ -1219,7 +1219,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5306639975700343522}
   m_HandleRect: {fileID: 5306639975700343523}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

@@ -27,11 +27,11 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            AIProgramFrontendManager.instance.UnclickNode(this);
+            UIManager.instance.UnclickNode(this);
         }
         else if (eventData.button == PointerEventData.InputButton.Right && nodeType == NodeType.CircuitNode)
         {
-            AIProgramFrontendManager.instance.RightClickNode(this);
+            UIManager.instance.RightClickNode(this);
         }
     }
 
@@ -39,18 +39,18 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            AIProgramFrontendManager.instance.LeftClickNode();
+            UIManager.instance.LeftClickNode();
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        AIProgramFrontendManager.instance.SetMousedOverNode(this);
+        UIManager.instance.SetMousedOverNode(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        AIProgramFrontendManager.instance.SetMousedOverNode(null);
+        UIManager.instance.SetMousedOverNode(null);
     }
 
     public CircuitNode GetNextNode()

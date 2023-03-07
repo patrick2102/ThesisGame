@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIProgramFrontendManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     [SerializeField] private KeyCode openUIButton;
     [SerializeField] private GameObject commandView;
@@ -16,7 +16,7 @@ public class AIProgramFrontendManager : MonoBehaviour
     }
     private FrontEndStates currentState = FrontEndStates.closed;
 
-    public static AIProgramFrontendManager instance; // Instance used to ensure singleton behavior.
+    public static UIManager instance; // Instance used to ensure singleton behavior.
 
     private void Awake()
     {
