@@ -17,41 +17,21 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 
     public void Start()
     {
-        nodeConnection = Instantiate(nodeConnectionPrefab);
-        nodeConnection.transform.SetParent(transform);
     }
 
     public void FixedUpdate()
     {
-        if (nextNode != null)
-        {
-            nodeConnection.gameObject.SetActive(true);
-
-            //var nodeRectTransform = transform;
-            //var nextNodeRectTransform = nextNode.transform;
-
-            //Vector2 offset = nextNodeRectTransform.position - nodeRectTransform.position;
-
-            //offset = new Vector2(Mathf.Clamp(offset.x, -25.0f, 25.0f), Mathf.Clamp(offset.y, -25.0f, 25.0f));
-
-            nodeConnection.SetPosition(0, transform.position);
-            nodeConnection.SetPosition(1, nextNode.transform.position);
-        }
-        else
-        {
-            nodeConnection.gameObject.SetActive(false);
-        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            AIProgramFrontendManager.instance.UnclickNode(this);
+            UIManager.instance.UnclickNode(this);
         }
         else if (eventData.button == PointerEventData.InputButton.Right && nodeType == NodeType.CircuitNode)
         {
-            AIProgramFrontendManager.instance.RightClickNode(this);
+            UIManager.instance.RightClickNode(this);
         }
     }
 
@@ -59,18 +39,18 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            AIProgramFrontendManager.instance.LeftClickNode();
+            UIManager.instance.LeftClickNode();
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        AIProgramFrontendManager.instance.SetMousedOverNode(this);
+        UIManager.instance.SetMousedOverNode(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        AIProgramFrontendManager.instance.SetMousedOverNode(null);
+        UIManager.instance.SetMousedOverNode(null);
     }
 
     public CircuitNode GetNextNode()
@@ -81,6 +61,15 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     public void SetNextNode(CircuitNode newNextNode)
     {
         nextNode = newNextNode;
+
+        if (nodeConnection != null)
+            Destroy(nodeConnection);
+
+        nodeConnection = Instantiate(nodeConnectionPrefab);
+        nodeConnection.SetPosition(0, transform.position);
+        nodeConnection.SetPosition(1, nextNode.transform.position);
+        nodeConnection.transform.SetParent(transform);
+
     }
 
     public void ChangeCommand(AICommand newCommand)

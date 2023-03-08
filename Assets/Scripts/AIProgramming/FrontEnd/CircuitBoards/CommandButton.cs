@@ -11,7 +11,7 @@ public class CommandButton : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            AIProgramFrontendManager.instance.ChangeCommand(this);
+            UIManager.instance.ChangeCommand(this);
             Debug.Log("Command clicked");
         }
     }

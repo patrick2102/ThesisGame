@@ -5,7 +5,7 @@ using UnityEngine;
 public class SkipCommand : AICommand
 {
 
-    public override ProgramStatus Step()
+    public override ProgramStatus Step(RobotController rbc)
     {
         return ProgramStatus.stopped;
     }

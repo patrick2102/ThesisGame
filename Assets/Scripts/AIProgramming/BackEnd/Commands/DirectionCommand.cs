@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /*
@@ -7,8 +6,8 @@ using UnityEngine;
 public class DirectionCommand : AICommand
 {
     float timer; // Timer to that counts up to maxTimer to control time before going to the next command
-    [SerializeField] float maxTimer;
-    [SerializeField] Vector2 direction;
+    [SerializeField] public float maxTimer;
+    [SerializeField] public Vector2 direction;
 
     public DirectionCommand(Vector2 direction, float maxTimer)
     {
@@ -20,12 +19,12 @@ public class DirectionCommand : AICommand
     /*
      * Make a step with the command, and if the timer reaches its limit, then reset the time and return stopped status. Resetting the timer is done to allow for loops.
      */
-    public override ProgramStatus Step()
+    public override ProgramStatus Step(RobotController rbc)
     {
 
         if (maxTimer > timer)
         {
-            AIProgramBackendManager.instance.robotController.MoveDirection(direction);
+            rbc.MoveDirection(direction);
             timer += Time.deltaTime;
             return ProgramStatus.running;
         }

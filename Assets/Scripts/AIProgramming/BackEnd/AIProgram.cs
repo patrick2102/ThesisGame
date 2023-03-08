@@ -3,33 +3,66 @@
  */
 using UnityEngine;
 
-public class AIProgram
+public class AIProgram : MonoBehaviour
 {
     public CircuitNode firstNode;
     public CircuitNode currentNode;
     public CircuitNode initialNodeForResetting;
+    public static AIProgram activeProgram;
+    public RobotController robotController;
+    ProgramStatus status;
 
-    public AIProgram(CircuitNode initialNode)
+    private void Awake()
     {
+        if (activeProgram == null)
+        {
+            activeProgram = this;
+        }
+        else if (activeProgram != this)
+            Destroy(gameObject);
+    }
+
+    public void SetupProgram(RobotController rbc, CircuitNode initialNode)
+    {
+        robotController = rbc;
         firstNode = initialNode;
         currentNode = initialNode;
         initialNodeForResetting = initialNode;
+        status = ProgramStatus.stopped;
     }
 
-    public void Reset()
+    public void FixedUpdate()
     {
-        currentNode = firstNode;
+        if (status == ProgramStatus.running)
+        {
+            status = activeProgram.StepProgram(robotController);
+            RobotMovementVisualiser.instance.updatePath = false;
+        }
+        else
+        {
+            RobotMovementVisualiser.instance.updatePath = true;
+        }
     }
 
-    public ProgramStatus StepProgram()
+    public ProgramStatus StartProgram()
+    {
+        if (status == ProgramStatus.stopped)
+        {
+            status = ProgramStatus.running;
+            RobotMovementVisualiser.instance.updatePath = false;
+        }
+        return status;
+    }
+
+    public ProgramStatus StepProgram(RobotController rbc)
     {
         if (currentNode == null)
         {
-            Reset();
+            ResetProgram();
             return ProgramStatus.stopped;
         }
 
-        var status = currentNode.GetCommand().Step();
+        var status = currentNode.GetCommand().Step(rbc);
         if (status == ProgramStatus.stopped)
             currentNode = currentNode.GetNextNode();
 
@@ -39,5 +72,6 @@ public class AIProgram
     public void ResetProgram()
     {
         currentNode = initialNodeForResetting;
+        status = ProgramStatus.stopped;
     }
 }
