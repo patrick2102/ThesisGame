@@ -23,6 +23,7 @@ public class Interactable : MonoBehaviour
     {
         interactionState = InteractionState.canInteract;
         UIManager.instance.SetUI(UIManager.UIState.interactScreen);
+        withinRange = true;
         //UIManager.instance.SetInteractScreen(withinRange);
     }
 
@@ -30,33 +31,42 @@ public class Interactable : MonoBehaviour
     {
         interactionState = InteractionState.cannotInteract;
         UIManager.instance.SetUI(UIManager.UIState.closed);
+        withinRange = false;
         //UIManager.instance.SetInteractScreen(withinRange);
     }
 
-    private void Update()
+    public bool CanInteract()
     {
+        return interactionState == InteractionState.canInteract;
+    }
 
+    public bool Interacted()
+    {
+        if (Input.GetKeyUp(GetInteractKey()) && interactionState == InteractionState.canInteract)
+        {
+            SetInteraction(InteractionState.interacting);
+            return true;
+        }
+        else
+            return false;
+    }
 
-
-        //if (interacting == InteractionState.stoppedInteracting)
-        //    interacting = InteractionState.notInteracting;
-
-        //if (Input.GetKeyUp(interactKey) && withinRange && interacting == InteractionState.notInteracting)
-        //{
-        //    SetInteraction(InteractionState.startedInteracting);
-        //}
-        //else if (Input.GetKeyUp(interactKey) && interacting == InteractionState.currentlyInteracting)
-        //{
-        //    SetInteraction(InteractionState.stoppedInteracting);
-        //    UIManager.instance.SetUI(UIManager.UIState.interactScreen);
-        //}
-
-
-        //if (!withinRange)
-        //{
-        //    SetInteraction(InteractionState.stoppedInteracting);
-        //    UIManager.instance.SetUI(UIManager.UIState.closed);
-        //}
+    public bool FinishedInteraction()
+    {
+        if (Input.GetKeyUp(GetInteractKey()) && GetInteractionState() == InteractionState.interacting)
+        {
+            if (withinRange)
+            {
+                SetInteraction(InteractionState.canInteract);
+            }
+            else
+            {
+                SetInteraction(InteractionState.cannotInteract);
+            }
+            return true;
+        }
+        else
+            return false;
     }
 
     public KeyCode GetInteractKey()
@@ -64,12 +74,12 @@ public class Interactable : MonoBehaviour
         return interactKey;
     }
 
-    public void SetInteraction(InteractionState inter)
+    private void SetInteraction(InteractionState newInteractionState)
     {
-        interactionState = inter;
+        interactionState = newInteractionState;
     }
 
-    public InteractionState GetInteractionState()
+    private InteractionState GetInteractionState()
     {
         return interactionState;
     }

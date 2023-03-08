@@ -22,38 +22,14 @@ public class RobotController : MonoBehaviour
 
     private void Update()
     {
-        //if (interactable.GetInteracted())
-        //{
-        //    ToogleProgrammingPanel();
-        //    interactable.SetInteraction(false);
-        //}
-
-        if (Input.GetKeyUp(interactable.GetInteractKey()) && interactable.GetInteractionState() == InteractionState.canInteract)
+        if (interactable.Interacted())
         {
-            ToggleProgrammingPanel();
-            interactable.SetInteraction(InteractionState.interacting);
-        }
-        else if (Input.GetKeyUp(interactable.GetInteractKey()) && interactable.GetInteractionState() == InteractionState.interacting)
-        {
-            ToggleProgrammingPanel();
-            interactable.SetInteraction(InteractionState.cannotInteract);
-        }
-
-        //if (interactable.GetInteracted() == Interactable.InteractionState.startedInteracting)
-        //{
-        //    OpenProgrammingPanel();
-        //}
-        //if (interactable.GetInteracted() == Interactable.InteractionState.stoppedInteracting)
-        //    CloseProgrammingPanel();
-    }
-
-    private void ToggleProgrammingPanel()
-    {
-        if (programmingPanelOpen)
-            CloseProgrammingPanel();
-        else
             OpenProgrammingPanel();
-
+        }
+        else if (interactable.FinishedInteraction())
+        {
+            CloseProgrammingPanel();
+        }
     }
 
     public void OpenProgrammingPanel()
@@ -64,7 +40,10 @@ public class RobotController : MonoBehaviour
 
     public void CloseProgrammingPanel()
     {
-        UIManager.instance.SetUI(UIManager.UIState.closed);
+        if(interactable.CanInteract())
+            UIManager.instance.SetUI(UIManager.UIState.interactScreen);
+        else
+            UIManager.instance.SetUI(UIManager.UIState.closed);
         programmingPanelOpen = false;
     }
 }
