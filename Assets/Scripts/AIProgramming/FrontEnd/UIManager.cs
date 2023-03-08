@@ -14,11 +14,10 @@ public class UIManager : MonoBehaviour
 
     public enum UIState
     {
-        connectingNodes, commandScreen, nodeScreen, closed, menuScreen
+        connectingNodes, commandScreen, nodeScreen, closed, menuScreen, interactScreen
     }
 
     private UIState currentState = UIState.closed;
-    private UIState prevState = UIState.closed;
 
     public static UIManager instance; // Instance used to ensure singleton behavior.
 
@@ -34,32 +33,17 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        currentState = UIState.closed;
-        menuView.SetActive(false);
-        commandView.SetActive(false);
-        nodesView.SetActive(false);
-        interactView.SetActive(false);
+        SetUI(UIState.closed);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyUp(openUIButton))
-        //{
-        //    SetUI(UIState.nodeScreen);
-        //}
         if (Input.GetKeyUp(KeyCode.Escape))
         {
+            Debug.Log("Menu should open");
             SetUI(UIState.menuScreen);
         }
-    }
-
-    private UIState GetNewUIState(UIState newState)
-    {
-        var state = currentState;
-        currentState = (currentState == newState ? UIState.closed : newState);
-        prevState = state;
-        return currentState;
     }
 
     public void CloseUI()
@@ -67,18 +51,18 @@ public class UIManager : MonoBehaviour
         SetUI(UIState.closed);
     }
 
-    public void SetUI(UIState state)
+    public void SetUI(UIState newState)
     {
-        var newState = GetNewUIState(state);
+        currentState = (currentState == newState ? UIState.closed : newState);
 
-        if (newState == UIState.nodeScreen)
+        if (currentState == UIState.nodeScreen)
         {
             menuView.SetActive(false);
             commandView.SetActive(false);
             nodesView.SetActive(true);
             interactView.SetActive(false);
         }
-        else if (newState == UIState.commandScreen)
+        else if (currentState == UIState.commandScreen)
         {
             menuView.SetActive(false);
             commandView.SetActive(true);
@@ -86,7 +70,7 @@ public class UIManager : MonoBehaviour
             interactView.SetActive(false);
         }
 
-        else if (newState == UIState.menuScreen)
+        else if (currentState == UIState.menuScreen)
         {
             menuView.SetActive(true);
             commandView.SetActive(false);
@@ -94,7 +78,7 @@ public class UIManager : MonoBehaviour
             interactView.SetActive(false);
         }
 
-        else if (newState == UIState.closed)
+        else if (currentState == UIState.closed)
         {
             menuView.SetActive(false);
             commandView.SetActive(false);
@@ -102,7 +86,13 @@ public class UIManager : MonoBehaviour
             interactView.SetActive(false);
 
         }
-        currentState = newState;
+        else if (currentState == UIState.interactScreen)
+        {
+            menuView.SetActive(false);
+            commandView.SetActive(false);
+            nodesView.SetActive(false);
+            interactView.SetActive(true);
+        }
     }
 
     private void FixedUpdate()
@@ -182,12 +172,10 @@ public class UIManager : MonoBehaviour
 
     public void ChangeCommand(CommandButton commandButton)
     {
-        //currentState = UIState.nodeScreen;
 
         selectedNode.ChangeCommand(commandButton.command);
 
         selectedNode = null;
         SetUI(UIState.nodeScreen);
-        //commandView.SetActive(false);
     }
 }
