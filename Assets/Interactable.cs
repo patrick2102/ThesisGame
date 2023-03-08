@@ -7,11 +7,11 @@ public class Interactable : MonoBehaviour
 
     public enum InteractionState
     { 
-        notInteracting, startedInteracting, currentlyInteracting, stoppedInteracting
+        canInteract, interacting, cannotInteract
     }
 
     private KeyCode interactKey = KeyCode.E;
-    private InteractionState interacting = InteractionState.notInteracting;
+    private InteractionState interactionState = InteractionState.cannotInteract;
     private bool withinRange;
 
     private void Start()
@@ -21,52 +21,56 @@ public class Interactable : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        withinRange = true;
-        UIManager.instance.SetInteractScreen(withinRange);
+        interactionState = InteractionState.canInteract;
+        UIManager.instance.SetUI(UIManager.UIState.interactScreen);
+        //UIManager.instance.SetInteractScreen(withinRange);
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        withinRange = false;
-        UIManager.instance.SetInteractScreen(withinRange);
+        interactionState = InteractionState.cannotInteract;
+        UIManager.instance.SetUI(UIManager.UIState.closed);
+        //UIManager.instance.SetInteractScreen(withinRange);
     }
 
     private void Update()
     {
-        if (interacting == InteractionState.stoppedInteracting)
-            interacting = InteractionState.notInteracting;
-
-        if (Input.GetKeyUp(interactKey) && withinRange && interacting == InteractionState.notInteracting)
-        {
-            SetInteraction(InteractionState.startedInteracting);
-        }
-        else if (Input.GetKeyUp(interactKey) && interacting == InteractionState.currentlyInteracting)
-        {
-            SetInteraction(InteractionState.stoppedInteracting);
-            UIManager.instance.SetInteractScreen(true);
-        }
 
 
-        if (!withinRange)
-        {
-            SetInteraction(InteractionState.stoppedInteracting);
-        }
+
+        //if (interacting == InteractionState.stoppedInteracting)
+        //    interacting = InteractionState.notInteracting;
+
+        //if (Input.GetKeyUp(interactKey) && withinRange && interacting == InteractionState.notInteracting)
+        //{
+        //    SetInteraction(InteractionState.startedInteracting);
+        //}
+        //else if (Input.GetKeyUp(interactKey) && interacting == InteractionState.currentlyInteracting)
+        //{
+        //    SetInteraction(InteractionState.stoppedInteracting);
+        //    UIManager.instance.SetUI(UIManager.UIState.interactScreen);
+        //}
+
+
+        //if (!withinRange)
+        //{
+        //    SetInteraction(InteractionState.stoppedInteracting);
+        //    UIManager.instance.SetUI(UIManager.UIState.closed);
+        //}
+    }
+
+    public KeyCode GetInteractKey()
+    {
+        return interactKey;
     }
 
     public void SetInteraction(InteractionState inter)
     {
-        interacting = inter;
+        interactionState = inter;
     }
 
-    public void FinishInteraction()
+    public InteractionState GetInteractionState()
     {
-        interacting = InteractionState.notInteracting;
-    }
-
-
-
-    public InteractionState GetInteracted()
-    {
-        return interacting;
+        return interactionState;
     }
 }
