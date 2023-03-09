@@ -107,48 +107,6 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Spin_Monster_All__Lvl_1_0
-      rect:
-        serializedVersion: 2
-        x: 205
-        y: 397
-        width: 17
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b7bd3888eb75b314490e1a05172f6c84
-      internalID: -311861324
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spin_Monster_All__Lvl_1_1
-      rect:
-        serializedVersion: 2
-        x: 241
-        y: 388
-        width: 16
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 47cd5793c0540ae41a5a01410196e46c
-      internalID: -320411707
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Spin_Monster_All__Lvl_1_2
       rect:
         serializedVersion: 2
@@ -157,7 +115,7 @@ TextureImporter:
         width: 8
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -177,8 +135,8 @@ TextureImporter:
         y: 40
         width: 376
         height: 355
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.49642563, y: 0.03245339}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -198,8 +156,8 @@ TextureImporter:
         y: 70
         width: 202
         height: 303
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.34364817, y: 0.9036316}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -207,27 +165,6 @@ TextureImporter:
       bones: []
       spriteID: bb755adb4a072444f86c5c75e4addb84
       internalID: -26269666
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spin_Monster_All__Lvl_1_5
-      rect:
-        serializedVersion: 2
-        x: 516
-        y: 169
-        width: 9
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 61a03c611026efe48aedeafbbd330509
-      internalID: 660451876
       vertices: []
       indices: 
       edges: []
