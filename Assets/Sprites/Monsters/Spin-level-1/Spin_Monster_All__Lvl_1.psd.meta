@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -105,7 +105,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Spin_Monster_All__Lvl_1_0
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 397
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7bd3888eb75b314490e1a05172f6c84
+      internalID: -311861324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spin_Monster_All__Lvl_1_1
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 388
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47cd5793c0540ae41a5a01410196e46c
+      internalID: -320411707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spin_Monster_All__Lvl_1_2
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 193
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d14b5bb0286c924b83b88835b51b488
+      internalID: 2018319967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spin_Monster_All__Lvl_1_3
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 40
+        width: 376
+        height: 355
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ed860a7dd6dac945925aaf95e96218a
+      internalID: -258360769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spin_Monster_All__Lvl_1_4
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 70
+        width: 202
+        height: 303
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb755adb4a072444f86c5c75e4addb84
+      internalID: -26269666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spin_Monster_All__Lvl_1_5
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 169
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61a03c611026efe48aedeafbbd330509
+      internalID: 660451876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -116,7 +242,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Spin_Monster_All__Lvl_1_2: 2018319967
+      Spin_Monster_All__Lvl_1_5: 660451876
+      Spin_Monster_All__Lvl_1_0: -311861324
+      Spin_Monster_All__Lvl_1_3: -258360769
+      Spin_Monster_All__Lvl_1_1: -320411707
+      Spin_Monster_All__Lvl_1_4: -26269666
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 
