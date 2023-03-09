@@ -494,6 +494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 50
   rb: {fileID: 8938137038349458981}
+  interactable: {fileID: 0}
 --- !u!58 &6619402509979231804
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -530,4 +531,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4

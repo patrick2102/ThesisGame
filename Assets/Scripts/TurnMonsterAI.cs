@@ -20,7 +20,7 @@ public class TurnMonsterAI : MonoBehaviour
     private bool FacingTarget;
 
     private Rigidbody2D turnMonsterRB2D;
-
+    private Transform childSprite;
 
     // This could inherit from a more general sort of monster class, but since we have no other yet
     // i'll just make it non-general for now and adapt it should we find a good case for generality
@@ -29,6 +29,9 @@ public class TurnMonsterAI : MonoBehaviour
     {
         // playerObject = GameObject.FindWithTag("Player");
         turnMonsterRB2D = gameObject.GetComponent<Rigidbody2D>();
+        childSprite = gameObject.GetComponent<Transform>().GetChild(0);
+        // No idea why + 1.5f is necessary, but it makes the circle line up perfectly...
+        childSprite.localScale = childSprite.localScale * (aggroRangeRadius + 1.5f);
     }
 
     // Start is called before the first frame update

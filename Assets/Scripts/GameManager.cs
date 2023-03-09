@@ -17,7 +17,11 @@ public class GameManager : MonoBehaviour
     private GameObject[] monsters;
     private (Vector3, Quaternion)[] monsterSpawns;
 
+    //If they spawn in seperate places
+    public CheckpointTrigger lastPlayerSeperateSpawn;
+    public CheckpointTrigger lastRobotSeperateSpawn;
 
+    //If they spawn in the same place
     public CheckpointTrigger lastCheckPoint;
 
     public void Awake()
@@ -52,18 +56,31 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         //Spawn player and robot back at checkpoint:
-
         if (player != null)
         {
             player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
             player.GetComponent<Rigidbody2D>().angularVelocity = 0;
-            player.transform.SetPositionAndRotation(lastCheckPoint.GetSpawnPoint().position, lastCheckPoint.GetSpawnPoint().rotation);
+            if (lastPlayerSeperateSpawn != null)
+            {
+                player.transform.SetPositionAndRotation(lastPlayerSeperateSpawn.GetSpawnPoint().position, lastPlayerSeperateSpawn.GetSpawnPoint().rotation);
+            }
+            else
+            {
+                player.transform.SetPositionAndRotation(lastCheckPoint.GetSpawnPoint().position, lastCheckPoint.GetSpawnPoint().rotation);
+            }
         }
         if (robot != null)
         {
             robot.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
             robot.GetComponent<Rigidbody2D>().angularVelocity = 0;
-            robot.transform.SetPositionAndRotation(lastCheckPoint.GetSpawnPoint().position + new Vector3(1, 0, 0), lastCheckPoint.GetSpawnPoint().rotation);
+            if (lastRobotSeperateSpawn != null)
+            {
+                player.transform.SetPositionAndRotation(lastPlayerSeperateSpawn.GetSpawnPoint().position, lastPlayerSeperateSpawn.GetSpawnPoint().rotation);
+            }
+            else
+            {
+                robot.transform.SetPositionAndRotation(lastCheckPoint.GetSpawnPoint().position + new Vector3(1, 0, 0), lastCheckPoint.GetSpawnPoint().rotation);
+            }
         }
 
         //Spawn monsters back at start point:

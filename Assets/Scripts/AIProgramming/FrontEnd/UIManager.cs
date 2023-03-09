@@ -44,6 +44,10 @@ public class UIManager : MonoBehaviour
             Debug.Log("Menu should open");
             SetUI(UIState.menuScreen);
         }
+        if (Input.GetKeyUp(KeyCode.O))
+        {
+            PrintCurrentState();
+        }
     }
 
     public void CloseUI()
@@ -177,5 +181,10 @@ public class UIManager : MonoBehaviour
 
         selectedNode = null;
         SetUI(UIState.nodeScreen);
+    }
+
+    public void PrintCurrentState()
+    {
+        Debug.Log(currentState);
     }
 }
