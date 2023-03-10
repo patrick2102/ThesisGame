@@ -30,7 +30,8 @@ public class TurnMonsterAI : MonoBehaviour
         // playerObject = GameObject.FindWithTag("Player");
         turnMonsterRB2D = gameObject.GetComponent<Rigidbody2D>();
         childSprite = gameObject.GetComponent<Transform>().GetChild(0);
-        // No idea why + 1.5f is necessary, but it makes the circle line up perfectly...
+        // No idea why + 1.5f is necessary, but it makes the circle line up perfectly when aggrorange is 8...
+        // Some math that is always correct no matter the aggroRangeRadius would be nice...
         childSprite.localScale = childSprite.localScale * (aggroRangeRadius + 1.5f);
     }
 
