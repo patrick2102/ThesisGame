@@ -14,13 +14,15 @@ public class PressurePlateTrigger : TriggerBase
         switch (tag)
         {
             case nameof(GameObjectTags.Player):
-                doorCollider.enabled = false;
+                if(doorCollider != null)
+                    doorCollider.enabled = false;
                 door.transform.position = moveToPosition.position;
                 if (objectToRemove != null)
                     Destroy(objectToRemove);
                 break;
             case nameof(GameObjectTags.Robot):
-                doorCollider.enabled = false;
+                if (doorCollider != null)
+                    doorCollider.enabled = false;
                 door.transform.position = moveToPosition.position;
                 if (objectToRemove != null)
                     Destroy(objectToRemove);
