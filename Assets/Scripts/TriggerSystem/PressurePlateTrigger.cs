@@ -8,7 +8,7 @@ public class PressurePlateTrigger : TriggerBase
     [SerializeField] private BoxCollider2D doorCollider;
     [SerializeField] private Transform moveToPosition;
 
-    public override void HandleTrigger(string tag)
+    public override void HandleTriggerEnter(string tag)
     {
         switch (tag)
         {
@@ -23,5 +23,10 @@ public class PressurePlateTrigger : TriggerBase
             default:
                 break;
         }
+    }
+
+    public override void HandleTriggerExit(string tag)
+    {
+        return;
     }
 }

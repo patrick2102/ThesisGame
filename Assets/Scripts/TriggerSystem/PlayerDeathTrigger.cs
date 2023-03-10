@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerDeathTrigger : TriggerBase
 {
-    public override void HandleTrigger(string tag)
+    public override void HandleTriggerEnter(string tag)
     {
         switch (tag)
         {
@@ -12,5 +12,10 @@ public class PlayerDeathTrigger : TriggerBase
             default:
                 break;
         }
+    }
+
+    public override void HandleTriggerExit(string tag)
+    {
+        throw new System.NotImplementedException();
     }
 }

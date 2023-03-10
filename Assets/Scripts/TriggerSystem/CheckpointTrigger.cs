@@ -8,7 +8,7 @@ public class CheckpointTrigger : TriggerBase
     [SerializeField] private Transform respawnPoint;
     public int checkpointOrder;
 
-    public override void HandleTrigger(string tag)
+    public override void HandleTriggerEnter(string tag)
     {
 
         switch (tag)
@@ -24,5 +24,10 @@ public class CheckpointTrigger : TriggerBase
     public Transform GetSpawnPoint()
     {
         return respawnPoint;
+    }
+
+    public override void HandleTriggerExit(string tag)
+    {
+        return;
     }
 }
