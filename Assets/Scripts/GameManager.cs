@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
             robot.GetComponent<Rigidbody2D>().angularVelocity = 0;
             if (lastRobotSeperateSpawn != null)
             {
-                player.transform.SetPositionAndRotation(lastPlayerSeperateSpawn.GetSpawnPoint().position, lastPlayerSeperateSpawn.GetSpawnPoint().rotation);
+                robot.transform.SetPositionAndRotation(lastRobotSeperateSpawn.GetSpawnPoint().position, lastRobotSeperateSpawn.GetSpawnPoint().rotation);
             }
             else
             {
