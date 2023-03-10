@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     private GameObject robot;
     private GameObject[] monsters;
+    private GameObject[] pressurePlates;
     private (Vector3, Quaternion)[] monsterSpawns;
 
     //If they spawn in seperate places
@@ -83,6 +84,15 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        //Reset doors opened using pressureplates, if they are marked to reset:
+        for (int i = 0; i < pressurePlates.Length; i++)
+        {
+            if (pressurePlates[i].GetComponent<PressurePlateTrigger>().resetPositionAtRestart)
+            {
+                pressurePlates[i].GetComponent<PressurePlateTrigger>().door.transform.position = pressurePlates[i].GetComponent<PressurePlateTrigger>().GetOriginalDoorPosition();
+            }
+        }
+
         //Spawn monsters back at start point:
         for (int i = 0; i < monsters.Length; i++)
         {
@@ -138,6 +148,8 @@ public class GameManager : MonoBehaviour
         monsters = GameObject.FindGameObjectsWithTag(GameObjectTags.Monster.ToString());
         if (monsters != null)
             monsterSpawns = monsters.Select(x => (x.transform.position, x.transform.rotation)).ToArray();
+
+        pressurePlates = GameObject.FindGameObjectsWithTag(GameObjectTags.PressurePlate.ToString());
 
         Restart();
     }

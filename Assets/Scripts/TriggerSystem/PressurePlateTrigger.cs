@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class PressurePlateTrigger : TriggerBase
 {
-    [SerializeField] private GameObject door;
+    public GameObject door;
     [SerializeField] private BoxCollider2D doorCollider;
     [SerializeField] private Transform moveToPosition;
     [SerializeField] private GameObject objectToRemove;
+    public bool resetPositionAtRestart;
+    private Vector3 originalDoorPosition;
+
+    public void Awake()
+    {
+        originalDoorPosition= door.transform.position;
+    }
 
     public override void HandleTriggerEnter(string tag)
     {
@@ -35,5 +42,10 @@ public class PressurePlateTrigger : TriggerBase
     public override void HandleTriggerExit(string tag)
     {
         return;
+    }
+
+    public Vector3 GetOriginalDoorPosition()
+    {
+        return originalDoorPosition;
     }
 }
