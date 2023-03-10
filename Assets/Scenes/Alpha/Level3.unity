@@ -468,10 +468,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2042428734, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1942185093936860128, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -519,38 +515,6 @@ PrefabInstance:
     - target: {fileID: 1942185093936860129, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
       propertyPath: m_Name
       value: Player 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1942185093936860129, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1942185094812692824, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1942185094927413337, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
-      propertyPath: m_SortingOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1942185094927765685, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1942185094941894952, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1942185095429561734, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1942185095787503300, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8096946404682413749, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
-      propertyPath: m_Radius
-      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -620,6 +584,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1099907483062752892, guid: 89731342a56b16845bdc11ba16a6771c, type: 3}
+      propertyPath: checkpointOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4736656855916581136, guid: 89731342a56b16845bdc11ba16a6771c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.299
@@ -800,6 +768,10 @@ PrefabInstance:
     - target: {fileID: 4556276228967378855, guid: 5777cc62ee8f0684aba9e081c47eba5a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4556276230202327124, guid: 5777cc62ee8f0684aba9e081c47eba5a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.96
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2115,6 +2087,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1099907483062752892, guid: 89731342a56b16845bdc11ba16a6771c, type: 3}
+      propertyPath: checkpointOrder
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4736656855916581136, guid: 89731342a56b16845bdc11ba16a6771c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.44
@@ -8527,7 +8503,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860111704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 41.5314, y: 22.9095, z: 0.66971457}
+  m_LocalPosition: {x: 41.53, y: 22.83, z: 0.66971457}
   m_LocalScale: {x: 3.1757033, y: 3.2111566, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8921,7 +8897,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.03333336, y: 0.03333336, z: 0}
   m_MaxChunkCount: 16
