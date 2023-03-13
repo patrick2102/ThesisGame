@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Alpha/SubL1-ProgramThroughPath.unity
     guid: 531109b0a391e564da0fa06e341f5d8c
   - enabled: 1
+    path: Assets/Scenes/Alpha/L2-RemoteProgramming.unity
+    guid: b151728b220a78a41bd1d3125cfe9488
+  - enabled: 1
     path: Assets/Scenes/Alpha/Level3.unity
     guid: d909a677e95321b45a57385a19c1011f
   m_configObjects: {}
