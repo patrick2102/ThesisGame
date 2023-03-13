@@ -1815,6 +1815,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6252305590682732744, guid: c27c9b527c8fa134d849bb67bc5b76c4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6252305590682732747, guid: c27c9b527c8fa134d849bb67bc5b76c4, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -7478,7 +7482,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.03333336, y: 0.03333336, z: 0}
   m_MaxChunkCount: 16
@@ -14270,7 +14274,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 11
-      m_TileSpriteIndex: 11
+      m_TileSpriteIndex: 28
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -15549,8 +15553,8 @@ Tilemap:
     m_Data: {fileID: 1968548154, guid: 2a5feb24d3e7737458d7bbb4dc4858be, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 483712137, guid: 2a5feb24d3e7737458d7bbb4dc4858be, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -959702972, guid: 2a5feb24d3e7737458d7bbb4dc4858be, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 2
@@ -15583,8 +15587,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -959702972, guid: 2a5feb24d3e7737458d7bbb4dc4858be, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 1120412325, guid: 2a5feb24d3e7737458d7bbb4dc4858be, type: 3}
   - m_RefCount: 2
@@ -16381,7 +16385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6919612060595603961, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00003260831
+      value: 0.0007200953
       objectReference: {fileID: 0}
     - target: {fileID: 6919612060911552343, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchorMax.y
