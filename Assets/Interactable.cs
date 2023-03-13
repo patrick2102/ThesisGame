@@ -21,17 +21,23 @@ public class Interactable : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        interactionState = InteractionState.canInteract;
-        UIManager.instance.SetUI(UIManager.UIState.interactScreen);
-        withinRange = true;
+        if (collision.tag == GameObjectTags.Player.ToString())
+        {
+            interactionState = InteractionState.canInteract;
+            UIManager.instance.SetUI(UIManager.UIState.interactScreen);
+            withinRange = true;
+        }
         //UIManager.instance.SetInteractScreen(withinRange);
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        interactionState = InteractionState.cannotInteract;
-        UIManager.instance.SetUI(UIManager.UIState.closed);
-        withinRange = false;
+        if (collision.tag == GameObjectTags.Player.ToString())
+        {
+            interactionState = InteractionState.cannotInteract;
+            UIManager.instance.SetUI(UIManager.UIState.closed);
+            withinRange = false;
+        }
         //UIManager.instance.SetInteractScreen(withinRange);
     }
 

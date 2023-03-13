@@ -16,6 +16,6 @@ public class PlayerDeathTrigger : TriggerBase
 
     public override void HandleTriggerExit(string tag)
     {
-        throw new System.NotImplementedException();
+        return;
     }
 }
