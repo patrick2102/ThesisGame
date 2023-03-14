@@ -80,7 +80,7 @@ public class RobotMovementVisualiser : MonoBehaviour
         {
             case DirectionCommand:
                 var c = (DirectionCommand)command;
-                var f = robotRB.mass * (c.direction / c.maxTimer);
+                var f = (1f/robotRB.mass) * (c.direction / c.maxTimer);
                 return f;
             default:
                 break;

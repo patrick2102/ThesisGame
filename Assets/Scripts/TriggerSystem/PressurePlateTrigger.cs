@@ -8,6 +8,7 @@ public class PressurePlateTrigger : TriggerBase
     [SerializeField] private BoxCollider2D doorCollider;
     [SerializeField] private Transform moveToPosition;
     [SerializeField] private GameObject objectToRemove;
+    [SerializeField] private CheckpointTrigger checkpoint;
     public bool resetPositionAtRestart;
     private Vector3 originalDoorPosition;
 
@@ -25,14 +26,14 @@ public class PressurePlateTrigger : TriggerBase
                     doorCollider.enabled = false;
                 door.transform.position = moveToPosition.position;
                 if (objectToRemove != null)
-                    Destroy(objectToRemove);
+                    objectToRemove.SetActive(false);
                 break;
             case nameof(GameObjectTags.Robot):
                 if (doorCollider != null)
                     doorCollider.enabled = false;
                 door.transform.position = moveToPosition.position;
                 if (objectToRemove != null)
-                    Destroy(objectToRemove);
+                    objectToRemove.SetActive(false);
                 break;
             default:
                 break;
@@ -47,5 +48,19 @@ public class PressurePlateTrigger : TriggerBase
     public Vector3 GetOriginalDoorPosition()
     {
         return originalDoorPosition;
+    }
+
+    public void ResetTrigger()
+    {
+        if (checkpoint != null && !checkpoint.checkpointTriggered)
+        {
+            if (doorCollider != null)
+                doorCollider.enabled = true;
+
+            if (objectToRemove != null)
+                objectToRemove.SetActive(true);
+
+            door.transform.position = originalDoorPosition;
+        }
     }
 }

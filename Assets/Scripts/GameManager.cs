@@ -87,10 +87,11 @@ public class GameManager : MonoBehaviour
         //Reset doors opened using pressureplates, if they are marked to reset:
         for (int i = 0; i < pressurePlates.Length; i++)
         {
-            if (pressurePlates[i].GetComponent<PressurePlateTrigger>().resetPositionAtRestart)
-            {
-                pressurePlates[i].GetComponent<PressurePlateTrigger>().door.transform.position = pressurePlates[i].GetComponent<PressurePlateTrigger>().GetOriginalDoorPosition();
-            }
+            pressurePlates[i].GetComponent<PressurePlateTrigger>().ResetTrigger();
+            //if (pressurePlates[i].GetComponent<PressurePlateTrigger>().resetPositionAtRestart)
+            //{
+            //    pressurePlates[i].GetComponent<PressurePlateTrigger>().ResetTrigger();
+            //}
         }
 
         //Spawn monsters back at start point:
