@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject interactView;
     [SerializeField] private Canvas canvas;
     [SerializeField] private LineRenderer startConnectionLine;
+    [SerializeField] private LineRenderer connectionLine;
 
     private CircuitNode selectedNode;
     private Vector2 startConnectionPos;
@@ -112,6 +113,16 @@ public class UIManager : MonoBehaviour
             //Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
             startConnectionLine.SetPosition(1, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
+
+        if (currentState != UIState.closed || currentState != UIState.interactScreen)
+        {
+            connectionLine.gameObject.SetActive(true);
+            UpdateConnectionLine();
+        }
+        else
+        {
+            connectionLine.gameObject.SetActive(false);
+        }
     }
 
     public void SetMousedOverNode(CircuitNode node)
@@ -178,6 +189,7 @@ public class UIManager : MonoBehaviour
         currentState = UIState.nodeScreen;
         node.SetNextNode(selectedNode);
         RobotMovementVisualiser.instance.UpdatePath();
+        UpdateConnectionLine();
     }
 
     private void DisconnectNodes(CircuitNode node)
@@ -185,6 +197,7 @@ public class UIManager : MonoBehaviour
         currentState = UIState.nodeScreen;
         node.RemoveNextNode();
         RobotMovementVisualiser.instance.UpdatePath();
+        UpdateConnectionLine();
     }
 
     private void OpenCommandScreen(CircuitNode node)
@@ -208,5 +221,33 @@ public class UIManager : MonoBehaviour
     public void PrintCurrentState()
     {
         Debug.Log(currentState);
+    }
+
+    private void UpdateConnectionLine()
+    {
+        int maxDepth = 100;
+
+        int count = 0;
+        var node = NodesScreen.instance.inputNode;
+
+        var positions = new List<Vector2>();
+
+        while (node != null && count < maxDepth)
+        {
+            var pos = node.transform.position;
+
+            positions.Add(pos);
+
+            node = node.GetNextNode();
+
+            count++;
+        }
+
+        connectionLine.positionCount = count;
+
+        for (int i = 0; i < count; i++)
+        {
+            connectionLine.SetPosition(i, positions[i]);
+        }
     }
 }

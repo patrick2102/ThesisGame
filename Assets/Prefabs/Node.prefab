@@ -177,7 +177,7 @@ MonoBehaviour:
   nextNode: {fileID: 0}
   command: {fileID: 8275842128769878118}
   nodeText: {fileID: 5595581387964285559}
-  nodeConnectionPrefab: {fileID: 181909880706479413, guid: 56cdd2c24bae984448272bbb0d053763, type: 3}
+  nodeConnectionPrefab: {fileID: 181909880706479413, guid: 8c10f2e51e5f8554999de150052b2807, type: 3}
 --- !u!1 &7910874195708061149
 GameObject:
   m_ObjectHideFlags: 0
