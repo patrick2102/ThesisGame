@@ -65,6 +65,7 @@ public class UIManager : MonoBehaviour
             commandView.SetActive(false);
             nodesView.SetActive(true);
             interactView.SetActive(false);
+            GameManager.instance.ChangeView(GameManager.CameraState.pathCamera);
         }
         else if (currentState == UIState.commandScreen)
         {
@@ -72,6 +73,7 @@ public class UIManager : MonoBehaviour
             commandView.SetActive(true);
             nodesView.SetActive(true);
             interactView.SetActive(false);
+            GameManager.instance.ChangeView(GameManager.CameraState.pathCamera);
         }
 
         else if (currentState == UIState.menuScreen)
@@ -88,7 +90,7 @@ public class UIManager : MonoBehaviour
             commandView.SetActive(false);
             nodesView.SetActive(false);
             interactView.SetActive(false);
-
+            GameManager.instance.ChangeView(GameManager.CameraState.playerCamera);
         }
         else if (currentState == UIState.interactScreen)
         {
@@ -96,6 +98,7 @@ public class UIManager : MonoBehaviour
             commandView.SetActive(false);
             nodesView.SetActive(false);
             interactView.SetActive(true);
+            GameManager.instance.ChangeView(GameManager.CameraState.playerCamera);
         }
     }
 
