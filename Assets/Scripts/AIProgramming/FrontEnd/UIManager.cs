@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject commandView;
     [SerializeField] private GameObject nodesView;
     [SerializeField] private GameObject interactView;
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private LineRenderer startConnectionLine;
 
     private CircuitNode selectedNode;
     private Vector2 startConnectionPos;
@@ -34,6 +36,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         SetUI(UIState.closed);
+        canvas.worldCamera = Camera.main;
     }
 
     // Update is called once per frame
@@ -106,7 +109,8 @@ public class UIManager : MonoBehaviour
     {
         if (currentState == UIState.connectingNodes)
         {
-            Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
+            //Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
+            startConnectionLine.SetPosition(1, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
     }
 
@@ -122,7 +126,9 @@ public class UIManager : MonoBehaviour
     {
         if (currentState == UIState.nodeScreen)
         {
-            startConnectionPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //startConnectionLine.gameObject.SetActive(true);
+            startConnectionLine.SetPosition(0, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            //startConnectionPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             currentState = UIState.connectingNodes;
         }
     }
@@ -142,7 +148,14 @@ public class UIManager : MonoBehaviour
             {
                 ConnectNodes(node);
             }
+            else
+            {
+                DisconnectNodes(node);
+            }
         }
+        startConnectionLine.SetPosition(0, Vector2.zero);
+        startConnectionLine.SetPosition(1, Vector2.zero);
+        //startConnectionLine.gameObject.SetActive(false);
     }
 
     public void RightClickNode(CircuitNode node)
@@ -163,10 +176,15 @@ public class UIManager : MonoBehaviour
     private void ConnectNodes(CircuitNode node)
     {
         currentState = UIState.nodeScreen;
-
-        //FIXME temporary debug drawline to show nodes are connected 
-
         node.SetNextNode(selectedNode);
+        RobotMovementVisualiser.instance.UpdatePath();
+    }
+
+    private void DisconnectNodes(CircuitNode node)
+    {
+        currentState = UIState.nodeScreen;
+        node.RemoveNextNode();
+        RobotMovementVisualiser.instance.UpdatePath();
     }
 
     private void OpenCommandScreen(CircuitNode node)
@@ -184,6 +202,7 @@ public class UIManager : MonoBehaviour
 
         selectedNode = null;
         SetUI(UIState.nodeScreen);
+        RobotMovementVisualiser.instance.UpdatePath();
     }
 
     public void PrintCurrentState()

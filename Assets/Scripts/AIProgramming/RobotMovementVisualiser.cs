@@ -1,15 +1,17 @@
 using Cinemachine;
+using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class RobotMovementVisualiser : MonoBehaviour
 {
-    [SerializeField] private RobotController robotSimulation;
     [SerializeField] private LineRenderer robotPath;
-    [SerializeField] private Rigidbody2D robotRB;
     [SerializeField] private CinemachineTargetGroup targetGroup;
+    private RobotController robotController;
+    private Rigidbody2D robotRB;
     public static RobotMovementVisualiser instance;
-    public bool updatePath = true;
+    private bool updatePath = false;
     private List<Transform> pathPositions = new List<Transform>();
 
     private void Awake()
@@ -17,17 +19,23 @@ public class RobotMovementVisualiser : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            for (int i = 0; i < 20; i++)
-            {
-                var p = new GameObject("PathPoint");
-                p.hideFlags = HideFlags.HideInHierarchy;
-                p.transform.position = Vector3.zero;
-                pathPositions.Add(p.transform);
-                targetGroup.AddMember(p.transform, 0, 4);
-            }
         }
         else if (instance != this)
             Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        robotController = RobotController.instance;
+        robotRB = robotController.gameObject.GetComponent<Rigidbody2D>();
+        for (int i = 0; i < 20; i++)
+        {
+            var p = new GameObject("PathPoint");
+            p.hideFlags = HideFlags.HideInHierarchy;
+            p.transform.position = Vector3.zero;
+            pathPositions.Add(p.transform);
+            targetGroup.AddMember(p.transform, 0, 4);
+        }
     }
 
     private void FixedUpdate()
@@ -35,17 +43,22 @@ public class RobotMovementVisualiser : MonoBehaviour
         //Show robot path
         //UpdatePath();
 
-        if (updatePath)
-        {   
-            robotPath.gameObject.SetActive(true);
-            UpdatePath();
+        if (robotPath.positionCount > 0)
+        {
+            var dist = (robotPath.GetPosition(0) - robotController.transform.position).magnitude;
+            if (dist > 0.1f)
+                UpdatePath();
         }
-        else
-            robotPath.gameObject.SetActive(false);
     }
 
-    private void UpdatePath()
+    public void RenderPath(bool render)
     {
+        robotPath.gameObject.SetActive(render);
+    }
+
+    public void UpdatePath()
+    {
+        robotPath.gameObject.SetActive(true);
         //var simulation = AIProgramBackendManager.instance.GetActiveProgram();
         var simulation = AIProgram.activeProgram;
 
@@ -68,6 +81,9 @@ public class RobotMovementVisualiser : MonoBehaviour
                 //robotPath.SetPosition(i, movement);
                 pathPositions[count].transform.position = robotPosition;
 
+                if(count == 0)
+                    targetGroup.m_Targets[0].weight = 4.0f;
+
                 node = node.GetNextNode();
                 count++;  
                 if (count > maxDepth)
@@ -88,16 +104,16 @@ public class RobotMovementVisualiser : MonoBehaviour
 
     private Vector3 GetForceFromCommand(AICommand command, int index)
     {
+        targetGroup.m_Targets[index].weight = 0.0f;
         switch (command)
         {
             case DirectionCommand:
                 var c = (DirectionCommand)command;
-                var f = (1f/robotRB.mass) * (c.direction / c.maxTimer) * robotSimulation.speed * (1 / robotRB.drag);
+                var f = (1f/robotRB.mass) * (c.direction / c.maxTimer) * robotController.speed * (1 / robotRB.drag);
                 //targetGroup.FindMember(pathPositions[index].transform);
                 targetGroup.m_Targets[index].weight = 4.0f;
                 return f;
             default:
-                targetGroup.m_Targets[index].weight = 0.0f;
                 break;
 
         }

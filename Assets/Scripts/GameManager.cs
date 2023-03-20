@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera playerCamera;
     [SerializeField] private CinemachineVirtualCamera pathCamera;
 
+    //TargetGroups
+    [SerializeField] private CinemachineTargetGroup playerTargetGroup;
+
     public void Awake()
     {
         if (instance == null)
@@ -180,6 +183,16 @@ public class GameManager : MonoBehaviour
             monsterSpawns = monsters.Select(x => (x.transform.position, x.transform.rotation)).ToArray();
 
         pressurePlates = GameObject.FindGameObjectsWithTag(GameObjectTags.PressurePlate.ToString());
+
+        if (playerTargetGroup.FindMember(player.transform) == -1 || playerTargetGroup.FindMember(robot.transform) == -1)
+        {
+            for (int i = 0; i < playerTargetGroup.m_Targets.Length; i++)
+            {
+                playerTargetGroup.RemoveMember(playerTargetGroup.m_Targets[i].target);
+            }
+            playerTargetGroup.AddMember(player.transform, 4, 4);
+            playerTargetGroup.AddMember(robot.transform, 2, 10);
+        }
 
         Restart();
     }

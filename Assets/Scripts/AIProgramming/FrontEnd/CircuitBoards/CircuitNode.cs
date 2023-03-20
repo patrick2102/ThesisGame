@@ -69,7 +69,14 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         nodeConnection.SetPosition(0, transform.position);
         nodeConnection.SetPosition(1, nextNode.transform.position);
         nodeConnection.transform.SetParent(transform);
+    }
 
+    public void RemoveNextNode()
+    {
+        if (nodeConnection != null)
+            Destroy(nodeConnection);
+
+        nextNode = null;
     }
 
     public void ChangeCommand(AICommand newCommand)
