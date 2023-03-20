@@ -52,6 +52,15 @@ public class GameManager : MonoBehaviour
         {
             Restart();
         }
+        if (Input.GetKeyUp(KeyCode.V))
+        {
+            ChangeView();
+        }
+    }
+
+    public void ChangeView()
+    { 
+    
     }
 
     public void Restart()
