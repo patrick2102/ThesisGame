@@ -9,8 +9,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject nodesView;
     [SerializeField] private GameObject interactView;
     [SerializeField] private Canvas canvas;
-    [SerializeField] private LineRenderer startConnectionLine;
-    [SerializeField] private LineRenderer connectionLine;
+    [SerializeField] private LineRenderer startConnectionLinePrefab;
+    [SerializeField] private LineRenderer connectionLinePrefab;
+    private LineRenderer startConnectionLine;
+    private LineRenderer connectionLine;
 
     private CircuitNode selectedNode;
     private Vector2 startConnectionPos;
@@ -38,6 +40,8 @@ public class UIManager : MonoBehaviour
     {
         SetUI(UIState.closed);
         canvas.worldCamera = Camera.main;
+        startConnectionLine = Instantiate(startConnectionLinePrefab);
+        connectionLine = Instantiate(connectionLinePrefab);
     }
 
     // Update is called once per frame
@@ -114,7 +118,7 @@ public class UIManager : MonoBehaviour
             startConnectionLine.SetPosition(1, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
 
-        if (currentState != UIState.closed || currentState != UIState.interactScreen)
+        if (currentState != UIState.closed && currentState != UIState.interactScreen)
         {
             connectionLine.gameObject.SetActive(true);
             UpdateConnectionLine();
