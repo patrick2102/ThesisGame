@@ -243,6 +243,19 @@ public class UIManager : MonoBehaviour
 
             count++;
         }
+        //connectionLine.SetPosition(0, positions[0]);
+
+        //float threshold = 0.5f;
+        //int index = 1;
+
+        //for (int i = 1; i < count; i++)
+        //{
+        //    if ((positions[i] - positions[i - 1]).magnitude > threshold)
+        //    {
+        //        connectionLine.SetPosition(index++, positions[i]);
+        //        connectionLine.positionCount = index;
+        //    }
+        //}
 
         connectionLine.positionCount = count;
 

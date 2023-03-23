@@ -28,7 +28,7 @@ public class RobotMovementVisualiser : MonoBehaviour
     {
         robotController = RobotController.instance;
         robotRB = robotController.gameObject.GetComponent<Rigidbody2D>();
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 100; i++)
         {
             var p = new GameObject("PathPoint");
             p.hideFlags = HideFlags.HideInHierarchy;
@@ -62,7 +62,7 @@ public class RobotMovementVisualiser : MonoBehaviour
         //var simulation = AIProgramBackendManager.instance.GetActiveProgram();
         var simulation = AIProgram.activeProgram;
 
-        int maxDepth = 100;
+        int maxDepth = AIProgram.activeProgram.maxCommands;
 
         if (simulation != null)
         {
@@ -77,8 +77,8 @@ public class RobotMovementVisualiser : MonoBehaviour
             {
                 var command = node.GetCommand();
                 var movement = (Vector2)GetForceFromCommand(command, count);
-                robotPosition += movement;
                 //robotPath.SetPosition(i, movement);
+                robotPosition += movement;
                 pathPositions[count].transform.position = robotPosition;
 
                 if(count == 0)
@@ -86,16 +86,42 @@ public class RobotMovementVisualiser : MonoBehaviour
 
                 node = node.GetNextNode();
                 count++;  
-                if (count > maxDepth)
+                if (count >= maxDepth)
                     break;
             }
 
-            robotPath.positionCount = count;
+            robotPath.SetPosition(0, pathPositions[0].transform.position);
 
-            for (int i = 0; i < count; i++)
+            float threshold = 0.5f;
+            int index = 1;
+
+            robotPath.positionCount = 1;
+
+            for (int i = 1; i < maxDepth; i++)
             {
-                robotPath.SetPosition(i, (Vector2)pathPositions[i].transform.position);
+                targetGroup.m_Targets[i].weight = 0.0f;
             }
+
+            for (int i = 1; i < count; i++)
+            {
+                if ((pathPositions[i].transform.position - pathPositions[i - 1].transform.position).magnitude > threshold)
+                {
+                    robotPath.positionCount = index + 1;
+                    robotPath.SetPosition(index++, pathPositions[i].transform.position);
+                    targetGroup.m_Targets[i].weight = 4.0f;
+                }
+                else
+                {
+                    targetGroup.m_Targets[i].weight = 0.0f;
+                }
+            }
+
+            //robotPath.positionCount = count;
+
+            //for (int i = 0; i < count; i++)
+            //{
+            //    robotPath.SetPosition(i, (Vector2)pathPositions[i].transform.position);
+            //}
 
         }
 
@@ -104,14 +130,12 @@ public class RobotMovementVisualiser : MonoBehaviour
 
     private Vector3 GetForceFromCommand(AICommand command, int index)
     {
-        targetGroup.m_Targets[index].weight = 0.0f;
         switch (command)
         {
             case DirectionCommand:
                 var c = (DirectionCommand)command;
                 var f = (1f/robotRB.mass) * (c.direction / c.maxTimer) * robotController.speed * (1 / robotRB.drag);
                 //targetGroup.FindMember(pathPositions[index].transform);
-                targetGroup.m_Targets[index].weight = 4.0f;
                 return f;
             default:
                 break;

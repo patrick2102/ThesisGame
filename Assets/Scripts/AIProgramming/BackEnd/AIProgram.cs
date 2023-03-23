@@ -10,6 +10,8 @@ public class AIProgram : MonoBehaviour
     public CircuitNode initialNodeForResetting;
     public static AIProgram activeProgram;
     public RobotController robotController;
+    public int maxCommands;
+    private int currentCommandCount;
     ProgramStatus status;
 
     private void Awake()
@@ -22,13 +24,14 @@ public class AIProgram : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void SetupProgram(RobotController rbc, CircuitNode initialNode)
+    public void SetupProgram(RobotController rbc, CircuitNode initialNode, int maxCommands = 20)
     {
         robotController = rbc;
         firstNode = initialNode;
         currentNode = initialNode;
         initialNodeForResetting = initialNode;
         status = ProgramStatus.stopped;
+        this.maxCommands = maxCommands;
     }
 
     public void FixedUpdate()
@@ -55,6 +58,12 @@ public class AIProgram : MonoBehaviour
 
     public ProgramStatus StepProgram(RobotController rbc)
     {
+        if (currentCommandCount >= maxCommands)
+        {
+            ResetProgram();
+            return ProgramStatus.stopped;
+        }
+
         if (currentNode == null)
         {
             ResetProgram();
@@ -62,8 +71,11 @@ public class AIProgram : MonoBehaviour
         }
 
         var status = currentNode.GetCommand().Step(rbc);
-        if (status == ProgramStatus.stopped)
+        if (status == ProgramStatus.stopped)    
+        {
+            currentCommandCount++;
             currentNode = currentNode.GetNextNode();
+        }
 
         return ProgramStatus.running;
     }
@@ -71,6 +83,7 @@ public class AIProgram : MonoBehaviour
     public void ResetProgram()
     {
         currentNode = initialNodeForResetting;
+        currentCommandCount = 0;
         status = ProgramStatus.stopped;
     }
 }
