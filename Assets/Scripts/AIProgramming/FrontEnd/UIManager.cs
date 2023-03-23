@@ -8,6 +8,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject commandView;
     [SerializeField] private GameObject nodesView;
     [SerializeField] private GameObject interactView;
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private LineRenderer startConnectionLinePrefab;
+    [SerializeField] private LineRenderer connectionLinePrefab;
+    private LineRenderer startConnectionLine;
+    private LineRenderer connectionLine;
 
     private CircuitNode selectedNode;
     private Vector2 startConnectionPos;
@@ -34,6 +39,9 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         SetUI(UIState.closed);
+        canvas.worldCamera = Camera.main;
+        startConnectionLine = Instantiate(startConnectionLinePrefab);
+        connectionLine = Instantiate(connectionLinePrefab);
     }
 
     // Update is called once per frame
@@ -65,6 +73,7 @@ public class UIManager : MonoBehaviour
             commandView.SetActive(false);
             nodesView.SetActive(true);
             interactView.SetActive(false);
+            GameManager.instance.ChangeView(GameManager.CameraState.pathCamera);
         }
         else if (currentState == UIState.commandScreen)
         {
@@ -72,6 +81,7 @@ public class UIManager : MonoBehaviour
             commandView.SetActive(true);
             nodesView.SetActive(true);
             interactView.SetActive(false);
+            GameManager.instance.ChangeView(GameManager.CameraState.pathCamera);
         }
 
         else if (currentState == UIState.menuScreen)
@@ -88,7 +98,7 @@ public class UIManager : MonoBehaviour
             commandView.SetActive(false);
             nodesView.SetActive(false);
             interactView.SetActive(false);
-
+            GameManager.instance.ChangeView(GameManager.CameraState.playerCamera);
         }
         else if (currentState == UIState.interactScreen)
         {
@@ -96,6 +106,7 @@ public class UIManager : MonoBehaviour
             commandView.SetActive(false);
             nodesView.SetActive(false);
             interactView.SetActive(true);
+            GameManager.instance.ChangeView(GameManager.CameraState.playerCamera);
         }
     }
 
@@ -103,7 +114,18 @@ public class UIManager : MonoBehaviour
     {
         if (currentState == UIState.connectingNodes)
         {
-            Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
+            //Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
+            startConnectionLine.SetPosition(1, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }
+
+        if (currentState != UIState.closed && currentState != UIState.interactScreen)
+        {
+            connectionLine.gameObject.SetActive(true);
+            UpdateConnectionLine();
+        }
+        else
+        {
+            connectionLine.gameObject.SetActive(false);
         }
     }
 
@@ -119,7 +141,9 @@ public class UIManager : MonoBehaviour
     {
         if (currentState == UIState.nodeScreen)
         {
-            startConnectionPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //startConnectionLine.gameObject.SetActive(true);
+            startConnectionLine.SetPosition(0, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            //startConnectionPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             currentState = UIState.connectingNodes;
         }
     }
@@ -139,7 +163,14 @@ public class UIManager : MonoBehaviour
             {
                 ConnectNodes(node);
             }
+            else
+            {
+                DisconnectNodes(node);
+            }
         }
+        startConnectionLine.SetPosition(0, Vector2.zero);
+        startConnectionLine.SetPosition(1, Vector2.zero);
+        //startConnectionLine.gameObject.SetActive(false);
     }
 
     public void RightClickNode(CircuitNode node)
@@ -160,10 +191,17 @@ public class UIManager : MonoBehaviour
     private void ConnectNodes(CircuitNode node)
     {
         currentState = UIState.nodeScreen;
-
-        //FIXME temporary debug drawline to show nodes are connected 
-
         node.SetNextNode(selectedNode);
+        RobotMovementVisualiser.instance.UpdatePath();
+        UpdateConnectionLine();
+    }
+
+    private void DisconnectNodes(CircuitNode node)
+    {
+        currentState = UIState.nodeScreen;
+        node.RemoveNextNode();
+        RobotMovementVisualiser.instance.UpdatePath();
+        UpdateConnectionLine();
     }
 
     private void OpenCommandScreen(CircuitNode node)
@@ -181,10 +219,39 @@ public class UIManager : MonoBehaviour
 
         selectedNode = null;
         SetUI(UIState.nodeScreen);
+        RobotMovementVisualiser.instance.UpdatePath();
     }
 
     public void PrintCurrentState()
     {
         Debug.Log(currentState);
+    }
+
+    private void UpdateConnectionLine()
+    {
+        int maxDepth = 100;
+
+        int count = 0;
+        var node = NodesScreen.instance.inputNode;
+
+        var positions = new List<Vector2>();
+
+        while (node != null && count < maxDepth)
+        {
+            var pos = node.transform.position;
+
+            positions.Add(pos);
+
+            node = node.GetNextNode();
+
+            count++;
+        }
+
+        connectionLine.positionCount = count;
+
+        for (int i = 0; i < count; i++)
+        {
+            connectionLine.SetPosition(i, positions[i]);
+        }
     }
 }

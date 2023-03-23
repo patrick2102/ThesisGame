@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,13 @@ using UnityEngine.VFX;
 
 public class GameManager : MonoBehaviour
 {
+    public enum CameraState
+    { 
+        playerCamera, pathCamera
+    }
+
+    public static CameraState currentCameraState = CameraState.playerCamera;
+
     public static GameManager instance;
 
     [SerializeField] private AIProgram aiProgramPrefab;
@@ -24,6 +32,13 @@ public class GameManager : MonoBehaviour
 
     //If they spawn in the same place
     public CheckpointTrigger lastCheckPoint;
+
+    //Cameras
+    [SerializeField] private CinemachineVirtualCamera playerCamera;
+    [SerializeField] private CinemachineVirtualCamera pathCamera;
+
+    //TargetGroups
+    [SerializeField] private CinemachineTargetGroup playerTargetGroup;
 
     public void Awake()
     {
@@ -51,6 +66,23 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.R))
         {
             Restart();
+        }
+    }
+
+    public void ChangeView(CameraState newCameraState)
+    {
+        currentCameraState = newCameraState;
+
+        if (currentCameraState == CameraState.playerCamera)
+        {
+            playerCamera.Priority = 10;
+            pathCamera.Priority = 0;
+        }
+        else if (currentCameraState == CameraState.pathCamera)
+        {
+            playerCamera.Priority = 0;
+            pathCamera.Priority = 10;
+
         }
     }
 
@@ -151,6 +183,16 @@ public class GameManager : MonoBehaviour
             monsterSpawns = monsters.Select(x => (x.transform.position, x.transform.rotation)).ToArray();
 
         pressurePlates = GameObject.FindGameObjectsWithTag(GameObjectTags.PressurePlate.ToString());
+
+        if (playerTargetGroup.FindMember(player.transform) == -1 || playerTargetGroup.FindMember(robot.transform) == -1)
+        {
+            for (int i = 0; i < playerTargetGroup.m_Targets.Length; i++)
+            {
+                playerTargetGroup.RemoveMember(playerTargetGroup.m_Targets[i].target);
+            }
+            playerTargetGroup.AddMember(player.transform, 4, 4);
+            playerTargetGroup.AddMember(robot.transform, 2, 10);
+        }
 
         Restart();
     }

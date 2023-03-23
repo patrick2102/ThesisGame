@@ -7,10 +7,20 @@ using static Interactable;
  */
 public class RobotController : MonoBehaviour
 {
+    public static RobotController instance;
     public float speed = 50;
-    private bool programmingPanelOpen = false;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Interactable interactable;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+            Destroy(gameObject);
+    }
+
 
     public void MoveDirection(Vector3 direction)
     {
@@ -35,7 +45,6 @@ public class RobotController : MonoBehaviour
     public void OpenProgrammingPanel()
     {
         UIManager.instance.SetUI(UIManager.UIState.nodeScreen);
-        programmingPanelOpen = true;
     }
 
     public void CloseProgrammingPanel()
@@ -44,6 +53,5 @@ public class RobotController : MonoBehaviour
             UIManager.instance.SetUI(UIManager.UIState.interactScreen);
         else
             UIManager.instance.SetUI(UIManager.UIState.closed);
-        programmingPanelOpen = false;
     }
 }
