@@ -36,6 +36,7 @@ public class AIProgram : MonoBehaviour
         if (status == ProgramStatus.running)
         {
             status = activeProgram.StepProgram(robotController);
+            RobotMovementVisualiser.instance.RenderPath(false);
         }
         else
         {
@@ -48,7 +49,6 @@ public class AIProgram : MonoBehaviour
         if (status == ProgramStatus.stopped)
         {
             status = ProgramStatus.running;
-            RobotMovementVisualiser.instance.RenderPath(false);
         }
         return status;
     }
