@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 55b7fb8e59bc4234f99fb83329b6e6bf
+guid: 81ea09901d943e74e9b4c09d2d32f639
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -105,7 +105,112 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Robot_Left_272 1_0
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 185
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d9fff6628426254fa73f25929457d1c
+      internalID: 1628301088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Robot_Left_272 1_1
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 113
+        width: 261
+        height: 181
+      alignment: 9
+      pivot: {x: 0.5669046, y: 0.033265974}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8411bfbe46617554ab89ab1c3c1a9f21
+      internalID: -182590611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Robot_Left_272 1_2
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 25
+        width: 34
+        height: 123
+      alignment: 9
+      pivot: {x: 0.38895315, y: 0.054909915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08541e04c5bee994a9e5a5167e53fcc5
+      internalID: -235394855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Robot_Left_272 1_3
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 13
+        width: 76
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b91d1dd85e4c114da3a1c5f7409432e
+      internalID: 1990948831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Robot_Left_272 1_4
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 19
+        width: 106
+        height: 83
+      alignment: 9
+      pivot: {x: 0.5044524, y: 0.07922628}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fba11bdae683064fbf2ef868cf678ce
+      internalID: -1480558407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -116,7 +221,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Robot_Left_272 1_0: 1628301088
+      Robot_Left_272 1_3: 1990948831
+      Robot_Left_272 1_4: -1480558407
+      Robot_Left_272 1_2: -235394855
+      Robot_Left_272 1_1: -182590611
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

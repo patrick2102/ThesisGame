@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -105,7 +105,112 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Robot_Back_272_0
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 180
+        width: 304
+        height: 181
+      alignment: 9
+      pivot: {x: 0.49791807, y: 0.0384293}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bafdcf7be4ce114fbf4a0380909ae73
+      internalID: -1334374329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Robot_Back_272_1
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 72
+        width: 57
+        height: 111
+      alignment: 9
+      pivot: {x: 0.62214154, y: 0.05525118}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbefb89feb0289a439c6702b614ae102
+      internalID: -2038956450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Robot_Back_272_2
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 78
+        width: 47
+        height: 73
+      alignment: 9
+      pivot: {x: 0.6750609, y: 0.5346802}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 004d7142951b1824a8aefbdb36ef357c
+      internalID: -393689952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Robot_Back_272_3
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 79
+        width: 47
+        height: 73
+      alignment: 9
+      pivot: {x: 0.33840552, y: 0.6213802}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21135b9303bf0c045b45347f3e3f388f
+      internalID: -1720068072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Robot_Back_272_4
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 57
+        width: 106
+        height: 83
+      alignment: 9
+      pivot: {x: 0.5000003, y: 0.08822641}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0a1cb80929b55740a276b2a6f8c8be9
+      internalID: 788408747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -116,7 +221,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Robot_Back_272_4: 788408747
+      Robot_Back_272_1: -2038956450
+      Robot_Back_272_0: -1334374329
+      Robot_Back_272_2: -393689952
+      Robot_Back_272_3: -1720068072
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 
