@@ -28,18 +28,18 @@ public class CircuitInterpreter : MonoBehaviour
         // This does not function on Unix systems, as they have different line endings
         var array = txtLevel.Split('\n');
 
-        var curcuitBoardColumns = array[0].Length -1; //Minus 1 to not count the "\r" character
+        var xLength = array[0].Length -1; //Minus 1 to not count the "\r" character
 
-        var curcuitBoardRows = array.Length;
+        var yLength = array.Length;
 
         NodeType[,] gridRepresentation;
 
-        gridRepresentation = new NodeType[curcuitBoardRows, curcuitBoardColumns]; //TODO replace with tool that can generate gridnodes
+        gridRepresentation = new NodeType[xLength, yLength]; //TODO replace with tool that can generate gridnodes
         //var circuitNodes = new CircuitNode[(int)grideSize.x, (int)grideSize.y];
 
-        for (int i = 0; i < curcuitBoardRows; i++)
+        for (int i = 0; i < yLength; i++)
         {
-            for (int j = 0; j < curcuitBoardColumns; j++)
+            for (int j = 0; j < xLength; j++)
             {
                 char c = array[i][j];
 
@@ -53,15 +53,15 @@ public class CircuitInterpreter : MonoBehaviour
                         break;
                     case 'I':
                         //Input node
-                        gridRepresentation[i, j] = NodeType.InputNode;
+                        gridRepresentation[j, i] = NodeType.InputNode;
                         break;
                     case 'O':
                         //Output node
-                        gridRepresentation[i, j] = NodeType.OutputNode;
+                        gridRepresentation[j, i] = NodeType.OutputNode;
                         break;
                     case 'N':
                         //Normal "Circuit" node
-                        gridRepresentation[i, j] = NodeType.CircuitNode;
+                        gridRepresentation[j, i] = NodeType.CircuitNode;
                         break;
                 }
             }

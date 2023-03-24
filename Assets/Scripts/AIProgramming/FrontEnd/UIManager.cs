@@ -56,6 +56,22 @@ public class UIManager : MonoBehaviour
         {
             PrintCurrentState();
         }
+
+        if (currentState == UIState.connectingNodes)
+        {
+            //Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
+            startConnectionLine.SetPosition(1, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }
+
+        if (currentState == UIState.nodeScreen || currentState == UIState.commandScreen)
+        {
+            connectionLine.gameObject.SetActive(true);
+            UpdateConnectionLine();
+        }
+        else
+        {
+            connectionLine.gameObject.SetActive(false);
+        }
     }
 
     public void CloseUI()
@@ -107,25 +123,6 @@ public class UIManager : MonoBehaviour
             nodesView.SetActive(false);
             interactView.SetActive(true);
             GameManager.instance.ChangeView(GameManager.CameraState.playerCamera);
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (currentState == UIState.connectingNodes)
-        {
-            //Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
-            startConnectionLine.SetPosition(1, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }
-
-        if (currentState != UIState.closed && currentState != UIState.interactScreen)
-        {
-            connectionLine.gameObject.SetActive(true);
-            UpdateConnectionLine();
-        }
-        else
-        {
-            connectionLine.gameObject.SetActive(false);
         }
     }
 
@@ -246,6 +243,19 @@ public class UIManager : MonoBehaviour
 
             count++;
         }
+        //connectionLine.SetPosition(0, positions[0]);
+
+        //float threshold = 0.5f;
+        //int index = 1;
+
+        //for (int i = 1; i < count; i++)
+        //{
+        //    if ((positions[i] - positions[i - 1]).magnitude > threshold)
+        //    {
+        //        connectionLine.SetPosition(index++, positions[i]);
+        //        connectionLine.positionCount = index;
+        //    }
+        //}
 
         connectionLine.positionCount = count;
 
