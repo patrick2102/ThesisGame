@@ -7,10 +7,18 @@ using static Interactable;
  */
 public class RobotController : MonoBehaviour
 {
+    public enum RobotBehaviourState
+    {
+        none, distracting, pickup, putdown
+    }
+
+    public RobotBehaviourState behaviorState = RobotBehaviourState.none;
     public static RobotController instance;
     public float speed = 50;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Interactable interactable;
+    public Transform objectToPickup;
+
     private void Awake()
     {
         if (instance == null)
@@ -28,6 +36,11 @@ public class RobotController : MonoBehaviour
 
         var force = speed * direction;
         rb.AddForce(force);
+    }
+
+    public void SetBehaviorState(RobotBehaviourState rbs)
+    {
+        behaviorState = rbs;
     }
 
     private void Update()
