@@ -54,4 +54,6 @@ public class RobotController : MonoBehaviour
         else
             UIManager.instance.SetUI(UIManager.UIState.closed);
     }
+
+    
 }
