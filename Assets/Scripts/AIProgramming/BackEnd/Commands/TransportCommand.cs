@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class TransportCommand : AICommand
 {
+    float timer; // Timer to that counts up to maxTimer to control time before going to the next command
+    [SerializeField] public float maxTimer;
     bool firstRun = true;
-    Transform pickUpObject;
+    Transform target;
+    Transform putDownLocation;
 
     public override ProgramStatus Step(RobotController rbc)
     {
@@ -17,22 +20,39 @@ public class TransportCommand : AICommand
         if (rbc.behaviorState == RobotController.RobotBehaviourState.pickup)
         {
 
-            if (pickUpObject == null)
-                pickUpObject = RobotController.instance.objectToPickup;
+            if (target == null)
+                target = RobotController.instance.objectToPickup;
 
 
-            var fromRobotToObject = pickUpObject.position - rbc.transform.position;
+            var fromRobotToObject = target.position - rbc.transform.position;
             var dist = fromRobotToObject.magnitude;
             fromRobotToObject = fromRobotToObject.normalized;
 
-            timer += Time.deltaTime;
+            rbc.MoveDirection(fromRobotToObject);
+
+            if (dist < 1.0f)
+            {
+                //Make robot pick up object
+                rbc.SetBehaviorState(RobotController.RobotBehaviourState.putdown);
+            }
+
             return ProgramStatus.running;
         }
-        else
+        else if (rbc.behaviorState == RobotController.RobotBehaviourState.putdown)
         {
-            rbc.SetBehaviorState(RobotController.RobotBehaviourState.none);
-            timer = 0;
-            return ProgramStatus.stopped;
+            var fromRobotToPutDown = putDownLocation.position - rbc.transform.position;
+            var dist = fromRobotToPutDown.magnitude;
+            fromRobotToPutDown = fromRobotToPutDown.normalized;
+
+            rbc.MoveDirection(fromRobotToPutDown);
+
+            if (dist < 1.0f)
+            {
+                //Make robot pick up object
+                rbc.SetBehaviorState(RobotController.RobotBehaviourState.none);
+                return ProgramStatus.stopped;
+            }
+            return ProgramStatus.running;
         }
     }
 }
