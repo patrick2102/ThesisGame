@@ -8954,6 +8954,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.95
       objectReference: {fileID: 0}
+    - target: {fileID: 5164361096527818342, guid: 5777cc62ee8f0684aba9e081c47eba5a, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5164361096527818342, guid: 5777cc62ee8f0684aba9e081c47eba5a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5164361096527818342, guid: 5777cc62ee8f0684aba9e081c47eba5a, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5777cc62ee8f0684aba9e081c47eba5a, type: 3}
@@ -12079,9 +12091,17 @@ PrefabInstance:
       value: Robot character
       objectReference: {fileID: 0}
     - target: {fileID: 1263074286403823846, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+      propertyPath: speed
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1263074286403823846, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
       propertyPath: interactable
       value: 
       objectReference: {fileID: 1992498645}
+    - target: {fileID: 8938137038349458981, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
@@ -12439,7 +12459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 251547190993988645, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00013144298
+      value: 0.00001943229
       objectReference: {fileID: 0}
     - target: {fileID: 251547191441269380, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_Size
