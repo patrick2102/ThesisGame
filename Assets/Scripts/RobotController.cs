@@ -40,6 +40,7 @@ public class RobotController : MonoBehaviour
         {
             CloseProgrammingPanel();
         }
+
     }
 
     public void OpenProgrammingPanel()
