@@ -55,10 +55,16 @@ public class RobotController : MonoBehaviour
         }
     }
 
-    public void PickUp()
+    public void PickUp(Pickupable objectToPickup)
     {
         SetBehaviorState(RobotBehaviourState.putdown);
-        objectToPickup.transform.position = transform.position + transform.up * 2.0f;
+        objectToPickup.PickUp();
+    }
+
+    public void PutDown(Pickupable objectToPickup)
+    {
+        SetBehaviorState(RobotBehaviourState.none);
+        objectToPickup.PutDown();
     }
 
     public void OpenProgrammingPanel()

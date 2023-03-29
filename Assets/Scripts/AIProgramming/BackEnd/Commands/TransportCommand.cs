@@ -4,8 +4,14 @@ public class TransportCommand : AICommand
 {
     private bool isFirstStep = true;
     [SerializeField] private float pickupDistance;
-    private Transform targetObject;
+    private Pickupable targetObject;
     private Transform putDownLocation;
+
+    void Start()
+    {
+        targetObject = GameObject.FindGameObjectWithTag("Pickupable").GetComponent<Pickupable>();
+        putDownLocation = GameObject.Find("MoveToSpot").transform;
+    }
 
     public override ProgramStatus Step(RobotController robotController)
     {
@@ -18,11 +24,11 @@ public class TransportCommand : AICommand
         if (robotController.behaviorState == RobotController.RobotBehaviourState.pickup)
         {
 
-            if (targetObject == null)
-                targetObject = RobotController.instance.objectToPickup;
+            // if (targetObject == null)
+            //     targetObject = RobotController.instance.objectToPickup;
 
 
-            var fromRobotToObject = targetObject.position - robotController.transform.position;
+            var fromRobotToObject = targetObject.transform.position - robotController.transform.position;
             var dist = fromRobotToObject.magnitude;
             fromRobotToObject = fromRobotToObject.normalized;
 
@@ -31,7 +37,7 @@ public class TransportCommand : AICommand
             if (dist < pickupDistance)
             {
                 //Make robot pick up object
-                robotController.SetBehaviorState(RobotController.RobotBehaviourState.putdown);
+                robotController.PickUp(targetObject);
             }
 
             return ProgramStatus.running;
@@ -47,7 +53,7 @@ public class TransportCommand : AICommand
             if (dist < pickupDistance)
             {
                 //Make robot pick up object
-                robotController.SetBehaviorState(RobotController.RobotBehaviourState.none);
+                robotController.PutDown(targetObject);
                 isFirstStep = true;
                 return ProgramStatus.stopped;
             }
