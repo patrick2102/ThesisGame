@@ -1,63 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TransportCommand : AICommand
 {
-    float timer; // Timer to that counts up to maxTimer to control time before going to the next command
-    [SerializeField] public float maxTimer;
-    bool firstStep = true;
-    Transform target;
-    Transform putDownLocation;
+    private bool isFirstStep = true;
+    [SerializeField] private float pickupDistance;
+    private Transform targetObject;
+    private Transform putDownLocation;
 
-    public override ProgramStatus Step(RobotController rbc)
+    public override ProgramStatus Step(RobotController robotController)
     {
-        if (firstStep)
+        if (isFirstStep)
         {
-            rbc.SetBehaviorState(RobotController.RobotBehaviourState.pickup);
-            firstStep = false;
+            robotController.SetBehaviorState(RobotController.RobotBehaviourState.pickup);
+            isFirstStep = false;
         }
 
-        if (rbc.behaviorState == RobotController.RobotBehaviourState.pickup)
+        if (robotController.behaviorState == RobotController.RobotBehaviourState.pickup)
         {
 
-            if (target == null)
-                target = RobotController.instance.objectToPickup;
+            if (targetObject == null)
+                targetObject = RobotController.instance.objectToPickup;
 
 
-            var fromRobotToObject = target.position - rbc.transform.position;
+            var fromRobotToObject = targetObject.position - robotController.transform.position;
             var dist = fromRobotToObject.magnitude;
             fromRobotToObject = fromRobotToObject.normalized;
 
-            rbc.MoveDirection(fromRobotToObject);
+            robotController.MoveDirection(fromRobotToObject);
 
-            if (dist < 1.0f)
+            if (dist < pickupDistance)
             {
                 //Make robot pick up object
-                rbc.SetBehaviorState(RobotController.RobotBehaviourState.putdown);
+                robotController.SetBehaviorState(RobotController.RobotBehaviourState.putdown);
             }
 
             return ProgramStatus.running;
         }
-        else if (rbc.behaviorState == RobotController.RobotBehaviourState.putdown)
+        else if (robotController.behaviorState == RobotController.RobotBehaviourState.putdown)
         {
-            var fromRobotToPutDown = putDownLocation.position - rbc.transform.position;
+            var fromRobotToPutDown = putDownLocation.position - robotController.transform.position;
             var dist = fromRobotToPutDown.magnitude;
             fromRobotToPutDown = fromRobotToPutDown.normalized;
 
-            rbc.MoveDirection(fromRobotToPutDown);
+            robotController.MoveDirection(fromRobotToPutDown);
 
-            if (dist < 1.0f)
+            if (dist < pickupDistance)
             {
                 //Make robot pick up object
-                rbc.SetBehaviorState(RobotController.RobotBehaviourState.none);
-                firstStep = true;
+                robotController.SetBehaviorState(RobotController.RobotBehaviourState.none);
+                isFirstStep = true;
                 return ProgramStatus.stopped;
             }
             return ProgramStatus.running;
         }
 
 
-        return ProgramStatus.running;
+        return ProgramStatus.stopped;
     }
 }

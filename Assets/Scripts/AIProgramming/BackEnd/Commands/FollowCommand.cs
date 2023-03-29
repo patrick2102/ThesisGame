@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowCommand : AICommand
@@ -11,7 +9,9 @@ public class FollowCommand : AICommand
     {
         if (maxTimer > timer)
         {
-            if(playerTransform == null)
+            timer += Time.deltaTime;
+
+            if (playerTransform == null)
                 playerTransform = Player_controller.instance.transform;
 
             var fromRobotToPlayer = playerTransform.position - rbc.transform.position;
