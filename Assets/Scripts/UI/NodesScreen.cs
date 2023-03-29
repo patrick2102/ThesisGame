@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class NodesScreen : MonoBehaviour
@@ -8,6 +9,8 @@ public class NodesScreen : MonoBehaviour
 
     public CircuitNode inputNode;
     public RectTransform screen;
+
+    public TMP_InputField inputField;
 
     public static NodesScreen instance;
 
@@ -57,8 +60,18 @@ public class NodesScreen : MonoBehaviour
                 if (node != null)
                 {
                     var offSet = border + (stepSize * new Vector2(i, circuitNodes.GetLength(1) - j - 1));
+
+                    // Add adjustable distance element
+                    if (node.GetCommand() is DirectionCommand)
+                    {
+                        offSet.x -= 0.5f;
+                        Debug.Log("TYPE MATCHES!");
+                    }
+
                     node.transform.localScale = new Vector3(1, 1, 1);
                     node.GetComponent<RectTransform>().anchoredPosition = offSet;
+
+                    
                 }
             }
         }
