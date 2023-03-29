@@ -55,6 +55,12 @@ public class RobotController : MonoBehaviour
         }
     }
 
+    public void PickUp()
+    {
+        SetBehaviorState(RobotBehaviourState.putdown);
+        objectToPickup.transform.position = transform.position + transform.up * 2.0f;
+    }
+
     public void OpenProgrammingPanel()
     {
         UIManager.instance.SetUI(UIManager.UIState.nodeScreen);

@@ -18,7 +18,7 @@ public class FollowCommand : AICommand
             var dist = fromRobotToPlayer.magnitude;
             fromRobotToPlayer = fromRobotToPlayer.normalized;
 
-            if (dist > 1.0f)
+            if (dist > 2.0f)
             {
                 rbc.MoveDirection(fromRobotToPlayer);
             }
