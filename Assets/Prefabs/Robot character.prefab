@@ -461,7 +461,7 @@ Transform:
   - {fileID: 552892360808146874}
   - {fileID: 552892360718529324}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &552892361925118880
 Animator:
@@ -495,9 +495,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b658f08dac22d5408fc14a5a8f7468e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
+  behaviorState: 0
+  speed: 5000
   rb: {fileID: 8938137038349458981}
   interactable: {fileID: 1992498645}
+  objectToPickup: {fileID: 0}
 --- !u!58 &6619402509979231804
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -526,7 +528,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0

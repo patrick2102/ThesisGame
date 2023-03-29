@@ -30,9 +30,8 @@ public class TransportCommand : AICommand
 
             var fromRobotToObject = targetObject.transform.position - robotController.transform.position;
             var dist = fromRobotToObject.magnitude;
-            fromRobotToObject = fromRobotToObject.normalized;
 
-            robotController.MoveDirection(fromRobotToObject);
+            robotController.MoveDirection(fromRobotToObject.normalized);
 
             if (dist < pickupDistance)
             {
@@ -46,9 +45,8 @@ public class TransportCommand : AICommand
         {
             var fromRobotToPutDown = putDownLocation.position - robotController.transform.position;
             var dist = fromRobotToPutDown.magnitude;
-            fromRobotToPutDown = fromRobotToPutDown.normalized;
 
-            robotController.MoveDirection(fromRobotToPutDown);
+            robotController.MoveDirection(fromRobotToPutDown.normalized);
 
             if (dist < pickupDistance)
             {
