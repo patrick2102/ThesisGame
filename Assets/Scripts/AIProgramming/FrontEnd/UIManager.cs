@@ -214,6 +214,8 @@ public class UIManager : MonoBehaviour
 
         selectedNode.ChangeCommand(commandButton.command);
 
+
+
         selectedNode = null;
         SetUI(UIState.nodeScreen);
         RobotMovementVisualiser.instance.UpdatePath();

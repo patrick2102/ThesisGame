@@ -5,4 +5,5 @@ using UnityEngine;
 public abstract class AICommand : MonoBehaviour
 {
     public abstract ProgramStatus Step(RobotController rbc);
+
 }

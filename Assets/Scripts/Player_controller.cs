@@ -7,12 +7,24 @@ public class Player_controller : MonoBehaviour
     public float moveSpeed;
     public Rigidbody2D playerRB;
     private Vector2 movement;
-    
+
+    public static Player_controller instance;
+
     private void Start()
     {
         playerRB = gameObject.GetComponent<Rigidbody2D>();
     }
-    
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+            Destroy(gameObject);
+    }
+
     // Update is called once per frame
     void Update()
     {
