@@ -10,7 +10,7 @@ public class AnimationControllerScript : MonoBehaviour
 
     public enum RobotAnimation
     {
-        Idle, Walk, WalkSide
+        Idle, Walk, WalkSide, IdleSide
     }
 
 
@@ -63,7 +63,6 @@ public class AnimationControllerScript : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.S))
         {
             ChangeSprite(RobotSprites.frontSprites);
-
         }
 
         if (Input.GetKeyUp(KeyCode.D))
@@ -78,11 +77,6 @@ public class AnimationControllerScript : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.R))
         {
             ChangeAnimation(RobotAnimation.Walk);
-        }
-
-        if (Input.GetKeyUp(KeyCode.Y))
-        {
-            ChangeAnimation(RobotAnimation.WalkSide);
         }
     }
 
@@ -100,8 +94,31 @@ public class AnimationControllerScript : MonoBehaviour
     public void ChangeAnimation(RobotAnimation animation)
     {
         currentAnimation = animation;
-        animator.SetInteger("RobotAnimation", (int)currentAnimation);
 
-        //change animation
+        if (animation == RobotAnimation.Walk || animation == RobotAnimation.WalkSide)
+        {
+            if (currentSprite == RobotSprites.leftSprites || currentSprite == RobotSprites.rightSprites)
+            {
+                animator.SetFloat("AnimationState", (float)RobotAnimation.WalkSide);
+                //animator.SetInteger("RobotAnimation", (int)RobotAnimation.WalkSide);
+
+                
+            }
+            else
+            {
+                animator.SetFloat("AnimationState", (float)RobotAnimation.Walk);
+            }
+        }
+        else if (animation == RobotAnimation.Idle || animation == RobotAnimation.IdleSide)
+        {
+            if (currentSprite == RobotSprites.leftSprites || currentSprite == RobotSprites.rightSprites)
+            {
+                animator.SetFloat("AnimationState", (float)RobotAnimation.IdleSide);
+            }
+            else
+            {
+                animator.SetFloat("AnimationState", (float)RobotAnimation.Idle);
+            }
+        }
     }
 }
