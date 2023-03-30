@@ -1196,18 +1196,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 391132234, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
-      propertyPath: rightSprites.Array.data[1]
-      value: 
-      objectReference: {fileID: -202983440, guid: f3ba39c377e588c4f9154f3866aa0055, type: 3}
-    - target: {fileID: 391132234, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
-      propertyPath: rightSprites.Array.data[2]
-      value: 
-      objectReference: {fileID: -1326639531, guid: f3ba39c377e588c4f9154f3866aa0055, type: 3}
-    - target: {fileID: 391132234, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
-      propertyPath: rightSprites.Array.data[3]
-      value: 
-      objectReference: {fileID: 1767867687, guid: f3ba39c377e588c4f9154f3866aa0055, type: 3}
     - target: {fileID: 552892361925118881, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
       propertyPath: m_RootOrder
       value: 2

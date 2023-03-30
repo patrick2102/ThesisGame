@@ -13,7 +13,10 @@ public class AnimationControllerScript : MonoBehaviour
         Idle, Walk, WalkSide, IdleSide
     }
 
-
+    public enum Direction
+    { 
+        Left, Right, Up, Down
+    }
 
     public List<SpriteRenderer> spriteRenderers;
 
@@ -25,9 +28,18 @@ public class AnimationControllerScript : MonoBehaviour
 
     public Animator animator;
 
+    [SerializeField] private Rigidbody2D rb;
+
 
     public RobotSprites currentSprite = RobotSprites.frontSprites;
     public RobotAnimation currentAnimation = RobotAnimation.Idle;
+    public Direction currentDirection = Direction.Down;
+
+    public float walkAnimationThreshold = 1.0f;
+    public float directionChangeThreshold = 1.0f;
+
+
+
     //public List<Texture2D> spriteSheetTextures;
 
 
@@ -45,39 +57,63 @@ public class AnimationControllerScript : MonoBehaviour
         };
     }
 
-
-    public void Update()
+    public void CheckForDirectionChange()
     {
+        Vector2 direction = rb.velocity;
+        Direction newDirection = currentDirection;
 
-        if (Input.GetKeyUp(KeyCode.W))
+        if (direction.magnitude > directionChangeThreshold)
         {
-            ChangeSprite(RobotSprites.backSprites);
+            // Check if x direction is larger than y direction
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+            {
+                // Check if x direction is positive or negative
+                if (direction.x > 0)
+                {
+                    newDirection = Direction.Right;
+                }
+                else
+                {
+                    newDirection = Direction.Left;
+                }
+            }
+            else
+            {
+                // Check if y direction is positive or negative
+                if (direction.y > 0)
+                {
+                    newDirection = Direction.Up;
+                }
+                else
+                {
+                    newDirection = Direction.Down;
+                }
+            }
         }
 
-        if (Input.GetKeyUp(KeyCode.A))
+        if(newDirection != currentDirection)
         {
-            ChangeSprite(RobotSprites.leftSprites);
+            currentDirection = newDirection;
 
+            animator.SetTrigger("SwitchDirection");
+
+            switch (currentDirection)
+            {
+                case Direction.Left:
+                    ChangeSprite(RobotSprites.leftSprites);
+                    break;
+                case Direction.Right:
+                    ChangeSprite(RobotSprites.rightSprites);
+                    break;
+                case Direction.Up:
+                    ChangeSprite(RobotSprites.backSprites);
+                    break;
+                case Direction.Down:
+                    ChangeSprite(RobotSprites.frontSprites);
+                    break;
+            }
         }
 
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            ChangeSprite(RobotSprites.frontSprites);
-        }
-
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            ChangeSprite(RobotSprites.rightSprites);
-        }
-
-        if (Input.GetKeyUp(KeyCode.T))
-        {
-            ChangeAnimation(RobotAnimation.Idle);
-        }
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-            ChangeAnimation(RobotAnimation.Walk);
-        }
     }
 
     public void ChangeSprite(RobotSprites sprite)
@@ -100,9 +136,6 @@ public class AnimationControllerScript : MonoBehaviour
             if (currentSprite == RobotSprites.leftSprites || currentSprite == RobotSprites.rightSprites)
             {
                 animator.SetFloat("AnimationState", (float)RobotAnimation.WalkSide);
-                //animator.SetInteger("RobotAnimation", (int)RobotAnimation.WalkSide);
-
-                
             }
             else
             {
