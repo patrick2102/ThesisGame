@@ -461,7 +461,7 @@ Transform:
   - {fileID: 552892360808146874}
   - {fileID: 552892360718529324}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &552892361925118880
 Animator:
@@ -473,7 +473,7 @@ Animator:
   m_GameObject: {fileID: 552892361925118882}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 042c213876a40a34b8856150d40c7cd8, type: 2}
+  m_Controller: {fileID: 9100000, guid: b86b48e39d7e8f04399cbda2217d2357, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -608,5 +608,9 @@ MonoBehaviour:
   - {fileID: -202983440, guid: f3ba39c377e588c4f9154f3866aa0055, type: 3}
   - {fileID: 1927645492, guid: f3ba39c377e588c4f9154f3866aa0055, type: 3}
   animator: {fileID: 552892361925118880}
+  rb: {fileID: 8938137038349458981}
   currentSprite: 0
   currentAnimation: 0
+  currentDirection: 3
+  walkAnimationThreshold: 1
+  directionChangeThreshold: 1

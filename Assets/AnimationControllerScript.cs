@@ -36,7 +36,7 @@ public class AnimationControllerScript : MonoBehaviour
     public Direction currentDirection = Direction.Down;
 
     public float walkAnimationThreshold = 1.0f;
-    public float directionChangeThreshold = 1.0f;
+    public float directionChangeThreshold = 0.01f;
 
 
 
@@ -57,10 +57,18 @@ public class AnimationControllerScript : MonoBehaviour
         };
     }
 
+    void Update()
+    {
+        CheckForDirectionChange();
+    }
+
     public void CheckForDirectionChange()
     {
         Vector2 direction = rb.velocity;
         Direction newDirection = currentDirection;
+
+        
+        animator.SetFloat("Speed", direction.magnitude);
 
         if (direction.magnitude > directionChangeThreshold)
         {

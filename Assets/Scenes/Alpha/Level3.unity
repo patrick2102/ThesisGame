@@ -17928,10 +17928,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 552892361925118880, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 552892361925118881, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -17979,14 +17975,6 @@ PrefabInstance:
     - target: {fileID: 552892361925118882, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
       propertyPath: m_Name
       value: Robot character
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263074286403823846, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
-      propertyPath: speed
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8938137038349458981, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
-      propertyPath: m_Mass
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -109885,7 +109873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 251547190993988645, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00008008259
+      value: 0.00013952082
       objectReference: {fileID: 0}
     - target: {fileID: 251547191417630978, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_RaycastTarget
