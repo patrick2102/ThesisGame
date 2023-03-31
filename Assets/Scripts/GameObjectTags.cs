@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum GameObjectTags
 {
-    Player, Robot, Monster, Checkpoint, PressurePlate
+    Player, Robot, Monster, Checkpoint, PressurePlate, Pickupable
 }

@@ -370,11 +370,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1942185093936860128, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.75
+      value: -3.32
       objectReference: {fileID: 0}
     - target: {fileID: 1942185093936860128, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.19
+      value: -7.4
       objectReference: {fileID: 0}
     - target: {fileID: 1942185093936860128, guid: edfb2b0b8046df94d806bf1cc7f28d91, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17928,10 +17928,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 552892361925118880, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 552892361925118881, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -17979,14 +17975,6 @@ PrefabInstance:
     - target: {fileID: 552892361925118882, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
       propertyPath: m_Name
       value: Robot character
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263074286403823846, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
-      propertyPath: speed
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8938137038349458981, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
-      propertyPath: m_Mass
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -109885,7 +109873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 251547190993988645, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00033648947
+      value: 0.00013952082
       objectReference: {fileID: 0}
     - target: {fileID: 251547191417630978, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_RaycastTarget
@@ -109923,6 +109911,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: commands.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: commands.Array.data[6]
+      value: 
+      objectReference: {fileID: -7344420909896339756, guid: b0e0a49b0e3944f49b9fe0b41f01a782, type: 3}
     - target: {fileID: 6504846522350374466, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_RootOrder
       value: 3

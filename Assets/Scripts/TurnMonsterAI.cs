@@ -56,11 +56,22 @@ public class TurnMonsterAI : MonoBehaviour
 
         float closestDistance = 99;
         GameObject objectWithClosestDistance = null;
+
+        bool robotDistracting = false;
         foreach(Collider2D col in fun)
         {
             float temp = CalcDistanceToTarget(col.gameObject.transform.position);
             switch (col.gameObject.tag)
             {
+                case "Robot":
+                    if (RobotController.instance.behaviorState == RobotController.RobotBehaviourState.distracting)
+                    {
+                        closestDistance = temp;
+                        objectWithClosestDistance = col.gameObject;
+                        robotDistracting = true;
+                    }
+                    break;
+
                 case "Player":
                     if (temp < closestDistance)
                     {
@@ -68,14 +79,9 @@ public class TurnMonsterAI : MonoBehaviour
                         objectWithClosestDistance = col.gameObject;
                     }
                     break;
-                case "Robot":
-                    if (temp < closestDistance)
-                    {
-                        closestDistance = temp;
-                        objectWithClosestDistance = col.gameObject;
-                    }
-                    break;
             }
+            if (robotDistracting)
+                break;
         }
 
         FacingTarget = false;
