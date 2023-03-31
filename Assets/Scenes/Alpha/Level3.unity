@@ -109650,6 +109650,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2088569222 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 251547190821975488, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+  m_PrefabInstance: {fileID: 3000415983732670332}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &2088569228
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088569222}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &2093888682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109873,7 +109890,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 251547190993988645, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00013952082
+      value: -0.00001929333
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547190993988646, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 251547191417630978, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_RaycastTarget

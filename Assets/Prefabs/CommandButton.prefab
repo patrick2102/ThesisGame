@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   command: {fileID: 0}
   commandButtonText: {fileID: 3343758347060217388}
+  rectTransform: {fileID: 3343758346377340342}
 --- !u!1 &3343758347060217378
 GameObject:
   m_ObjectHideFlags: 0

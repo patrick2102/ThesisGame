@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IDropHandler
 {
     public int id;
     public List<CircuitNode> neighbours;
@@ -29,10 +29,6 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         {
             UIManager.instance.UnclickNode(this);
         }
-        else if (eventData.button == PointerEventData.InputButton.Right && nodeType == NodeType.CircuitNode)
-        {
-            UIManager.instance.RightClickNode(this);
-        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -45,6 +41,7 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        //Debug.Log("mousePosition: " + eventData.position);
         UIManager.instance.SetMousedOverNode(this);
     }
 
@@ -96,5 +93,10 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     public override string ToString()
     {
         return gameObject.name + "{nodeType = " + nodeType + " id = " + id + "}";
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+       //Debug.Log("Something dropped");
     }
 }
