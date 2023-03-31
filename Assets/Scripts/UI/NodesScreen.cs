@@ -71,6 +71,12 @@ public class NodesScreen : MonoBehaviour
                         {
                             AddAdjustableFieldToDirectionNode(i + j, node);
                         }
+                        if (node.GetComponentInChildren<DirectionCommand>() != null)
+                        {
+                            var stringTextInput = inputFields[i + j].GetComponent<TMP_InputField>().text;
+                            float textInputAsFloat = float.Parse(stringTextInput);
+                            node.GetComponentInChildren<DirectionCommand>().maxTimer = textInputAsFloat;
+                        }
                         offSet.x -= 20.0f;
                     }
                     node.transform.localScale = new Vector3(1, 1, 1);
@@ -267,5 +273,6 @@ public class NodesScreen : MonoBehaviour
         inputFields[currentNodeArrayPosition].transform.SetParent(node.transform, false);
         Vector2 inputFieldPosition = new(50.0f, 0.0f);
         inputFields[currentNodeArrayPosition].GetComponent<RectTransform>().anchoredPosition = inputFieldPosition;
+        inputField.gameObject.SetActive(false);
     }
 }
