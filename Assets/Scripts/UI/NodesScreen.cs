@@ -15,6 +15,7 @@ public class NodesScreen : MonoBehaviour
     public static NodesScreen instance;
 
     private CircuitNode[,] circuitNodes;
+    private GameObject[] inputFields;
 
     private void Awake()
     {
@@ -29,6 +30,8 @@ public class NodesScreen : MonoBehaviour
         }
 
         GenerateCircuit();
+
+        inputFields = new GameObject[circuitNodes.Length];
     }
 
     private void FixedUpdate()
@@ -64,18 +67,26 @@ public class NodesScreen : MonoBehaviour
                     // Add adjustable distance element
                     if (node.GetCommand() is DirectionCommand)
                     {
-                        offSet.x -= 0.5f;
-                        Debug.Log("TYPE MATCHES!");
+                        if (node.GetComponentInChildren<TMP_InputField>() == null)
+                        {
+                            AddAdjustableFieldToDirectionNode(i + j, node);
+                        }
+                        if (node.GetComponentInChildren<DirectionCommand>() != null)
+                        {
+                            var stringTextInput = inputFields[i + j].GetComponent<TMP_InputField>().text;
+                            if (stringTextInput.Length > 0)
+                            {
+                                float textInputAsFloat = float.Parse(stringTextInput);
+                                node.GetComponentInChildren<DirectionCommand>().maxTimer = textInputAsFloat;
+                            }
+                        }
+                        offSet.x -= 20.0f;
                     }
-
                     node.transform.localScale = new Vector3(1, 1, 1);
                     node.GetComponent<RectTransform>().anchoredPosition = offSet;
-
-                    
                 }
             }
         }
-
     }
 
     private void GenerateCircuit()
@@ -256,5 +267,15 @@ public class NodesScreen : MonoBehaviour
         }
 
         return null;
+    }
+
+    private void AddAdjustableFieldToDirectionNode(int currentNodeArrayPosition, CircuitNode node)
+    {
+        inputField.gameObject.SetActive(true);
+        inputFields[currentNodeArrayPosition] = Instantiate(inputField.gameObject);
+        inputFields[currentNodeArrayPosition].transform.SetParent(node.transform, false);
+        Vector2 inputFieldPosition = new(50.0f, 0.0f);
+        inputFields[currentNodeArrayPosition].GetComponent<RectTransform>().anchoredPosition = inputFieldPosition;
+        inputField.gameObject.SetActive(false);
     }
 }
