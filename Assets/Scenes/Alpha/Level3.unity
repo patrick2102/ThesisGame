@@ -109650,23 +109650,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &2088569222 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 251547190821975488, guid: f08bef240753af34daa9f42ad658096b, type: 3}
-  m_PrefabInstance: {fileID: 3000415983732670332}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &2088569228
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2088569222}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1001 &2093888682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109864,10 +109847,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 251547189606324509, guid: f08bef240753af34daa9f42ad658096b, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 251547189664767469, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -109888,21 +109867,45 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 251547190993988645, guid: f08bef240753af34daa9f42ad658096b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.00001929333
+    - target: {fileID: 251547190993988646, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_Spacing.x
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 251547190993988646, guid: f08bef240753af34daa9f42ad658096b, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: m_Spacing.y
+      value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 251547191417630978, guid: f08bef240753af34daa9f42ad658096b, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
+    - target: {fileID: 251547190993988646, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_StartAxis
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 251547191441269380, guid: f08bef240753af34daa9f42ad658096b, type: 3}
-      propertyPath: m_Size
-      value: 0.99995923
+    - target: {fileID: 251547190993988646, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_CellSize.x
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547190993988646, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_CellSize.y
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547190993988646, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547190993988646, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547190993988646, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_ConstraintCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547190993988646, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_Padding.m_Right
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547190993988646, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_Padding.m_Bottom
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 251547191441269387, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -109932,14 +109935,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
-    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
-      propertyPath: commands.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
-      propertyPath: commands.Array.data[6]
-      value: 
-      objectReference: {fileID: -7344420909896339756, guid: b0e0a49b0e3944f49b9fe0b41f01a782, type: 3}
     - target: {fileID: 6504846522350374466, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_RootOrder
       value: 3

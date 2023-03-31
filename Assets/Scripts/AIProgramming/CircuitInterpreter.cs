@@ -19,7 +19,7 @@ public class CircuitInterpreter : MonoBehaviour
 
     public static NodeType[,] ReadString()
     {
-        string path = Application.dataPath + "/txt-level-files/4x4.txt";
+        string path = Application.dataPath + "/txt-level-files/3x3.txt";
         //Read the text directly from the test.txt file
         StreamReader reader = new StreamReader(path);
         

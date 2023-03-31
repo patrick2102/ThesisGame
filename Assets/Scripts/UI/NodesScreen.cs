@@ -65,23 +65,23 @@ public class NodesScreen : MonoBehaviour
                     var offSet = border + (stepSize * new Vector2(i, circuitNodes.GetLength(1) - j - 1));
 
                     // Add adjustable distance element
-                    if (node.GetCommand() is DirectionCommand)
-                    {
-                        if (node.GetComponentInChildren<TMP_InputField>() == null)
-                        {
-                            AddAdjustableFieldToDirectionNode(i + j, node);
-                        }
-                        if (node.GetComponentInChildren<DirectionCommand>() != null)
-                        {
-                            var stringTextInput = inputFields[i + j].GetComponent<TMP_InputField>().text;
-                            if (stringTextInput.Length > 0)
-                            {
-                                float textInputAsFloat = float.Parse(stringTextInput);
-                                node.GetComponentInChildren<DirectionCommand>().maxTimer = textInputAsFloat;
-                            }
-                        }
-                        offSet.x -= 20.0f;
-                    }
+                    //if (node.GetCommand() is DirectionCommand)
+                    //{
+                    //    if (node.GetComponentInChildren<TMP_InputField>() == null)
+                    //    {
+                    //        AddAdjustableFieldToDirectionNode(i + j, node);
+                    //    }
+                    //    if (node.GetComponentInChildren<DirectionCommand>() != null)
+                    //    {
+                    //        var stringTextInput = inputFields[i + j].GetComponent<TMP_InputField>().text;
+                    //        if (stringTextInput.Length > 0)
+                    //        {
+                    //            float textInputAsFloat = float.Parse(stringTextInput);
+                    //            node.GetComponentInChildren<DirectionCommand>().maxTimer = textInputAsFloat;
+                    //        }
+                    //    }
+                    //    offSet.x -= 20.0f;
+                    //}
                     node.transform.localScale = new Vector3(1, 1, 1);
                     node.GetComponent<RectTransform>().anchoredPosition = offSet;
                 }
@@ -121,33 +121,6 @@ public class NodesScreen : MonoBehaviour
         //ConnectNodesNeighborsOnly();
         //ConnectNodesColumns();
         ConnectNodesColumnsAndRows();
-
-        ////Create connection between nodes:
-        //for (int i = 0; i < circuitNodes.GetLength(0); i++)
-        //{
-        //    for (int j = 0; j < circuitNodes.GetLength(1); j++)
-        //    {
-        //        CircuitNode rightNode = null;
-        //        CircuitNode downNode = null;
-
-        //        if (i < circuitNodes.GetLength(0) - 1)
-        //            rightNode = circuitNodes[i + 1, j];
-
-        //        if (j < circuitNodes.GetLength(1) - 1)
-        //            downNode = circuitNodes[i, j + 1];
-
-        //        if (rightNode != null && circuitNodes[i + 1, j] != null && circuitNodes[i, j] != null)
-        //        {
-        //            circuitNodes[i, j].neighbours.Add(circuitNodes[i + 1, j]);
-        //            circuitNodes[i + 1, j].neighbours.Add(circuitNodes[i, j]);
-        //        }
-        //        if (downNode != null && circuitNodes[i, j + 1] != null && circuitNodes[i, j] != null)
-        //        {
-        //            circuitNodes[i, j].neighbours.Add(circuitNodes[i, j + 1]);
-        //            circuitNodes[i, j + 1].neighbours.Add(circuitNodes[i, j]);
-        //        }
-        //    }
-        //}
     }
 
     private void ConnectNodesNeighborsOnly()

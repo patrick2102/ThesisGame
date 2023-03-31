@@ -1,16 +1,13 @@
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
-using UnityEditor.Experimental.GraphView;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
-using static UnityEngine.Networking.UnityWebRequest;
 
 public class CommandButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public AICommand command;
-    public Text commandButtonText;
+    public TMP_Text commandButtonText;
     private Vector3 originalPosition;
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private Canvas canvas;
@@ -63,14 +60,5 @@ public class CommandButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             }
         }
         rectTransform.position = originalPosition;
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            UIManager.instance.ChangeCommand(this);
-            Debug.Log("Command clicked");
-        }
     }
 }

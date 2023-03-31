@@ -142,6 +142,8 @@ public class UIManager : MonoBehaviour
             {
                 DisconnectNodes(node);
             }
+
+            selectedNode = null;
         }
         startConnectionLine.SetPosition(0, Vector2.zero);
         startConnectionLine.SetPosition(1, Vector2.zero);

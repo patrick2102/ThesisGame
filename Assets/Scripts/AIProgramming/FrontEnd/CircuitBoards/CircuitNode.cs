@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IDropHandler
+public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IDropHandler
 {
     public int id;
     public List<CircuitNode> neighbours;
@@ -11,12 +12,20 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     [SerializeField] NodeType nodeType;
     [SerializeField] private CircuitNode nextNode;
     [SerializeField] private AICommand command;
-    [SerializeField] private Text nodeText;
+    [SerializeField] private TMP_Text nodeText;
+    [SerializeField] private TMP_InputField sliderValue;
     [SerializeField] private LineRenderer nodeConnectionPrefab;
+    [SerializeField] private Slider slider;
     private LineRenderer nodeConnection;
 
     public void Start()
     {
+    }
+
+    public void Update()
+    {
+        command.maxTimer = Mathf.Round(slider.value*10)/10.0f;
+        sliderValue.text = command.maxTimer.ToString();
     }
 
     public void FixedUpdate()
@@ -43,11 +52,6 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
         //Debug.Log("mousePosition: " + eventData.position);
         UIManager.instance.SetMousedOverNode(this);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        UIManager.instance.SetMousedOverNode(null);
     }
 
     public CircuitNode GetNextNode()
