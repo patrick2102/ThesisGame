@@ -74,8 +74,11 @@ public class NodesScreen : MonoBehaviour
                         if (node.GetComponentInChildren<DirectionCommand>() != null)
                         {
                             var stringTextInput = inputFields[i + j].GetComponent<TMP_InputField>().text;
-                            float textInputAsFloat = float.Parse(stringTextInput);
-                            node.GetComponentInChildren<DirectionCommand>().maxTimer = textInputAsFloat;
+                            if (stringTextInput.Length > 0)
+                            {
+                                float textInputAsFloat = float.Parse(stringTextInput);
+                                node.GetComponentInChildren<DirectionCommand>().maxTimer = textInputAsFloat;
+                            }
                         }
                         offSet.x -= 20.0f;
                     }

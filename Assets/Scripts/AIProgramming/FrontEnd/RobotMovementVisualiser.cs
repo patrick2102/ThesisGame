@@ -45,9 +45,9 @@ public class RobotMovementVisualiser : MonoBehaviour
 
         if (robotPath.positionCount > 0)
         {
-            var dist = (robotPath.GetPosition(0) - robotController.transform.position).magnitude;
-            if (dist > 0.1f)
-                UpdatePath();
+            //var dist = (robotPath.GetPosition(0) - robotController.transform.position).magnitude;
+            //if (dist > 0.1f)
+            UpdatePath();
         }
     }
 
@@ -134,7 +134,7 @@ public class RobotMovementVisualiser : MonoBehaviour
         {
             case DirectionCommand:
                 var c = (DirectionCommand)command;
-                var f = (1f/robotRB.mass) * (c.direction / c.maxTimer) * robotController.speed * (1 / robotRB.drag);
+                var f = (1f/robotRB.mass) * (c.direction * c.maxTimer) * robotController.speed * (1 / robotRB.drag);
                 //targetGroup.FindMember(pathPositions[index].transform);
                 return f;
             default:
