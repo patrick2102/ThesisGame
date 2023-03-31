@@ -32,7 +32,7 @@ public class RobotMovementVisualiser : MonoBehaviour
         {
             var p = new GameObject("PathPoint");
             p.hideFlags = HideFlags.HideInHierarchy;
-            p.transform.position = Vector3.zero;
+            p.transform.position = Vector2.zero;
             pathPositions.Add(p.transform);
             targetGroup.AddMember(p.transform, 0, 4);
         }
@@ -40,9 +40,6 @@ public class RobotMovementVisualiser : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Show robot path
-        //UpdatePath();
-
         if (robotPath.positionCount > 0)
         {
             //var dist = (robotPath.GetPosition(0) - robotController.transform.position).magnitude;
@@ -58,74 +55,58 @@ public class RobotMovementVisualiser : MonoBehaviour
 
     public void UpdatePath()
     {
-        robotPath.gameObject.SetActive(true);
-        //var simulation = AIProgramBackendManager.instance.GetActiveProgram();
-        var simulation = AIProgram.activeProgram;
+        if (AIProgram.activeProgram == null) return;
 
+        robotPath.gameObject.SetActive(true);
+
+        var simulation = AIProgram.activeProgram;
         int maxDepth = AIProgram.activeProgram.maxCommands;
 
-        if (simulation != null)
+        int count = 0;
+        var robotPosition = robotRB.position;
+        var node = simulation.currentNode;
+
+        while (node != null && count < maxDepth)
         {
-            int count = 0;
-            var node = simulation.currentNode;
+            var command = node.GetCommand();
+            var movement = (Vector2)GetForceFromCommand(command, count);
+            robotPosition += movement;
+            pathPositions[count].position = robotPosition;
 
-            //var positions = new List<Vector2>();
+            if (count == 0)
+                targetGroup.m_Targets[0].weight = 4.0f;
 
-            var robotPosition = robotRB.position;
+            node = node.GetNextNode();
+            count++;
+        }
 
-            while (node != null)
+        robotPath.SetPosition(0, pathPositions[0].position);
+
+        float threshold = 0.5f;
+
+        int index = 1;
+
+
+        for (int i = 1; i < maxDepth; i++)
+        {
+            targetGroup.m_Targets[i].weight = 0.0f;
+        }
+
+        for (int i = 1; i < count; i++)
+        {
+            var dist = (pathPositions[i].position - pathPositions[i - 1].position).magnitude;
+            if (dist > threshold)
             {
-                var command = node.GetCommand();
-                var movement = (Vector2)GetForceFromCommand(command, count);
-                //robotPath.SetPosition(i, movement);
-                robotPosition += movement;
-                pathPositions[count].transform.position = robotPosition;
-
-                if(count == 0)
-                    targetGroup.m_Targets[0].weight = 4.0f;
-
-                node = node.GetNextNode();
-                count++;  
-                if (count >= maxDepth)
-                    break;
+                robotPath.positionCount = index + 1;
+                robotPath.SetPosition(index++, pathPositions[i].position);
+                targetGroup.m_Targets[i].weight = 4.0f;
             }
-
-            robotPath.SetPosition(0, pathPositions[0].transform.position);
-
-            float threshold = 0.5f;
-            int index = 1;
-
-            robotPath.positionCount = 1;
-
-            for (int i = 1; i < maxDepth; i++)
+            else
             {
                 targetGroup.m_Targets[i].weight = 0.0f;
             }
-
-            for (int i = 1; i < count; i++)
-            {
-                if ((pathPositions[i].transform.position - pathPositions[i - 1].transform.position).magnitude > threshold)
-                {
-                    robotPath.positionCount = index + 1;
-                    robotPath.SetPosition(index++, pathPositions[i].transform.position);
-                    targetGroup.m_Targets[i].weight = 4.0f;
-                }
-                else
-                {
-                    targetGroup.m_Targets[i].weight = 0.0f;
-                }
-            }
-
-            //robotPath.positionCount = count;
-
-            //for (int i = 0; i < count; i++)
-            //{
-            //    robotPath.SetPosition(i, (Vector2)pathPositions[i].transform.position);
-            //}
-
         }
 
-        UpdateCamera();
     }
 
     private Vector3 GetForceFromCommand(AICommand command, int index)
@@ -143,36 +124,4 @@ public class RobotMovementVisualiser : MonoBehaviour
         }
         return Vector3.zero;
     }
-
-    void UpdateCamera()
-    {
-        var minBorders = new Vector2(float.MaxValue, float.MaxValue); // 
-        var maxBorders = new Vector2(float.MinValue, float.MinValue); // 
-
-        for (int i = 0; i < robotPath.positionCount; i++)
-        {
-            var pos = robotPath.GetPosition(i);
-
-            minBorders =
-                new Vector2(
-                    pos.x < minBorders.x ? pos.x : minBorders.x,
-                    pos.y < minBorders.y ? pos.y : minBorders.y
-                    );
-
-            maxBorders =
-                new Vector2(
-                    maxBorders.x < pos.x ? pos.x : maxBorders.x,
-                    maxBorders.y < pos.y ? pos.y : maxBorders.y
-                    );
-        }
-
-        var diff = maxBorders - minBorders;
-
-        var orthoSize = Mathf.Max(diff.x, diff.y);
-
-        //pathCamera.m_Lens.OrthographicSize = orthoSize;
-        //robotPath.transform.position = robotSimulation.transform.position;
-       // pathCamera.transform.position = robotSimulation.transform.position;
-    }
-
 }

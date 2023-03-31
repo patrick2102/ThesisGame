@@ -11,10 +11,12 @@ public class PressurePlateTrigger : TriggerBase
     [SerializeField] private CheckpointTrigger checkpoint;
     public bool resetPositionAtRestart;
     private Vector3 originalDoorPosition;
+    private RobotEmotionStateHandler robotEmotionStateHandler;
 
     public void Awake()
     {
         originalDoorPosition= door.transform.position;
+        robotEmotionStateHandler = GameObject.FindGameObjectWithTag(GameObjectTags.Robot.ToString()).GetComponent<RobotEmotionStateHandler>();
     }
 
     public override void HandleTriggerEnter(string tag)
@@ -34,6 +36,7 @@ public class PressurePlateTrigger : TriggerBase
                 door.transform.position = moveToPosition.position;
                 if (objectToRemove != null)
                     objectToRemove.SetActive(false);
+                robotEmotionStateHandler.SwitchRobotEmotionState(RobotEmotionStateHandler.EmotionState.happy);
                 break;
             default:
                 break;

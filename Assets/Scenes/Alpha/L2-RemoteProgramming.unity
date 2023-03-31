@@ -12098,6 +12098,10 @@ PrefabInstance:
       propertyPath: interactable
       value: 
       objectReference: {fileID: 1992498645}
+    - target: {fileID: 2121331662428356964, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+      propertyPath: scaredRangeRadius
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8938137038349458981, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
       propertyPath: m_Mass
       value: 100
@@ -12138,6 +12142,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
   m_Radius: 2
+--- !u!1 &2069567849 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4556276228967378848, guid: 5777cc62ee8f0684aba9e081c47eba5a, type: 3}
+  m_PrefabInstance: {fileID: 212131023}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2069567850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069567849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec753126f1a0fc74383d73af6b0188e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaredRangeRadius: 0
 --- !u!1001 &2075853060
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12499,6 +12521,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6504846522350374466, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547191441269387, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547191441269387, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547191458025923, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547191458025923, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547191458025923, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 251547191458025923, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

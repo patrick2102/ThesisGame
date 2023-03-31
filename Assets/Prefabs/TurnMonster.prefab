@@ -96,7 +96,8 @@ GameObject:
   - component: {fileID: 6252305590682732744}
   - component: {fileID: 6252305590682732750}
   - component: {fileID: 6252305590682732746}
-  - component: {fileID: 1296534419}
+  - component: {fileID: 3922957025937978158}
+  - component: {fileID: 1307912168295443399}
   m_Layer: 0
   m_Name: TurnMonster
   m_TagString: Monster
@@ -210,7 +211,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1296534419
+--- !u!58 &3922957025937978158
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252305590682732751}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.004223287, y: 0.82092345}
+  serializedVersion: 2
+  m_Radius: 0.8733133
+--- !u!114 &1307912168295443399
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -219,7 +236,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6252305590682732751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a64326e114895946932a05f9bc6e580, type: 3}
+  m_Script: {fileID: 11500000, guid: bfd732b222b69e044b688c771f400168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7657017876991610628
@@ -317,7 +334,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6321728524065860685}
   - component: {fileID: 5950944431699954424}
-  - component: {fileID: 7850596385966978566}
   - component: {fileID: 9147092904896070372}
   m_Layer: 0
   m_Name: Head
@@ -393,22 +409,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &7850596385966978566
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8020864528199597425}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.00000023841858, y: 1.6359422}
-  serializedVersion: 2
-  m_Radius: 1.7369115
 --- !u!114 &9147092904896070372
 MonoBehaviour:
   m_ObjectHideFlags: 0
