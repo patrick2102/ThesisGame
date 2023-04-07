@@ -71,6 +71,12 @@ public class UIManager : MonoBehaviour
         {
             connectionLine.gameObject.SetActive(false);
         }
+
+        if(selectedNode != null)
+        {
+            Debug.Log("Selected Node: " + selectedNode.id);
+        }
+
     }
 
     public void CloseUI()
