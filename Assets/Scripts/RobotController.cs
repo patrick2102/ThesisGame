@@ -9,7 +9,7 @@ public class RobotController : MonoBehaviour
 {
     public enum RobotBehaviourState
     {
-        none, distracting, pickup, putdown
+        none, distracting
     }
 
     public RobotBehaviourState behaviorState = RobotBehaviourState.none;
@@ -17,7 +17,7 @@ public class RobotController : MonoBehaviour
     public float speed = 50;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Interactable interactable;
-    public Transform objectToPickup;
+    public Pickupable pickedUpObject;
 
     private void Awake()
     {
@@ -57,14 +57,15 @@ public class RobotController : MonoBehaviour
 
     public void PickUp(Pickupable objectToPickup)
     {
-        SetBehaviorState(RobotBehaviourState.putdown);
+        pickedUpObject = objectToPickup;
         objectToPickup.PickUp();
     }
 
-    public void PutDown(Pickupable objectToPickup)
+    public void PutDown()
     {
         SetBehaviorState(RobotBehaviourState.none);
-        objectToPickup.PutDown();
+        pickedUpObject.PutDown();
+        pickedUpObject = null;
     }
 
     public void OpenProgrammingPanel()
