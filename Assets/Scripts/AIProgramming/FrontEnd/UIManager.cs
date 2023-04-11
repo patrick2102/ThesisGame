@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
 
     public enum UIState
     {
-        connectingNodes, commandScreen, nodeScreen, closed, menuScreen, interactScreen
+        connectingNodes, nodeScreen, closed, menuScreen, interactScreen
     }
 
     private UIState currentState = UIState.closed;
@@ -59,11 +59,10 @@ public class UIManager : MonoBehaviour
 
         if (currentState == UIState.connectingNodes)
         {
-            //Debug.DrawLine(startConnectionPos, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
             startConnectionLine.SetPosition(1, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
 
-        if (currentState == UIState.nodeScreen || currentState == UIState.commandScreen)
+        if (currentState == UIState.nodeScreen)
         {
             connectionLine.gameObject.SetActive(true);
             UpdateConnectionLine();
@@ -72,6 +71,12 @@ public class UIManager : MonoBehaviour
         {
             connectionLine.gameObject.SetActive(false);
         }
+
+        if(selectedNode != null)
+        {
+            Debug.Log("Selected Node: " + selectedNode.id);
+        }
+
     }
 
     public void CloseUI()
@@ -83,45 +88,26 @@ public class UIManager : MonoBehaviour
     {
         currentState = (currentState == newState ? UIState.closed : newState);
 
+        UpdateUIVisibility();
+        UpdateCameraView();
+    }
+
+    private void UpdateUIVisibility()
+    {
+        menuView.SetActive(currentState == UIState.menuScreen);
+        commandView.SetActive(currentState == UIState.nodeScreen);
+        nodesView.SetActive(currentState == UIState.nodeScreen);
+        interactView.SetActive(currentState == UIState.interactScreen);
+    }
+
+    private void UpdateCameraView()
+    {
         if (currentState == UIState.nodeScreen)
         {
-            menuView.SetActive(false);
-            commandView.SetActive(false);
-            nodesView.SetActive(true);
-            interactView.SetActive(false);
             GameManager.instance.ChangeView(GameManager.CameraState.pathCamera);
         }
-        else if (currentState == UIState.commandScreen)
+        else if (currentState == UIState.interactScreen || currentState == UIState.closed)
         {
-            menuView.SetActive(false);
-            commandView.SetActive(true);
-            nodesView.SetActive(true);
-            interactView.SetActive(false);
-            GameManager.instance.ChangeView(GameManager.CameraState.pathCamera);
-        }
-
-        else if (currentState == UIState.menuScreen)
-        {
-            menuView.SetActive(true);
-            commandView.SetActive(false);
-            nodesView.SetActive(false);
-            interactView.SetActive(false);
-        }
-
-        else if (currentState == UIState.closed)
-        {
-            menuView.SetActive(false);
-            commandView.SetActive(false);
-            nodesView.SetActive(false);
-            interactView.SetActive(false);
-            GameManager.instance.ChangeView(GameManager.CameraState.playerCamera);
-        }
-        else if (currentState == UIState.interactScreen)
-        {
-            menuView.SetActive(false);
-            commandView.SetActive(false);
-            nodesView.SetActive(false);
-            interactView.SetActive(true);
             GameManager.instance.ChangeView(GameManager.CameraState.playerCamera);
         }
     }
@@ -138,9 +124,7 @@ public class UIManager : MonoBehaviour
     {
         if (currentState == UIState.nodeScreen)
         {
-            //startConnectionLine.gameObject.SetActive(true);
             startConnectionLine.SetPosition(0, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            //startConnectionPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             currentState = UIState.connectingNodes;
         }
     }
@@ -164,25 +148,12 @@ public class UIManager : MonoBehaviour
             {
                 DisconnectNodes(node);
             }
+
+            selectedNode = null;
         }
         startConnectionLine.SetPosition(0, Vector2.zero);
         startConnectionLine.SetPosition(1, Vector2.zero);
         //startConnectionLine.gameObject.SetActive(false);
-    }
-
-    public void RightClickNode(CircuitNode node)
-    {
-        if (currentState == UIState.nodeScreen)
-        {
-            OpenCommandScreen(node);
-        }
-        else if (currentState == UIState.commandScreen)
-        {
-            currentState = UIState.nodeScreen;
-            selectedNode = null;
-
-            commandView.SetActive(false);
-        }
     }
 
     private void ConnectNodes(CircuitNode node)
@@ -199,14 +170,6 @@ public class UIManager : MonoBehaviour
         node.RemoveNextNode();
         RobotMovementVisualiser.instance.UpdatePath();
         UpdateConnectionLine();
-    }
-
-    private void OpenCommandScreen(CircuitNode node)
-    {
-        //currentState = UIState.commandScreen;
-        selectedNode = node;
-
-        SetUI(UIState.commandScreen);
     }
 
     public void ChangeCommand(CommandButton commandButton)
@@ -245,19 +208,6 @@ public class UIManager : MonoBehaviour
 
             count++;
         }
-        //connectionLine.SetPosition(0, positions[0]);
-
-        //float threshold = 0.5f;
-        //int index = 1;
-
-        //for (int i = 1; i < count; i++)
-        //{
-        //    if ((positions[i] - positions[i - 1]).magnitude > threshold)
-        //    {
-        //        connectionLine.SetPosition(index++, positions[i]);
-        //        connectionLine.positionCount = index;
-        //    }
-        //}
 
         connectionLine.positionCount = count;
 

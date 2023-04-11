@@ -8,6 +8,7 @@ TagManager:
   - Monster
   - PressurePlate
   - Pickupable
+  - Node
   layers:
   - Default
   - TransparentFX

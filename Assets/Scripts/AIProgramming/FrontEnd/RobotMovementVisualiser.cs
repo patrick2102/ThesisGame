@@ -114,10 +114,21 @@ public class RobotMovementVisualiser : MonoBehaviour
         switch (command)
         {
             case DirectionCommand:
-                var c = (DirectionCommand)command;
-                var f = (1f/robotRB.mass) * (c.direction * c.maxTimer) * robotController.speed * (1 / robotRB.drag);
-                //targetGroup.FindMember(pathPositions[index].transform);
-                return f;
+                {
+                    var c = (DirectionCommand)command;
+                    var f = (1f / robotRB.mass) * (c.direction * c.maxTimer) * robotController.speed * (1 / robotRB.drag);
+                    return f;
+                }
+            case PickUpCommand:
+                {
+                    var c = (PickUpCommand)command;
+                    var f = (c.targetObject.transform.position - robotController.transform.position);
+                    var pickUpMagnitude = (f.magnitude - c.pickupDistance)/f.magnitude;
+                    f *= pickUpMagnitude;
+
+                    return f;
+                }
+
             default:
                 break;
 
