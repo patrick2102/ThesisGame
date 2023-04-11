@@ -15,7 +15,6 @@ public class UIManager : MonoBehaviour
     private LineRenderer connectionLine;
 
     private CircuitNode selectedNode;
-    private Vector2 startConnectionPos;
 
     public enum UIState
     {
@@ -24,7 +23,7 @@ public class UIManager : MonoBehaviour
 
     private UIState currentState = UIState.closed;
 
-    public static UIManager instance; // Instance used to ensure singleton behavior.
+    public static UIManager instance;
 
     private void Awake()
     {
@@ -41,6 +40,7 @@ public class UIManager : MonoBehaviour
         SetUI(UIState.closed);
         canvas.worldCamera = Camera.main;
         startConnectionLine = Instantiate(startConnectionLinePrefab);
+        startConnectionLine.gameObject.SetActive(false);
         connectionLine = Instantiate(connectionLinePrefab);
     }
 
@@ -124,6 +124,7 @@ public class UIManager : MonoBehaviour
     {
         if (currentState == UIState.nodeScreen)
         {
+            startConnectionLine.gameObject.SetActive(true);
             startConnectionLine.SetPosition(0, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
             currentState = UIState.connectingNodes;
         }
@@ -151,9 +152,10 @@ public class UIManager : MonoBehaviour
 
             selectedNode = null;
         }
-        startConnectionLine.SetPosition(0, Vector2.zero);
-        startConnectionLine.SetPosition(1, Vector2.zero);
-        //startConnectionLine.gameObject.SetActive(false);
+        var positions = new Vector3[] { Vector2.zero, Vector2.zero };
+
+        startConnectionLine.SetPositions(positions);
+        startConnectionLine.gameObject.SetActive(false);
     }
 
     private void ConnectNodes(CircuitNode node)
