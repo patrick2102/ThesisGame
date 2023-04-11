@@ -42,17 +42,11 @@ public class NodesScreen : MonoBehaviour
     private void SetNodePositions()
     {
         var stepSizeX = (screen.rect.width) / (circuitNodes.GetLength(0));
-        var stepSizeY = (screen.rect.height - 20.0f) / (circuitNodes.GetLength(1));
-
-        // Decreased stepsize further to make room for run button in at the bottom of screen
-        stepSizeY -= 15.0f;
+        var stepSizeY = (screen.rect.height) / (circuitNodes.GetLength(1));
 
         var stepSize = new Vector2(stepSizeX, stepSizeY);
 
         var border = stepSize / 2;
-
-        // Added a value to raise the point from which the circuit board is drawn, to make room for the run button
-        border.y += 80.0f;
 
         for (int i = 0; i < circuitNodes.GetLength(0); i++)
         {
@@ -64,24 +58,6 @@ public class NodesScreen : MonoBehaviour
                 {
                     var offSet = border + (stepSize * new Vector2(i, circuitNodes.GetLength(1) - j - 1));
 
-                    // Add adjustable distance element
-                    //if (node.GetCommand() is DirectionCommand)
-                    //{
-                    //    if (node.GetComponentInChildren<TMP_InputField>() == null)
-                    //    {
-                    //        AddAdjustableFieldToDirectionNode(i + j, node);
-                    //    }
-                    //    if (node.GetComponentInChildren<DirectionCommand>() != null)
-                    //    {
-                    //        var stringTextInput = inputFields[i + j].GetComponent<TMP_InputField>().text;
-                    //        if (stringTextInput.Length > 0)
-                    //        {
-                    //            float textInputAsFloat = float.Parse(stringTextInput);
-                    //            node.GetComponentInChildren<DirectionCommand>().maxTimer = textInputAsFloat;
-                    //        }
-                    //    }
-                    //    offSet.x -= 20.0f;
-                    //}
                     node.transform.localScale = new Vector3(1, 1, 1);
                     node.GetComponent<RectTransform>().anchoredPosition = offSet;
                 }
