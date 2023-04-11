@@ -3,12 +3,14 @@ using UnityEngine;
 public class FollowCommand : AICommand
 {
     float timer; // Timer to that counts up to maxTimer to control time before going to the next command
-    [SerializeField] public float maxTimer;
+    public float maxTimer;
     private Transform playerTransform;
+
     public override ProgramStatus Step(RobotController rbc)
     {
         if (maxTimer > timer)
         {
+            rbc.StartFollowing();
             timer += Time.deltaTime;
 
             if (playerTransform == null)
@@ -18,6 +20,8 @@ public class FollowCommand : AICommand
             var dist = fromRobotToPlayer.magnitude;
             fromRobotToPlayer = fromRobotToPlayer.normalized;
 
+            
+
             if (dist > 2.0f)
             {
                 rbc.MoveDirection(fromRobotToPlayer);
@@ -26,6 +30,7 @@ public class FollowCommand : AICommand
         }
         else
         {
+            rbc.StopFollowing();
             timer = 0;
             return ProgramStatus.stopped;
         }
