@@ -69,7 +69,7 @@ public class RobotMovementVisualiser : MonoBehaviour
         while (node != null && count < maxDepth)
         {
             var command = node.GetCommand();
-            var movement = (Vector2)GetForceFromCommand(command, count);
+            var movement = (Vector2)GetForceFromCommand(command, robotPosition);
             robotPosition += movement;
             pathPositions[count].position = robotPosition;
 
@@ -109,15 +109,26 @@ public class RobotMovementVisualiser : MonoBehaviour
 
     }
 
-    private Vector3 GetForceFromCommand(AICommand command, int index)
+    private Vector3 GetForceFromCommand(AICommand command, Vector2 currentPos)
     {
         switch (command)
         {
             case DirectionCommand:
-                var c = (DirectionCommand)command;
-                var f = (1f/robotRB.mass) * (c.direction * c.maxTimer) * robotController.speed * (1 / robotRB.drag);
-                //targetGroup.FindMember(pathPositions[index].transform);
-                return f;
+                {
+                    var c = (DirectionCommand)command;
+                    var f = (1f / robotRB.mass) * (c.direction * c.maxTimer) * robotController.speed * (1 / robotRB.drag);
+                    return f;
+                }
+            case PickUpCommand:
+                {
+                    var c = (PickUpCommand)command;
+                    var f = ((Vector2)c.targetObject.transform.position - currentPos);
+                    var pickUpMagnitude = (f.magnitude - c.pickupDistance)/f.magnitude;
+                    f *= pickUpMagnitude;
+
+                    return f;
+                }
+
             default:
                 break;
 

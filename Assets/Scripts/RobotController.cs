@@ -19,6 +19,7 @@ public class RobotController : MonoBehaviour
     [SerializeField] Interactable interactable;
     public Transform objectToPickup;
     private float distanceToWater;
+    public Pickupable pickedUpObject;
 
     private void Awake()
     {
@@ -58,14 +59,15 @@ public class RobotController : MonoBehaviour
 
     public void PickUp(Pickupable objectToPickup)
     {
-        SetBehaviorState(RobotBehaviourState.putdown);
+        pickedUpObject = objectToPickup;
         objectToPickup.PickUp();
     }
 
-    public void PutDown(Pickupable objectToPickup)
+    public void PutDown()
     {
         SetBehaviorState(RobotBehaviourState.none);
-        objectToPickup.PutDown();
+        pickedUpObject.PutDown();
+        pickedUpObject = null;
     }
 
     public void StartFollowing()

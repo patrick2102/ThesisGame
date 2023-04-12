@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2369099178891620765, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369099178891620765, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5595581387964285559, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: m_Text
       value: Input
@@ -50,11 +58,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5595581388246365701, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 50
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5595581388246365701, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 5595581388246365701, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -107,6 +115,30 @@ PrefabInstance:
     - target: {fileID: 5595581388246365706, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
       propertyPath: m_Name
       value: InputNode
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083700358561385313, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702522302123012694, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702522302123012694, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702522302123012694, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 9164721158973146567, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
+      propertyPath: m_text
+      value: Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 9164721158973146567, guid: e9c72b8bb01a4794cb5edb551baaa7c2, type: 3}
+      propertyPath: m_margin.w
+      value: -3.321926
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
