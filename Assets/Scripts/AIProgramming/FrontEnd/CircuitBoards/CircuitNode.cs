@@ -103,4 +103,9 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
        //Debug.Log("Something dropped");
     }
+
+    public float GetSliderValue()
+    {
+        return float.Parse(sliderValue.text);
+    }
 }

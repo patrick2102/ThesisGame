@@ -3,7 +3,6 @@ using UnityEngine;
 public class FollowCommand : AICommand
 {
     float timer; // Timer to that counts up to maxTimer to control time before going to the next command
-    public float maxTimer;
     private Transform playerTransform;
 
     public override ProgramStatus Step(RobotController rbc)
@@ -19,8 +18,6 @@ public class FollowCommand : AICommand
             var fromRobotToPlayer = playerTransform.position - rbc.transform.position;
             var dist = fromRobotToPlayer.magnitude;
             fromRobotToPlayer = fromRobotToPlayer.normalized;
-
-            
 
             if (dist > 2.0f)
             {

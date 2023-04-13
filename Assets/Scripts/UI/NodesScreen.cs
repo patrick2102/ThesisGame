@@ -67,25 +67,17 @@ public class NodesScreen : MonoBehaviour
                         }
                         if (node.GetComponentInChildren<DirectionCommand>() != null)
                         {
-                            var stringTextInput = inputFields[i + j].GetComponent<TMP_InputField>().text;
-                            if (stringTextInput.Length > 0) // This check is to avoid problems while the input is blank rather than an int
-                            {
-                                float textInputAsFloat = float.Parse(stringTextInput);
-                                node.GetComponentInChildren<DirectionCommand>().maxTimer = textInputAsFloat;
-                            }
+                            float textInputAsFloat = node.GetSliderValue();
+                            node.GetComponentInChildren<DirectionCommand>().maxTimer = textInputAsFloat;
                         }
                         if (node.GetComponentInChildren<FollowCommand>() != null)
                         {
-                            var stringTextInput = inputFields[i + j].GetComponent<TMP_InputField>().text;
-                            if (stringTextInput.Length > 0) // This check is to avoid problems while the input is blank rather than an int
+                            float textInputAsFloat = node.GetSliderValue();
+                            node.GetComponentInChildren<FollowCommand>().maxTimer = textInputAsFloat;
+                            if (textInputAsFloat == 0)
                             {
-                                float textInputAsFloat = float.Parse(stringTextInput);
-                                node.GetComponentInChildren<FollowCommand>().maxTimer = textInputAsFloat;
-                                if (textInputAsFloat == 0)
-                                {
-                                    node.GetComponentInChildren<FollowCommand>().maxTimer = 999.9f; // This is a simple way of achieving something akin to constant following
-                                }
-                            } 
+                                node.GetComponentInChildren<FollowCommand>().maxTimer = 999.9f; // This is a simple way of achieving something akin to constant following
+                            }
                         }
                         offSet.x -= 20.0f;
                     }

@@ -22,7 +22,6 @@ public class MoveOverTime : MonoBehaviour
             float distanceToWater = robot.GetComponent<RobotController>().GetCurrentWaterDistance();
             if (distanceToWater > 1.7f)
             {
-                Debug.Log(distanceToWater);
                 gameObject.transform.position += (waterMoveSpeed * distanceToWater - 0.8f) * Time.deltaTime * Vector3.up;
             }
         }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject commandView;
     [SerializeField] private GameObject nodesView;
     [SerializeField] private GameObject interactView;
+    [SerializeField] private GameObject tutorialView;
     [SerializeField] private Canvas canvas;
     [SerializeField] private LineRenderer startConnectionLinePrefab;
     [SerializeField] private LineRenderer connectionLinePrefab;
@@ -18,7 +20,7 @@ public class UIManager : MonoBehaviour
 
     public enum UIState
     {
-        connectingNodes, nodeScreen, closed, menuScreen, interactScreen
+        connectingNodes, nodeScreen, closed, menuScreen, interactScreen, tutorialScreen
     }
 
     private UIState currentState = UIState.closed;
@@ -42,6 +44,17 @@ public class UIManager : MonoBehaviour
         startConnectionLine = Instantiate(startConnectionLinePrefab);
         startConnectionLine.gameObject.SetActive(false);
         connectionLine = Instantiate(connectionLinePrefab);
+
+        // Create a temporary reference to the current scene.
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // Retrieve the name of this scene.
+        string sceneName = currentScene.name;
+
+        if (sceneName == "Example 1")
+        {
+            // Do something...
+        }
     }
 
     // Update is called once per frame
@@ -98,6 +111,7 @@ public class UIManager : MonoBehaviour
         commandView.SetActive(currentState == UIState.nodeScreen);
         nodesView.SetActive(currentState == UIState.nodeScreen);
         interactView.SetActive(currentState == UIState.interactScreen);
+        tutorialView.SetActive(currentState == UIState.tutorialScreen);
     }
 
     private void UpdateCameraView()
@@ -176,10 +190,7 @@ public class UIManager : MonoBehaviour
 
     public void ChangeCommand(CommandButton commandButton)
     {
-
         selectedNode.ChangeCommand(commandButton.command);
-
-
 
         selectedNode = null;
         SetUI(UIState.nodeScreen);
@@ -217,5 +228,10 @@ public class UIManager : MonoBehaviour
         {
             connectionLine.SetPosition(i, positions[i]);
         }
+    }
+
+    public void SetTutorialText(string tutorialText)
+    {
+        tutorialView.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = tutorialText;
     }
 }
