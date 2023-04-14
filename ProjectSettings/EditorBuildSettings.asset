@@ -9,12 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Alpha/StartMenu.unity
     guid: 19fb3d1695a2b274cab86a687702ab16
   - enabled: 1
-    path: Assets/Scenes/Alpha/SubL1-ProgramThroughPath.unity
+    path: Assets/Scenes/Final/Lvl1-ProgramThroughPath.unity
     guid: 531109b0a391e564da0fa06e341f5d8c
   - enabled: 1
-    path: Assets/Scenes/Alpha/L2-RemoteProgramming.unity
-    guid: b151728b220a78a41bd1d3125cfe9488
+    path: Assets/Scenes/Final/Lvl2-PressurePlate intro.unity
+    guid: 2a1ffa00ee17ab84eb84a5d30a104111
   - enabled: 1
-    path: Assets/Scenes/Alpha/Level3.unity
-    guid: d909a677e95321b45a57385a19c1011f
+    path: Assets/Scenes/Final/Lvl3-Gas intro.unity
+    guid: b8b48fe54df4cdd4fa225dc90cfe9548
+  - enabled: 1
+    path: Assets/Scenes/Final/Lvl6-Monster.unity
+    guid: 42801d876edc75b4fb2aec3ae3f4ca8c
   m_configObjects: {}
