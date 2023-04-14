@@ -98,26 +98,43 @@ public class AnimationControllerScript : MonoBehaviour
                 }
             }
         }
-
-        if(newDirection != currentDirection)
+        if (newDirection != currentDirection)
         {
-            currentDirection = newDirection;
+            //Check if the new direction is a different axis than the current direction
+            if (newDirection == Direction.Left || newDirection == Direction.Right)
+            {
+                if (currentDirection == Direction.Up || currentDirection == Direction.Down)
+                {
+                    animator.SetTrigger("SwitchDirection");
+                }
+            }
+            else if (newDirection == Direction.Up || newDirection == Direction.Down)
+            {
+                if (currentDirection == Direction.Left || currentDirection == Direction.Right)
+                {
+                    animator.SetTrigger("SwitchDirection");
+                }
+            }
 
-            animator.SetTrigger("SwitchDirection");
+            currentDirection = newDirection;
 
             switch (currentDirection)
             {
                 case Direction.Left:
                     ChangeSprite(RobotSprites.leftSprites);
+                    //ChangeAnimation(RobotAnimation.WalkSide);
                     break;
                 case Direction.Right:
                     ChangeSprite(RobotSprites.rightSprites);
+                    //ChangeAnimation(RobotAnimation.WalkSide);
                     break;
                 case Direction.Up:
                     ChangeSprite(RobotSprites.backSprites);
+                    //ChangeAnimation(RobotAnimation.Walk);
                     break;
                 case Direction.Down:
                     ChangeSprite(RobotSprites.frontSprites);
+                    //ChangeAnimation(RobotAnimation.Walk);
                     break;
             }
         }
@@ -135,6 +152,8 @@ public class AnimationControllerScript : MonoBehaviour
         }
     }
 
+
+    /*
     public void ChangeAnimation(RobotAnimation animation)
     {
         currentAnimation = animation;
@@ -162,4 +181,5 @@ public class AnimationControllerScript : MonoBehaviour
             }
         }
     }
+    */
 }
