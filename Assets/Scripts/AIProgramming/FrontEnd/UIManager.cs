@@ -111,7 +111,7 @@ public class UIManager : MonoBehaviour
         commandView.SetActive(currentState == UIState.nodeScreen);
         nodesView.SetActive(currentState == UIState.nodeScreen);
         interactView.SetActive(currentState == UIState.interactScreen);
-        tutorialView.SetActive(currentState == UIState.tutorialScreen);
+        //tutorialView.SetActive(currentState == UIState.tutorialScreen);
     }
 
     private void UpdateCameraView()
