@@ -86815,7 +86815,7 @@ GameObject:
   - component: {fileID: 2123895009}
   - component: {fileID: 2123895008}
   m_Layer: 0
-  m_Name: TutorialTextTrigger (1)
+  m_Name: TutorialTextGasWarning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86848,7 +86848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18731949ed618c94db53b92c6e1c109b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TutorialtextForUI: 'The gas is not breathable by humans - '
+  TutorialtextForUI: The gas is not breathable by humans - Be careful!
 --- !u!61 &2123895009
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -86969,7 +86969,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 251547190993988645, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000008361167
+      value: 0.00031932283
       objectReference: {fileID: 0}
     - target: {fileID: 251547191441269380, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_Value
