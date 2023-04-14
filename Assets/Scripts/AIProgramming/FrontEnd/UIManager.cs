@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        SetUI(UIState.closed);
+        
         canvas.worldCamera = Camera.main;
         startConnectionLine = Instantiate(startConnectionLinePrefab);
         startConnectionLine.gameObject.SetActive(false);
@@ -55,6 +55,8 @@ public class UIManager : MonoBehaviour
         {
             // Do something...
         }
+
+        SetUI(UIState.closed);
     }
 
     // Update is called once per frame
