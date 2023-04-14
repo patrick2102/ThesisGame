@@ -58,6 +58,29 @@ public class NodesScreen : MonoBehaviour
                 {
                     var offSet = border + (stepSize * new Vector2(i, circuitNodes.GetLength(1) - j - 1));
 
+                    // Add adjustable distance element
+                    if (node.GetCommand() is DirectionCommand || node.GetCommand() is FollowCommand)
+                    {
+                        if (node.GetComponentInChildren<TMP_InputField>() == null)
+                        {
+                            AddAdjustableFieldToDirectionNode(i + j, node);
+                        }
+                        if (node.GetComponentInChildren<DirectionCommand>() != null)
+                        {
+                            float textInputAsFloat = node.GetSliderValue();
+                            node.GetComponentInChildren<DirectionCommand>().maxTimer = textInputAsFloat;
+                        }
+                        if (node.GetComponentInChildren<FollowCommand>() != null)
+                        {
+                            float textInputAsFloat = node.GetSliderValue();
+                            node.GetComponentInChildren<FollowCommand>().maxTimer = textInputAsFloat;
+                            if (textInputAsFloat == 0)
+                            {
+                                node.GetComponentInChildren<FollowCommand>().maxTimer = 999.9f; // This is a simple way of achieving something akin to constant following
+                            }
+                        }
+                        offSet.x -= 20.0f;
+                    }
                     node.transform.localScale = new Vector3(1, 1, 1);
                     node.GetComponent<RectTransform>().anchoredPosition = offSet;
                 }
