@@ -156,6 +156,14 @@ public class GameManager : MonoBehaviour
         if (lastCheckPoint == null)
         {
             lastCheckPoint = newCheckpoint;
+
+            if (lastPlayerSeperateSpawn != null)
+            {
+                lastPlayerSeperateSpawn = newCheckpoint;
+                lastRobotSeperateSpawn = newCheckpoint;
+                lastRobotSeperateSpawn.GetSpawnPoint().position += new Vector3(1, 0, 0);
+            }
+
             return;
         }
 
@@ -163,6 +171,13 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Checkpoint triggered");
             lastCheckPoint = newCheckpoint;
+
+            if (lastPlayerSeperateSpawn != null)
+            {
+                lastPlayerSeperateSpawn = newCheckpoint;
+                lastRobotSeperateSpawn = newCheckpoint;
+                lastRobotSeperateSpawn.GetSpawnPoint().position += new Vector3(1, 0, 0);
+            }
         }
     }
 
