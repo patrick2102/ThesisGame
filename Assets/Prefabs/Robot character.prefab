@@ -463,7 +463,7 @@ Transform:
   - {fileID: 552892360808146874}
   - {fileID: 552892360718529324}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &552892361925118880
 Animator:
@@ -501,6 +501,7 @@ MonoBehaviour:
   speed: 5000
   rb: {fileID: 8938137038349458981}
   interactable: {fileID: 1992498645}
+  objectToPickup: {fileID: 0}
   pickedUpObject: {fileID: 0}
 --- !u!58 &6619402509979231804
 CircleCollider2D:
@@ -605,9 +606,9 @@ MonoBehaviour:
   - {fileID: -1480558407, guid: 81ea09901d943e74e9b4c09d2d32f639, type: 3}
   rightSprites:
   - {fileID: -592009986, guid: f3ba39c377e588c4f9154f3866aa0055, type: 3}
+  - {fileID: -202983440, guid: f3ba39c377e588c4f9154f3866aa0055, type: 3}
   - {fileID: -1326639531, guid: f3ba39c377e588c4f9154f3866aa0055, type: 3}
   - {fileID: 1767867687, guid: f3ba39c377e588c4f9154f3866aa0055, type: 3}
-  - {fileID: -202983440, guid: f3ba39c377e588c4f9154f3866aa0055, type: 3}
   - {fileID: 1927645492, guid: f3ba39c377e588c4f9154f3866aa0055, type: 3}
   animator: {fileID: 552892361925118880}
   rb: {fileID: 8938137038349458981}
