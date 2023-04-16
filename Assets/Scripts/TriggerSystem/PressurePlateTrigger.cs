@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PressurePlateTrigger : TriggerBase
 {
@@ -37,6 +38,17 @@ public class PressurePlateTrigger : TriggerBase
                 if (objectToRemove != null)
                     objectToRemove.SetActive(false);
                 robotEmotionStateHandler.SwitchRobotEmotionState(RobotEmotionStateHandler.EmotionState.happy);
+                
+                // Create a temporary reference to the current scene.
+                Scene currentScene = SceneManager.GetActiveScene();
+
+                // Retrieve the name of this scene.
+                string sceneName = currentScene.name;
+
+                if (sceneName == "RobotDeath")
+                {
+                    GameManager.instance.ChangeView(GameManager.CameraState.monsterCamera);
+                }
                 break;
             default:
                 break;
