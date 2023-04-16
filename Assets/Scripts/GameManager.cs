@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     //Cameras
     [SerializeField] private CinemachineVirtualCamera playerCamera;
     [SerializeField] private CinemachineVirtualCamera pathCamera;
-    [SerializeField] private CinemachineVirtualCamera monsterCamera;
 
     //TargetGroups
     [SerializeField] private CinemachineTargetGroup playerTargetGroup;
@@ -78,20 +77,11 @@ public class GameManager : MonoBehaviour
         {
             playerCamera.Priority = 10;
             pathCamera.Priority = 0;
-            monsterCamera.Priority = 0;
         }
         else if (currentCameraState == CameraState.pathCamera)
         {
             playerCamera.Priority = 0;
             pathCamera.Priority = 10;
-            monsterCamera.Priority = 0;
-
-        }
-        else if (currentCameraState == CameraState.monsterCamera)
-        {
-            playerCamera.Priority = 5;
-            pathCamera.Priority = 0;
-            monsterCamera.Priority = 10;
 
         }
     }
@@ -204,7 +194,6 @@ public class GameManager : MonoBehaviour
             }
             playerTargetGroup.AddMember(player.transform, 4, 4);
             playerTargetGroup.AddMember(robot.transform, 2, 10);
-            playerTargetGroup.AddMember(robotKiller.transform, 3, 3);
         }
 
         Restart();

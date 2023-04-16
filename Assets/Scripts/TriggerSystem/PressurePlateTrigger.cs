@@ -10,9 +10,12 @@ public class PressurePlateTrigger : TriggerBase
     [SerializeField] private Transform moveToPosition;
     [SerializeField] private GameObject objectToRemove;
     [SerializeField] private CheckpointTrigger checkpoint;
+    public bool moveOverTime;
+    public float moveDuration;
     public bool resetPositionAtRestart;
     private Vector3 originalDoorPosition;
     private RobotEmotionStateHandler robotEmotionStateHandler;
+
 
     public void Awake()
     {
@@ -27,14 +30,14 @@ public class PressurePlateTrigger : TriggerBase
             case nameof(GameObjectTags.Player):
                 if(doorCollider != null)
                     doorCollider.enabled = false;
-                door.transform.position = moveToPosition.position;
+                StartCoroutine(MoveDoorToPosition());
                 if (objectToRemove != null)
                     objectToRemove.SetActive(false);
                 break;
             case nameof(GameObjectTags.Robot):
-                if (doorCollider != null)
+                if (doorCollider != null && !moveOverTime)
                     doorCollider.enabled = false;
-                door.transform.position = moveToPosition.position;
+                StartCoroutine(MoveDoorToPosition());
                 if (objectToRemove != null)
                     objectToRemove.SetActive(false);
                 robotEmotionStateHandler.SwitchRobotEmotionState(RobotEmotionStateHandler.EmotionState.happy);
@@ -52,6 +55,24 @@ public class PressurePlateTrigger : TriggerBase
                 break;
             default:
                 break;
+        }
+    }
+
+    private IEnumerator MoveDoorToPosition()
+    {
+        if (moveOverTime)
+        {
+            var currentPos = door.transform.position;
+            var t = 0f;
+            while (t < 1)
+            {
+                t += Time.deltaTime / moveDuration;
+                door.transform.position = Vector3.Lerp(currentPos, moveToPosition.position, t);
+                yield return null;
+            }
+        } else
+        {
+            door.transform.position = moveToPosition.position;
         }
     }
 
