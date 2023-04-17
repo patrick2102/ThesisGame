@@ -21,6 +21,7 @@ public class RobotController : MonoBehaviour
     private float distanceToWater;
     public Pickupable pickedUpObject;
 
+
     private void Awake()
     {
         if (instance == null)

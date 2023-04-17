@@ -12,6 +12,8 @@ public class RobotEmotionStateHandler : MonoBehaviour
     public float animationTime = 0.0f;
     public float animationTimeMax = 2.0f;
 
+    [SerializeField] private AnimationControllerScript animationController;
+
     private AudioSource audioSource;
 
     public AudioClip happySound;
@@ -50,8 +52,8 @@ public class RobotEmotionStateHandler : MonoBehaviour
                     currentEmotionState = newState;
                     // Make call to set animation / sound effect to happy, such as when a pressure plate puzzle suceeded 
                     audioSource.clip = happySound;
-                    audioSource.Play();
-                    animationTime = 0.0f;
+                    //audioSource.Play();
+                    animationController.TriggerHappyAnimation();
                     Debug.Log("Robot is happy! Yay! :D");
                     break;
 
