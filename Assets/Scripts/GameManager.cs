@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 {
     public enum CameraState
     { 
-        playerCamera, pathCamera
+        playerCamera, pathCamera, monsterCamera
     }
 
     public static CameraState currentCameraState = CameraState.playerCamera;
@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AIProgram aiProgramPrefab;
     private GameObject player;
     private GameObject robot;
+    private GameObject robotKiller;
     private GameObject[] monsters;
     private GameObject[] pressurePlates;
     private (Vector3, Quaternion)[] monsterSpawns;
@@ -53,7 +54,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         Debug.Log("Awake called");
-
     }
 
     private void Start()
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
     public void RobotDeath()
     {
         Debug.Log("Robot should break down?");
-        Restart();
+        //Restart();
     }
 
     public void TriggerCheckpoint(CheckpointTrigger newCheckpoint)
@@ -186,6 +186,8 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag(GameObjectTags.Player.ToString());
 
         robot = GameObject.FindGameObjectWithTag(GameObjectTags.Robot.ToString());
+
+        robotKiller = GameObject.FindGameObjectWithTag(GameObjectTags.RobotKillMonster.ToString());
 
         if (robot != null)
         {
