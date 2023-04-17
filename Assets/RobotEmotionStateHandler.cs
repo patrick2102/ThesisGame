@@ -4,13 +4,15 @@ public class RobotEmotionStateHandler : MonoBehaviour
 {
     public enum EmotionState
     {
-        idle, happy, scared
+        idle, happy, scared, angry
     }
 
     private EmotionState currentEmotionState;
     public float scaredRangeRadius;
     public float animationTime = 0.0f;
     public float animationTimeMax = 2.0f;
+
+    [SerializeField] private AnimationControllerScript animationController;
 
     private AudioSource audioSource;
 
@@ -50,20 +52,25 @@ public class RobotEmotionStateHandler : MonoBehaviour
                     currentEmotionState = newState;
                     // Make call to set animation / sound effect to happy, such as when a pressure plate puzzle suceeded 
                     audioSource.clip = happySound;
-                    audioSource.Play();
-                    animationTime = 0.0f;
+                    //audioSource.Play();
+                    animationController.TriggerHappyAnimation();
                     Debug.Log("Robot is happy! Yay! :D");
                     break;
 
                 case EmotionState.scared:
                     currentEmotionState = newState;
-                    // Make call to set animation / sound effect to scared, such as when a monster is in close proximity to the robot
-                    animationTime = 0.0f;
+                    animationController.TriggerSadAnimation();
                     Debug.Log("ROBOT IS SCARED!!!");
                     break;
+
+                case EmotionState.angry:
+                    currentEmotionState = newState;
+                    animationController.TriggerAngryAnimation();
+                    Debug.Log("ROBOT IS ANGRY!!!");
+                    break;
+
                 case EmotionState.idle: 
                     currentEmotionState = newState;
-                    animationTime = 0.0f;
                     Debug.Log("Robot neutral");
                     break;
             }

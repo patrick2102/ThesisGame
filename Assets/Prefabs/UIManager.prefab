@@ -368,10 +368,6 @@ MonoBehaviour:
   - {fileID: 5813596060008942954, guid: 5a220c0b2fad9734bbcd6a46ee799a8f, type: 3}
   - {fileID: 7417230432537691460, guid: 68413838b1e49934abffb4ddafa9bd7e, type: 3}
   - {fileID: 5813596060008942954, guid: c8350b89bbfdaf344b5c9b6dc70a3e52, type: 3}
-  - {fileID: 5813596060008942954, guid: 642dcf343b3d4954cb3d95a7ddd3bd8f, type: 3}
-  - {fileID: -7344420909896339756, guid: b0e0a49b0e3944f49b9fe0b41f01a782, type: 3}
-  - {fileID: -1839816762206112191, guid: 980ed417995267648bb91ea0da82e7ea, type: 3}
-  - {fileID: 6952835596734054878, guid: d5df12b53a505574eb808c6469b2da58, type: 3}
   - {fileID: 3463715609346182884, guid: dea62651520795043a2267311891d0ea, type: 3}
   buttonPrefab: {fileID: 3343758346377340338, guid: 5b0c85ff933eb3b4994658132184251a, type: 3}
   content: {fileID: 251547190993988645}
@@ -733,7 +729,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00002002716, y: -0.00004467399}
+  m_AnchoredPosition: {x: -0.00002002716, y: 0.00086725183}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &251547190993988646
@@ -1144,7 +1140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1500469310788073960
 RectTransform:
   m_ObjectHideFlags: 0

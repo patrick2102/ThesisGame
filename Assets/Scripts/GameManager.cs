@@ -187,8 +187,6 @@ public class GameManager : MonoBehaviour
 
         robot = GameObject.FindGameObjectWithTag(GameObjectTags.Robot.ToString());
 
-        robotKiller = GameObject.FindGameObjectWithTag(GameObjectTags.RobotKillMonster.ToString());
-
         if (robot != null)
         {
             var program = Instantiate(aiProgramPrefab);
