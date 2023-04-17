@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Cinemachine.CinemachineFreeLook;
 
 public class UIManager : MonoBehaviour
 {
@@ -45,16 +46,7 @@ public class UIManager : MonoBehaviour
         startConnectionLine.gameObject.SetActive(false);
         connectionLine = Instantiate(connectionLinePrefab);
 
-        // Create a temporary reference to the current scene.
-        Scene currentScene = SceneManager.GetActiveScene();
-
-        // Retrieve the name of this scene.
-        string sceneName = currentScene.name;
-
-        if (sceneName == "Example 1")
-        {
-            // Do something...
-        }
+        
 
         SetUI(UIState.closed);
     }

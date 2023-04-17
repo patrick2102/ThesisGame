@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PressurePlateTrigger : TriggerBase
 {
@@ -9,9 +10,13 @@ public class PressurePlateTrigger : TriggerBase
     [SerializeField] private Transform moveToPosition;
     [SerializeField] private GameObject objectToRemove;
     [SerializeField] private CheckpointTrigger checkpoint;
+    public bool moveOverTime;
+    public float moveDuration;
+    public bool triggerOnlyOnce;
     public bool resetPositionAtRestart;
     private Vector3 originalDoorPosition;
     private RobotEmotionStateHandler robotEmotionStateHandler;
+
 
     public void Awake()
     {
@@ -21,25 +26,65 @@ public class PressurePlateTrigger : TriggerBase
 
     public override void HandleTriggerEnter(string tag)
     {
-        switch (tag)
+        if (triggerOnlyOnce)
         {
-            case nameof(GameObjectTags.Player):
-                if(doorCollider != null)
-                    doorCollider.enabled = false;
-                door.transform.position = moveToPosition.position;
-                if (objectToRemove != null)
-                    objectToRemove.SetActive(false);
-                break;
-            case nameof(GameObjectTags.Robot):
-                if (doorCollider != null)
-                    doorCollider.enabled = false;
-                door.transform.position = moveToPosition.position;
-                if (objectToRemove != null)
-                    objectToRemove.SetActive(false);
-                robotEmotionStateHandler.SwitchRobotEmotionState(RobotEmotionStateHandler.EmotionState.happy);
-                break;
-            default:
-                break;
+            switch (tag)
+            {
+                case nameof(GameObjectTags.Player):
+                    if (doorCollider != null)
+                        doorCollider.enabled = false;
+                    StartCoroutine(MoveDoorToPosition());
+                    if (objectToRemove != null)
+                        objectToRemove.SetActive(false);
+                    break;
+                case nameof(GameObjectTags.Robot):
+                    if (doorCollider != null && !moveOverTime)
+                        doorCollider.enabled = false;
+                    StartCoroutine(MoveDoorToPosition());
+                    if (objectToRemove != null)
+                        objectToRemove.SetActive(false);
+                    robotEmotionStateHandler.SwitchRobotEmotionState(RobotEmotionStateHandler.EmotionState.happy);
+                    break;
+                case nameof(GameObjectTags.Monster):
+                    // Temporary reference to the current scene.
+                    Scene currentScene = SceneManager.GetActiveScene();
+
+                    // Retrieve the name of this scene.
+                    string sceneName = currentScene.name;
+
+                    // This is just to ensure only the RobotDeath scene is affected by this code. Other scenes should not have monsters triggering pressure plates
+                    if (sceneName == "RobotDeath")
+                    {
+                        if (doorCollider != null && !moveOverTime)
+                            doorCollider.enabled = false;
+                        StartCoroutine(MoveDoorToPosition());
+                        if (objectToRemove != null)
+                            objectToRemove.SetActive(false);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            triggerOnlyOnce = false;
+        }
+    }
+
+    private IEnumerator MoveDoorToPosition()
+    {
+        doorCollider.enabled = true;
+        if (moveOverTime)
+        {
+            var currentPos = door.transform.position;
+            var t = 0f;
+            while (t < 1)
+            {
+                t += Time.deltaTime / moveDuration;
+                door.transform.position = Vector3.Lerp(currentPos, moveToPosition.position, t);
+                yield return null;
+            }
+        } else
+        {
+            door.transform.position = moveToPosition.position;
         }
     }
 
