@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
     public void RobotDeath()
     {
         Debug.Log("Robot should break down?");
-        Restart();
+        //Restart();
     }
 
     public void TriggerCheckpoint(CheckpointTrigger newCheckpoint)

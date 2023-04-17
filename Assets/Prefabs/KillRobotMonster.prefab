@@ -94,10 +94,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6252305590682732747}
   - component: {fileID: 6252305590682732744}
-  - component: {fileID: 6252305590682732750}
+  - component: {fileID: 1610662626155907198}
   - component: {fileID: 6252305590682732746}
   - component: {fileID: 3922957025937978158}
   - component: {fileID: 1307912168295443399}
+  - component: {fileID: 1335631084}
   m_Layer: 0
   m_Name: KillRobotMonster
   m_TagString: Monster
@@ -174,7 +175,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6252305590682732750
+--- !u!114 &1610662626155907198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,13 +184,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6252305590682732751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 106c722fd14727e41b79a30b932f6a69, type: 3}
+  m_Script: {fileID: 11500000, guid: 257132d8dc939764bb27c12cb90d0f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aggroRangeRadius: 20
+  aggroRangeRadius: 30
   rotateSpeed: 1.8
   alignAngleRange: 15
-  moveMultiplier: 3
+  moveMultiplier: 5
 --- !u!50 &6252305590682732746
 Rigidbody2D:
   serializedVersion: 4
@@ -237,6 +238,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfd732b222b69e044b688c771f400168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1335631084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252305590682732751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4d3ebee24133b141a152f28d090269d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7657017876991610628
