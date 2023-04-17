@@ -69470,7 +69470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 251547190993988645, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00009283908
+      value: -0.000012387499
       objectReference: {fileID: 0}
     - target: {fileID: 251547191441269380, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_Value
@@ -69504,6 +69504,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: commands.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: commands.Array.data[5]
+      value: 
+      objectReference: {fileID: 3463715609346182884, guid: dea62651520795043a2267311891d0ea, type: 3}
+    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: commands.Array.data[6]
+      value: 
+      objectReference: {fileID: -7344420909896339756, guid: b0e0a49b0e3944f49b9fe0b41f01a782, type: 3}
+    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: commands.Array.data[7]
+      value: 
+      objectReference: {fileID: 5813596060008942954, guid: 642dcf343b3d4954cb3d95a7ddd3bd8f, type: 3}
+    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: commands.Array.data[8]
+      value: 
+      objectReference: {fileID: -1839816762206112191, guid: 980ed417995267648bb91ea0da82e7ea, type: 3}
+    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: commands.Array.data[9]
+      value: 
+      objectReference: {fileID: 6952835596734054878, guid: d5df12b53a505574eb808c6469b2da58, type: 3}
     - target: {fileID: 5393434556256017067, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: tutorialView
       value: 
