@@ -4,7 +4,7 @@ public class RobotEmotionStateHandler : MonoBehaviour
 {
     public enum EmotionState
     {
-        idle, happy, scared
+        idle, happy, scared, angry
     }
 
     private EmotionState currentEmotionState;
@@ -59,13 +59,18 @@ public class RobotEmotionStateHandler : MonoBehaviour
 
                 case EmotionState.scared:
                     currentEmotionState = newState;
-                    // Make call to set animation / sound effect to scared, such as when a monster is in close proximity to the robot
-                    animationTime = 0.0f;
+                    animationController.TriggerSadAnimation();
                     Debug.Log("ROBOT IS SCARED!!!");
                     break;
+
+                case EmotionState.angry:
+                    currentEmotionState = newState;
+                    animationController.TriggerAngryAnimation();
+                    Debug.Log("ROBOT IS ANGRY!!!");
+                    break;
+
                 case EmotionState.idle: 
                     currentEmotionState = newState;
-                    animationTime = 0.0f;
                     Debug.Log("Robot neutral");
                     break;
             }

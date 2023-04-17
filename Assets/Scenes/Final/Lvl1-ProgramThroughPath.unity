@@ -6709,6 +6709,30 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 391132234, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+      propertyPath: distractSprites.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 391132234, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+      propertyPath: distractSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: -1892548997, guid: c1c7a35e91373c94d81800e7a49425e4, type: 3}
+    - target: {fileID: 391132234, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+      propertyPath: distractSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: eba4e625f83ee784bbd2f110e4740a52, type: 3}
+    - target: {fileID: 391132234, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+      propertyPath: distractSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 208572896, guid: 0a29b0c2d83a0c147930ef26e3b121f2, type: 3}
+    - target: {fileID: 391132234, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+      propertyPath: distractSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: -1381633944, guid: 0a29b0c2d83a0c147930ef26e3b121f2, type: 3}
+    - target: {fileID: 391132234, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
+      propertyPath: distractSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 922948602, guid: 0a29b0c2d83a0c147930ef26e3b121f2, type: 3}
     - target: {fileID: 552892361925118881, guid: 11a2f08b07ffda348a0d3918daa686b6, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -7054,7 +7078,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 251547190993988645, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0007851596
+      value: 0.00003911128
       objectReference: {fileID: 0}
     - target: {fileID: 251547191441269387, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchorMax.y

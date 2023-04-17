@@ -5,7 +5,7 @@ public class AnimationControllerScript : MonoBehaviour
 {
     public enum RobotSprites
     {
-        frontSprites, backSprites, leftSprites, rightSprites, happySprites, sadSprites, angrySprites
+        frontSprites, backSprites, leftSprites, rightSprites, happySprites, sadSprites, angrySprites, distractSprites
     }
 
     public enum RobotAnimation
@@ -33,6 +33,7 @@ public class AnimationControllerScript : MonoBehaviour
     public List<Sprite> happySprites;
     public List<Sprite> sadSprites;
     public List<Sprite> angrySprites;
+    public List<Sprite> distractSprites;
 
     public Animator animator;
 
@@ -65,7 +66,8 @@ public class AnimationControllerScript : MonoBehaviour
             rightSprites,
             happySprites,
             sadSprites,
-            angrySprites
+            angrySprites,
+            distractSprites
         };
 
         happyEmote.gameObject.SetActive(false);
@@ -204,5 +206,12 @@ public class AnimationControllerScript : MonoBehaviour
         ChangeSprite(RobotSprites.angrySprites);
         angryEmote.gameObject.SetActive(true);
         angryEmote.Play();
+    }
+
+    public void TriggerDistractAnimation(float time)
+    {
+        emoting = true;
+        ChangeSprite(RobotSprites.distractSprites);
+        animationTime = animationTimeMax - time;
     }
 }
