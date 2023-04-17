@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AIProgram aiProgramPrefab;
     private GameObject player;
     private GameObject robot;
-    private GameObject robotKiller;
     private GameObject[] monsters;
     private GameObject[] pressurePlates;
     private (Vector3, Quaternion)[] monsterSpawns;
@@ -82,7 +81,6 @@ public class GameManager : MonoBehaviour
         {
             playerCamera.Priority = 0;
             pathCamera.Priority = 10;
-
         }
     }
 
@@ -172,8 +170,6 @@ public class GameManager : MonoBehaviour
 
         robot = GameObject.FindGameObjectWithTag(GameObjectTags.Robot.ToString());
 
-        robotKiller = GameObject.FindGameObjectWithTag(GameObjectTags.RobotKillMonster.ToString());
-
         if (robot != null)
         {
             var program = Instantiate(aiProgramPrefab);
@@ -192,10 +188,9 @@ public class GameManager : MonoBehaviour
             {
                 playerTargetGroup.RemoveMember(playerTargetGroup.m_Targets[i].target);
             }
-            playerTargetGroup.AddMember(player.transform, 4, 4);
-            playerTargetGroup.AddMember(robot.transform, 2, 10);
+            playerTargetGroup.AddMember(player.transform, 4, 3);
+            playerTargetGroup.AddMember(robot.transform, 4, 5);
         }
-
         Restart();
     }
 

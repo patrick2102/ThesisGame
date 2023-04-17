@@ -26,6 +26,7 @@ public class Interactable : MonoBehaviour
             interactionState = InteractionState.canInteract;
             UIManager.instance.SetUI(UIManager.UIState.interactScreen);
             withinRange = true;
+            UIManager.instance.SetBoolForWithinInteractRange(withinRange);
         }
         //UIManager.instance.SetInteractScreen(withinRange);
     }
@@ -37,6 +38,7 @@ public class Interactable : MonoBehaviour
             interactionState = InteractionState.cannotInteract;
             UIManager.instance.SetUI(UIManager.UIState.closed);
             withinRange = false;
+            UIManager.instance.SetBoolForWithinInteractRange(withinRange);
         }
         //UIManager.instance.SetInteractScreen(withinRange);
     }
