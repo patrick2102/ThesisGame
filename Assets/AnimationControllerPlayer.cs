@@ -47,6 +47,8 @@ public class AnimationControllerPlayer : MonoBehaviour
 
     public void CheckForDirectionChange()
     {
+        Vector2 direction = rb.velocity;
+        animator.SetFloat("Speed",direction.magnitude);
         if (Input.GetKey(KeyCode.W))
         {
             ChangeSprite(PlayerSprites.backSprites);
