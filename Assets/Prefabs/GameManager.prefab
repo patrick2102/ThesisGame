@@ -331,7 +331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1237108422}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.622309, y: -0.13402545, z: -14.859071}
+  m_LocalPosition: {x: 1.122309, y: 0.2600037, z: -9.876719}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -499,6 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   robotExplosionPrefab: {fileID: 1281173772658527641, guid: b4eb00c20a9318c439da1d63d8351698, type: 3}
+  robotExplosionNoEmotionPrefab: {fileID: 1281173772658527641, guid: 05e66935d89de584b97977273f9d111e, type: 3}
   aiProgramPrefab: {fileID: 6166094547326657517, guid: 71ade2e500f5f9a4db3a1a01b400d89e, type: 3}
   lastPlayerSeperateSpawn: {fileID: 0}
   lastRobotSeperateSpawn: {fileID: 0}

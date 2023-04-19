@@ -173,12 +173,12 @@ TextureImporter:
       name: Player_Front_6
       rect:
         serializedVersion: 2
-        x: 163
+        x: 162
         y: 117
         width: 42
-        height: 114
+        height: 113
       alignment: 9
-      pivot: {x: 0.49999964, y: 0.78171325}
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -217,10 +217,10 @@ TextureImporter:
         serializedVersion: 2
         x: 639
         y: 117
-        width: 43
+        width: 42
         height: 113
       alignment: 9
-      pivot: {x: 0.5, y: 0.7607392}
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

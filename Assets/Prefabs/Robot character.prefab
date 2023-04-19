@@ -604,9 +604,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.6}
+  m_Offset: {x: 0, y: 0.3}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.6
 --- !u!50 &8938137038349458981
 Rigidbody2D:
   serializedVersion: 4
@@ -717,7 +717,7 @@ MonoBehaviour:
   - {fileID: -1381633944, guid: 0a29b0c2d83a0c147930ef26e3b121f2, type: 3}
   - {fileID: 922948602, guid: 0a29b0c2d83a0c147930ef26e3b121f2, type: 3}
   distractSprites:
-  - {fileID: -1892548997, guid: c1c7a35e91373c94d81800e7a49425e4, type: 3}
+  - {fileID: -2140193456, guid: 0a29b0c2d83a0c147930ef26e3b121f2, type: 3}
   - {fileID: 21300000, guid: eba4e625f83ee784bbd2f110e4740a52, type: 3}
   - {fileID: 208572896, guid: 0a29b0c2d83a0c147930ef26e3b121f2, type: 3}
   - {fileID: -1381633944, guid: 0a29b0c2d83a0c147930ef26e3b121f2, type: 3}
@@ -735,6 +735,10 @@ MonoBehaviour:
   happyEmote: {fileID: 8837036879292323262}
   sadEmote: {fileID: 1050085361318569219}
   angryEmote: {fileID: 8126907886467296040}
+  happySound: {fileID: 8300000, guid: e696050808333d747b5679a4bc00dd03, type: 3}
+  angrySound: {fileID: 8300000, guid: ac33a05ce2ad34e409351f0552381858, type: 3}
+  sadSound: {fileID: 8300000, guid: 31c4d8d0ae421f34dbfba275fabe0292, type: 3}
+  distractSound: {fileID: 8300000, guid: 9927daf370ac85542b950b0a6f7510e5, type: 3}
 --- !u!114 &3487205323991921901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,8 +754,9 @@ MonoBehaviour:
   scaredRangeRadius: 2
   animationTime: 2
   animationTimeMax: 2
+  timeBetweenScare: 0
+  timeBetweenScareMax: 2
   animationController: {fileID: 391132234}
-  happySound: {fileID: 8300000, guid: eaefdbaf0d1a7cf41ba577697be5c240, type: 3}
 --- !u!82 &1531281042791900603
 AudioSource:
   m_ObjectHideFlags: 0

@@ -131,9 +131,9 @@ TextureImporter:
       name: Player_Right_2
       rect:
         serializedVersion: 2
-        x: 151
+        x: 187
         y: 314
-        width: 292
+        width: 256
         height: 233
       alignment: 9
       pivot: {x: 0.5406784, y: 0.07305214}

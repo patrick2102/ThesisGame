@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public GameObject robotExplosionPrefab;
+    public GameObject robotExplosionNoEmotionPrefab;
 
     [SerializeField] private AIProgram aiProgramPrefab;
     private GameObject player;
@@ -41,6 +42,12 @@ public class GameManager : MonoBehaviour
 
     //TargetGroups
     [SerializeField] private CinemachineTargetGroup playerTargetGroup;
+
+    public static bool emotionVersion = false;
+
+    private float robotDeathResetTimeCounter = 0.0f;
+    private float robotDeathResetTime = 2.0f;
+    private bool robotDead = false;
 
     public void Awake()
     {
@@ -68,6 +75,23 @@ public class GameManager : MonoBehaviour
         {
             Restart();
         }
+
+        if (robotDead)
+        { 
+            robotDeathResetTimeCounter += Time.deltaTime;
+            if (robotDeathResetTimeCounter >= robotDeathResetTime)
+            {
+                robotDeathResetTimeCounter = 0.0f;
+                robotDead = false;
+
+                for (int i = 0; i < playerTargetGroup.m_Targets.Length; i++)
+                {
+                    playerTargetGroup.RemoveMember(playerTargetGroup.m_Targets[i].target);
+                }
+                playerTargetGroup.AddMember(player.transform, 4, 3);
+            }
+        }
+
     }
 
     public void ChangeView(CameraState newCameraState)
@@ -152,7 +176,12 @@ public class GameManager : MonoBehaviour
         currentRobotPosition.y = currentRobotPosition.y + 0.5f;
         var currentRobotRotation = robot.transform.rotation;
 
-        var explo = Instantiate(robotExplosionPrefab, currentRobotPosition, currentRobotRotation);
+        GameObject explo;
+
+        if(emotionVersion)
+            explo = Instantiate(robotExplosionPrefab, currentRobotPosition, currentRobotRotation);
+        else
+            explo = Instantiate(robotExplosionNoEmotionPrefab, currentRobotPosition, currentRobotRotation);
 
         Destroy(robot);
 
@@ -161,9 +190,10 @@ public class GameManager : MonoBehaviour
             playerTargetGroup.RemoveMember(playerTargetGroup.m_Targets[i].target);
         }
         playerTargetGroup.AddMember(player.transform, 4, 3);
-        playerTargetGroup.AddMember(explo.transform, 4, 5);
+        playerTargetGroup.AddMember(explo.transform, 10, 3);
 
         GameObject.FindGameObjectWithTag(GameObjectTags.RunButton.ToString()).SetActive(false);
+        robotDead = true;
     }
 
     public void TriggerCheckpoint(CheckpointTrigger newCheckpoint)
