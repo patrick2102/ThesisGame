@@ -55,6 +55,11 @@ public class AnimationControllerScript : MonoBehaviour
     [SerializeField] private Animation sadEmote;
     [SerializeField] private Animation angryEmote;
 
+    private AudioSource audioSource;
+
+    public AudioClip happySound;
+    public AudioClip angrySound;
+    public AudioClip sadSound;
 
     private void Start()
     {
@@ -73,6 +78,7 @@ public class AnimationControllerScript : MonoBehaviour
         happyEmote.gameObject.SetActive(false);
         sadEmote.gameObject.SetActive(false);
         angryEmote.gameObject.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
         //happyEmote.Play();
     }
 
@@ -188,6 +194,7 @@ public class AnimationControllerScript : MonoBehaviour
         ChangeSprite(RobotSprites.happySprites);
         happyEmote.gameObject.SetActive(true);
         happyEmote.Play();
+        audioSource.PlayOneShot(happySound);
         //happyEmote.
     }
 
@@ -198,6 +205,7 @@ public class AnimationControllerScript : MonoBehaviour
         ChangeSprite(RobotSprites.sadSprites);
         sadEmote.gameObject.SetActive(true);
         sadEmote.Play();
+        audioSource.PlayOneShot(sadSound);
     }
 
     public void TriggerAngryAnimation()
@@ -206,6 +214,7 @@ public class AnimationControllerScript : MonoBehaviour
         ChangeSprite(RobotSprites.angrySprites);
         angryEmote.gameObject.SetActive(true);
         angryEmote.Play();
+        audioSource.PlayOneShot(angrySound);
     }
 
     public void TriggerDistractAnimation(float time)
@@ -213,5 +222,6 @@ public class AnimationControllerScript : MonoBehaviour
         emoting = true;
         ChangeSprite(RobotSprites.distractSprites);
         animationTime = animationTimeMax - time;
+        audioSource.PlayOneShot(happySound);
     }
 }
