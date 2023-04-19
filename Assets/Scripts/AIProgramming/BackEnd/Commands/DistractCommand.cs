@@ -23,6 +23,7 @@ public class DistractCommand : AICommand
         else
         {
             rbc.SetBehaviorState(RobotController.RobotBehaviourState.none);
+            animationController = null;
             timer = 0;
             return ProgramStatus.stopped;
         }

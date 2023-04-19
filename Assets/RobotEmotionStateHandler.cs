@@ -11,16 +11,14 @@ public class RobotEmotionStateHandler : MonoBehaviour
     public float scaredRangeRadius;
     public float animationTime = 0.0f;
     public float animationTimeMax = 2.0f;
+    public float timeBetweenScare = 0.0f;
+    public float timeBetweenScareMax = 2.0f;
 
     [SerializeField] private AnimationControllerScript animationController;
 
-    private AudioSource audioSource;
-
-    public AudioClip happySound;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -40,6 +38,8 @@ public class RobotEmotionStateHandler : MonoBehaviour
                 SwitchRobotEmotionState(EmotionState.idle);
             }
         }
+
+        timeBetweenScare += Time.deltaTime;
     }
 
     public void SwitchRobotEmotionState(EmotionState newState)
@@ -51,8 +51,7 @@ public class RobotEmotionStateHandler : MonoBehaviour
                 case EmotionState.happy:
                     currentEmotionState = newState;
                     // Make call to set animation / sound effect to happy, such as when a pressure plate puzzle suceeded 
-                    audioSource.clip = happySound;
-                    //audioSource.Play();
+                    
                     animationController.TriggerHappyAnimation();
                     Debug.Log("Robot is happy! Yay! :D");
                     break;
@@ -86,7 +85,11 @@ public class RobotEmotionStateHandler : MonoBehaviour
             switch (col.gameObject.tag)
             {
                 case "Monster":
-                    SwitchRobotEmotionState(EmotionState.scared);
+                    if (timeBetweenScare >= timeBetweenScareMax)
+                    {
+                        SwitchRobotEmotionState(EmotionState.scared);
+                        timeBetweenScare = 0.0f;
+                    }
                     break;
             }
         }
