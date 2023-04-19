@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
     private float robotDeathResetTime = 2.0f;
     private bool robotDead = false;
 
+    [SerializeField] private GameObject deleteAfterRobotDeath;
+
     public void Awake()
     {
         if (instance == null)
@@ -184,6 +186,8 @@ public class GameManager : MonoBehaviour
             explo = Instantiate(robotExplosionNoEmotionPrefab, currentRobotPosition, currentRobotRotation);
 
         Destroy(robot);
+
+        Destroy(deleteAfterRobotDeath);
 
         for (int i = 0; i < playerTargetGroup.m_Targets.Length; i++)
         {
