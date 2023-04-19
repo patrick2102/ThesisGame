@@ -220,8 +220,8 @@ public class GameManager : MonoBehaviour
             {
                 playerTargetGroup.RemoveMember(playerTargetGroup.m_Targets[i].target);
             }
-            playerTargetGroup.AddMember(player.transform, 4, 3);
-            playerTargetGroup.AddMember(robot.transform, 4, 5);
+            playerTargetGroup.AddMember(player.transform, 4, 5);
+            playerTargetGroup.AddMember(robot.transform, 4, 6);
         }
         Restart();
     }

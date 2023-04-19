@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   playerRB: {fileID: -2018654997087276544}
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 1589877102742552109}
   footsteps:
   - {fileID: 8300000, guid: bb9c966b6f569074496477700cdfaff9, type: 3}
   - {fileID: 8300000, guid: 07bf7be4dfbf8f541a6ff50c3facfc7e, type: 3}
@@ -130,7 +130,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
