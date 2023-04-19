@@ -8,6 +8,7 @@ public class CommandButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 {
     public AICommand command;
     public TMP_Text commandButtonText;
+    public Image commandButtonImage;
     private Vector3 originalPosition;
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private Canvas canvas;
