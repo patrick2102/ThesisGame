@@ -60,7 +60,7 @@ public class CommandButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         foreach (RaycastResult result in results)
         {
-            if (result.gameObject.CompareTag("Node"))
+            if (result.gameObject.CompareTag("Node") && !result.gameObject.name.Contains("InputNode"))
             {
                 Debug.Log("hit! " + result.gameObject.name);
                 var circuitNode = result.gameObject.GetComponent<CircuitNode>();

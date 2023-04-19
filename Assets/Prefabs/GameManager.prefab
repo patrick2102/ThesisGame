@@ -498,6 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b86668afc86e54ab71d63c95402ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  robotExplosionPrefab: {fileID: 1281173772658527641, guid: b4eb00c20a9318c439da1d63d8351698, type: 3}
   aiProgramPrefab: {fileID: 6166094547326657517, guid: 71ade2e500f5f9a4db3a1a01b400d89e, type: 3}
   lastPlayerSeperateSpawn: {fileID: 0}
   lastRobotSeperateSpawn: {fileID: 0}

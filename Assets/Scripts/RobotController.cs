@@ -22,6 +22,7 @@ public class RobotController : MonoBehaviour
     public Pickupable pickedUpObject;
 
 
+
     private void Awake()
     {
         if (instance == null)

@@ -50,60 +50,64 @@ public class RobotMovementVisualiser : MonoBehaviour
 
     public void RenderPath(bool render)
     {
-        robotPath.gameObject.SetActive(render);
+        if (robotRB != null)
+            robotPath.gameObject.SetActive(render);
     }
 
     public void UpdatePath()
     {
-        if (AIProgram.activeProgram == null) return;
-
-        robotPath.gameObject.SetActive(true);
-
-        var simulation = AIProgram.activeProgram;
-        int maxDepth = AIProgram.activeProgram.maxCommands;
-
-        int count = 0;
-        var robotPosition = robotRB.position;
-        var node = simulation.currentNode;
-
-        while (node != null && count < maxDepth)
+        if (robotRB != null) // This is a quick fix for the exceptions that happen when the robot gameobject is destroyed
         {
-            var command = node.GetCommand();
-            var movement = (Vector2)GetForceFromCommand(command, robotPosition);
-            robotPosition += movement;
-            pathPositions[count].position = robotPosition;
+            if (AIProgram.activeProgram == null) return;
 
-            if (count == 0)
-                targetGroup.m_Targets[0].weight = 4.0f;
+            robotPath.gameObject.SetActive(true);
 
-            node = node.GetNextNode();
-            count++;
-        }
+            var simulation = AIProgram.activeProgram;
+            int maxDepth = AIProgram.activeProgram.maxCommands;
 
-        robotPath.SetPosition(0, pathPositions[0].position);
+            int count = 0;
+            var robotPosition = robotRB.position;
+            var node = simulation.currentNode;
 
-        float threshold = 0.5f;
-
-        int index = 1;
-
-
-        for (int i = 1; i < maxDepth; i++)
-        {
-            targetGroup.m_Targets[i].weight = 0.0f;
-        }
-
-        for (int i = 1; i < count; i++)
-        {
-            var dist = (pathPositions[i].position - pathPositions[i - 1].position).magnitude;
-            if (dist > threshold)
+            while (node != null && count < maxDepth)
             {
-                robotPath.positionCount = index + 1;
-                robotPath.SetPosition(index++, pathPositions[i].position);
-                targetGroup.m_Targets[i].weight = 4.0f;
+                var command = node.GetCommand();
+                var movement = (Vector2)GetForceFromCommand(command, robotPosition);
+                robotPosition += movement;
+                pathPositions[count].position = robotPosition;
+
+                if (count == 0)
+                    targetGroup.m_Targets[0].weight = 4.0f;
+
+                node = node.GetNextNode();
+                count++;
             }
-            else
+
+            robotPath.SetPosition(0, pathPositions[0].position);
+
+            float threshold = 0.5f;
+
+            int index = 1;
+
+
+            for (int i = 1; i < maxDepth; i++)
             {
                 targetGroup.m_Targets[i].weight = 0.0f;
+            }
+
+            for (int i = 1; i < count; i++)
+            {
+                var dist = (pathPositions[i].position - pathPositions[i - 1].position).magnitude;
+                if (dist > threshold)
+                {
+                    robotPath.positionCount = index + 1;
+                    robotPath.SetPosition(index++, pathPositions[i].position);
+                    targetGroup.m_Targets[i].weight = 4.0f;
+                }
+                else
+                {
+                    targetGroup.m_Targets[i].weight = 0.0f;
+                }
             }
         }
 

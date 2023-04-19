@@ -9,22 +9,26 @@ public class DistractCommand : AICommand
 
     public override ProgramStatus Step(RobotController rbc)
     {
-        if (maxTimer > timer)
+        if (rbc != null)
         {
-            rbc.SetBehaviorState(RobotController.RobotBehaviourState.distracting);
-            timer += Time.deltaTime;
-            if (animationController == null)
+            if (maxTimer > timer)
             {
-                animationController = rbc.gameObject.GetComponent<AnimationControllerScript>();
-                animationController.TriggerDistractAnimation(maxTimer);
+                rbc.SetBehaviorState(RobotController.RobotBehaviourState.distracting);
+                timer += Time.deltaTime;
+                if (animationController == null)
+                {
+                    animationController = rbc.gameObject.GetComponent<AnimationControllerScript>();
+                    animationController.TriggerDistractAnimation(maxTimer);
+                }
+                return ProgramStatus.running;
             }
-            return ProgramStatus.running;
+            else
+            {
+                rbc.SetBehaviorState(RobotController.RobotBehaviourState.none);
+                timer = 0;
+                return ProgramStatus.stopped;
+            }
         }
-        else
-        {
-            rbc.SetBehaviorState(RobotController.RobotBehaviourState.none);
-            timer = 0;
-            return ProgramStatus.stopped;
-        }
+        return ProgramStatus.stopped;
     }
 }

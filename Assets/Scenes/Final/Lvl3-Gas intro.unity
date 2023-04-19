@@ -87019,6 +87019,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: commands.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5393434556256017067, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: tutorialView
       value: 
