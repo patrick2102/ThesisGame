@@ -5,7 +5,7 @@ public class AnimationControllerScript : MonoBehaviour
 {
     public enum RobotSprites
     {
-        frontSprites, backSprites, leftSprites, rightSprites
+        frontSprites, backSprites, leftSprites, rightSprites, happySprites, sadSprites, angrySprites, distractSprites
     }
 
     public enum RobotAnimation
@@ -18,6 +18,11 @@ public class AnimationControllerScript : MonoBehaviour
         Left, Right, Up, Down
     }
 
+    public enum EmotionState
+    {
+        idle, happy, scared, angry
+    }
+
     public List<SpriteRenderer> spriteRenderers;
 
     private List<List<Sprite>> sprites;
@@ -25,6 +30,10 @@ public class AnimationControllerScript : MonoBehaviour
     public List<Sprite> backSprites;
     public List<Sprite> leftSprites;
     public List<Sprite> rightSprites;
+    public List<Sprite> happySprites;
+    public List<Sprite> sadSprites;
+    public List<Sprite> angrySprites;
+    public List<Sprite> distractSprites;
 
     public Animator animator;
 
@@ -38,28 +47,58 @@ public class AnimationControllerScript : MonoBehaviour
     public float walkAnimationThreshold = 1.0f;
     public float directionChangeThreshold = 0.01f;
 
+    public float animationTime = 0.0f;
+    public float animationTimeMax = 2.0f;
+    public bool emoting = false;
 
-
-    //public List<Texture2D> spriteSheetTextures;
-
+    [SerializeField] private Animation happyEmote;
+    [SerializeField] private Animation sadEmote;
+    [SerializeField] private Animation angryEmote;
 
 
     private void Start()
     {
         // Get all SpriteRenderer components in the children of the game object
-        //spriteRenderers = new List<SpriteRenderer>(GetComponentsInChildren<SpriteRenderer>());
-
         sprites = new List<List<Sprite>>(){
             frontSprites,
             backSprites,
             leftSprites,
-            rightSprites
+            rightSprites,
+            happySprites,
+            sadSprites,
+            angrySprites,
+            distractSprites
         };
+
+        happyEmote.gameObject.SetActive(false);
+        sadEmote.gameObject.SetActive(false);
+        angryEmote.gameObject.SetActive(false);
+        //happyEmote.Play();
     }
 
     void Update()
     {
-        CheckForDirectionChange();
+        //Debug.Log("Emote playing: " + happyEmote.isPlaying);
+
+        if (emoting)
+        {
+            animationTime += Time.deltaTime;
+            if (animationTime > animationTimeMax)
+            {
+                emoting = false;
+                animationTime = 0.0f;
+                ChangeSprite(RobotSprites.frontSprites);
+                happyEmote.gameObject.SetActive(false);
+                sadEmote.gameObject.SetActive(false);
+                angryEmote.gameObject.SetActive(false);
+            }
+
+            //happyEmote.isPlaying;
+        }
+        else
+        {
+            CheckForDirectionChange();
+        }
     }
 
     public void CheckForDirectionChange()
@@ -76,6 +115,7 @@ public class AnimationControllerScript : MonoBehaviour
             if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
             {
                 // Check if x direction is positive or negative
+
                 if (direction.x > 0)
                 {
                     newDirection = Direction.Right;
@@ -98,12 +138,19 @@ public class AnimationControllerScript : MonoBehaviour
                 }
             }
         }
-
-        if(newDirection != currentDirection)
+        if (newDirection != currentDirection)
         {
-            currentDirection = newDirection;
+            //Check if the new direction is a different axis than the current direction
+            if (newDirection == Direction.Left || newDirection == Direction.Right)
+            {
+                animator.SetBool("IsHorizontal", true);
+            }
+            else if (newDirection == Direction.Up || newDirection == Direction.Down)
+            {
+                animator.SetBool("IsHorizontal", false);
+            }
 
-            animator.SetTrigger("SwitchDirection");
+            currentDirection = newDirection;
 
             switch (currentDirection)
             {
@@ -135,31 +182,36 @@ public class AnimationControllerScript : MonoBehaviour
         }
     }
 
-    public void ChangeAnimation(RobotAnimation animation)
+    public void TriggerHappyAnimation()
     {
-        currentAnimation = animation;
+        emoting = true;
+        ChangeSprite(RobotSprites.happySprites);
+        happyEmote.gameObject.SetActive(true);
+        happyEmote.Play();
+        //happyEmote.
+    }
 
-        if (animation == RobotAnimation.Walk || animation == RobotAnimation.WalkSide)
-        {
-            if (currentSprite == RobotSprites.leftSprites || currentSprite == RobotSprites.rightSprites)
-            {
-                animator.SetFloat("AnimationState", (float)RobotAnimation.WalkSide);
-            }
-            else
-            {
-                animator.SetFloat("AnimationState", (float)RobotAnimation.Walk);
-            }
-        }
-        else if (animation == RobotAnimation.Idle || animation == RobotAnimation.IdleSide)
-        {
-            if (currentSprite == RobotSprites.leftSprites || currentSprite == RobotSprites.rightSprites)
-            {
-                animator.SetFloat("AnimationState", (float)RobotAnimation.IdleSide);
-            }
-            else
-            {
-                animator.SetFloat("AnimationState", (float)RobotAnimation.Idle);
-            }
-        }
+    public void TriggerSadAnimation()
+    {
+
+        emoting = true;
+        ChangeSprite(RobotSprites.sadSprites);
+        sadEmote.gameObject.SetActive(true);
+        sadEmote.Play();
+    }
+
+    public void TriggerAngryAnimation()
+    {
+        emoting = true;
+        ChangeSprite(RobotSprites.angrySprites);
+        angryEmote.gameObject.SetActive(true);
+        angryEmote.Play();
+    }
+
+    public void TriggerDistractAnimation(float time)
+    {
+        emoting = true;
+        ChangeSprite(RobotSprites.distractSprites);
+        animationTime = animationTimeMax - time;
     }
 }

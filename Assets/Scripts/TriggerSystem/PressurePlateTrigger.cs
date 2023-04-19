@@ -12,16 +12,20 @@ public class PressurePlateTrigger : TriggerBase
     [SerializeField] private CheckpointTrigger checkpoint;
     public bool moveOverTime;
     public float moveDuration;
-    public bool triggerOnlyOnce;
+    private bool triggerOnlyOnce = true;
     public bool resetPositionAtRestart;
     private Vector3 originalDoorPosition;
     private RobotEmotionStateHandler robotEmotionStateHandler;
+
+    [SerializeField] private AudioClip triggerSound;
+    [SerializeField] private AudioSource audioSource;
 
 
     public void Awake()
     {
         originalDoorPosition= door.transform.position;
         robotEmotionStateHandler = GameObject.FindGameObjectWithTag(GameObjectTags.Robot.ToString()).GetComponent<RobotEmotionStateHandler>();
+        audioSource.clip = triggerSound;
     }
 
     public override void HandleTriggerEnter(string tag)
@@ -31,11 +35,12 @@ public class PressurePlateTrigger : TriggerBase
             switch (tag)
             {
                 case nameof(GameObjectTags.Player):
-                    if (doorCollider != null)
+                    if (doorCollider != null && !moveOverTime)
                         doorCollider.enabled = false;
                     StartCoroutine(MoveDoorToPosition());
                     if (objectToRemove != null)
                         objectToRemove.SetActive(false);
+                    audioSource.Play();
                     break;
                 case nameof(GameObjectTags.Robot):
                     if (doorCollider != null && !moveOverTime)
@@ -44,6 +49,7 @@ public class PressurePlateTrigger : TriggerBase
                     if (objectToRemove != null)
                         objectToRemove.SetActive(false);
                     robotEmotionStateHandler.SwitchRobotEmotionState(RobotEmotionStateHandler.EmotionState.happy);
+                    audioSource.Play();
                     break;
                 case nameof(GameObjectTags.Monster):
                     // Temporary reference to the current scene.
@@ -60,6 +66,7 @@ public class PressurePlateTrigger : TriggerBase
                         StartCoroutine(MoveDoorToPosition());
                         if (objectToRemove != null)
                             objectToRemove.SetActive(false);
+                        audioSource.Play();
                     }
                     break;
                 default:
@@ -86,6 +93,10 @@ public class PressurePlateTrigger : TriggerBase
         {
             door.transform.position = moveToPosition.position;
         }
+        var doorScript = door.GetComponent<Door>();
+
+        if (doorScript != null)
+            doorScript.PlayAudio();
     }
 
     public override void HandleTriggerExit(string tag)

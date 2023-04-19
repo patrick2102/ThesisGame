@@ -13,6 +13,10 @@ public class CommandButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup canvasGroup;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip failSound;
+    [SerializeField] private AudioClip successSound;
+
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -23,6 +27,8 @@ public class CommandButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        audioSource.PlayOneShot(successSound);
+
         originalPosition = rectTransform.position;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, eventData.position, canvas.worldCamera, out Vector2 localPoint);
         rectTransform.position = canvas.transform.TransformPoint(localPoint);
@@ -49,6 +55,8 @@ public class CommandButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, results);
 
+        bool success = false;
+
         foreach (RaycastResult result in results)
         {
             if (result.gameObject.CompareTag("Node"))
@@ -56,9 +64,20 @@ public class CommandButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 Debug.Log("hit! " + result.gameObject.name);
                 var circuitNode = result.gameObject.GetComponent<CircuitNode>();
                 circuitNode.ChangeCommand(command);
-
+                success = true;
+                break;
             }
         }
         rectTransform.position = originalPosition;
+
+        if (success)
+        {
+            audioSource.PlayOneShot(successSound);
+        }
+        else
+        {
+            audioSource.PlayOneShot(failSound);
+        }
+
     }
 }
