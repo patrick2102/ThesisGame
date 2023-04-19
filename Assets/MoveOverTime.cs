@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MoveOverTime : MonoBehaviour
 {
-    public float waterMoveSpeed;
+    public float objectMoveSpeed;
     private GameObject robot;
 
     // Start is called before the first frame update
     void Start()
     {
-        waterMoveSpeed = 0.5f;
+        objectMoveSpeed = 0.5f;
         robot = GameObject.FindGameObjectsWithTag("Robot")[0];
     }
 
@@ -22,7 +22,7 @@ public class MoveOverTime : MonoBehaviour
             float distanceToWater = robot.GetComponent<RobotController>().GetCurrentWaterDistance();
             if (distanceToWater > 1.7f)
             {
-                gameObject.transform.position += (waterMoveSpeed * distanceToWater - 0.8f) * Time.deltaTime * Vector3.up;
+                gameObject.transform.position += (objectMoveSpeed * distanceToWater - 0.8f) * Time.deltaTime * Vector3.up;
             }
         }
     }

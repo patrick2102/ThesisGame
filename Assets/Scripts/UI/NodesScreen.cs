@@ -63,7 +63,7 @@ public class NodesScreen : MonoBehaviour
                     {
                         if (node.GetComponentInChildren<TMP_InputField>() == null)
                         {
-                            AddAdjustableFieldToDirectionNode(i + j, node);
+                            //AddAdjustableFieldToDirectionNode(i + j, node);
                         }
                         if (node.GetComponentInChildren<DirectionCommand>() != null)
                         {
@@ -79,7 +79,6 @@ public class NodesScreen : MonoBehaviour
                                 node.GetComponentInChildren<FollowCommand>().maxTimer = 999.9f; // This is a simple way of achieving something akin to constant following
                             }
                         }
-                        offSet.x -= 20.0f;
                     }
                     node.transform.localScale = new Vector3(1, 1, 1);
                     node.GetComponent<RectTransform>().anchoredPosition = offSet;
