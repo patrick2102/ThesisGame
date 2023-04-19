@@ -10,7 +10,10 @@ public abstract class TriggerBase : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        HandleTriggerEnter(collision.tag);
+        if (!collision.isTrigger)
+        {
+            HandleTriggerEnter(collision.tag);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -19,7 +22,10 @@ public abstract class TriggerBase : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        HandleTriggerExit(collision.tag);
+        if (!collision.isTrigger)
+        {
+            HandleTriggerExit(collision.tag);
+        }
     }
 
     public abstract void HandleTriggerEnter(string tag);
