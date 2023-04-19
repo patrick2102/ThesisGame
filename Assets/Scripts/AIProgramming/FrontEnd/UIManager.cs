@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     private LineRenderer startConnectionLine;
     private LineRenderer connectionLine;
 
+    private bool withinRangeOfInteractable;
     private CircuitNode selectedNode;
 
     [SerializeField] private AudioSource audioSource;
@@ -43,13 +44,10 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        
         canvas.worldCamera = Camera.main;
         startConnectionLine = Instantiate(startConnectionLinePrefab);
         startConnectionLine.gameObject.SetActive(false);
         connectionLine = Instantiate(connectionLinePrefab);
-
-        
 
         SetUI(UIState.closed);
     }
@@ -239,5 +237,15 @@ public class UIManager : MonoBehaviour
     public void SetTutorialText(string tutorialText)
     {
         tutorialView.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = tutorialText;
+    }
+
+    public void SetBoolForWithinInteractRange(bool withinRange)
+    {
+        withinRangeOfInteractable= withinRange;
+    }
+
+    public bool GetBoolForWithinInteractRange()
+    {
+        return withinRangeOfInteractable;
     }
 }
