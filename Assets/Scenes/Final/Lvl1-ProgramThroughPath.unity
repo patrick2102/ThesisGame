@@ -6655,8 +6655,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798651317}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.1463, y: 3.8552, z: 0}
-  m_LocalScale: {x: 83.91788, y: 83.91788, z: 83.91788}
+  m_LocalPosition: {x: 0.6961, y: 0.2556, z: 0}
+  m_LocalScale: {x: 347.7298, y: 303.86832, z: 83.91788}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -7046,7 +7046,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 251547190993988645, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00010218792
+      value: 0.00003942661
       objectReference: {fileID: 0}
     - target: {fileID: 251547191417630976, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_SizeDelta.x
@@ -7083,6 +7083,14 @@ PrefabInstance:
     - target: {fileID: 251547191458025923, guid: f08bef240753af34daa9f42ad658096b, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: commands.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634529317866091770, guid: f08bef240753af34daa9f42ad658096b, type: 3}
+      propertyPath: commands.Array.data[5]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
