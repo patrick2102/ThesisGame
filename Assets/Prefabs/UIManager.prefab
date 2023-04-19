@@ -684,10 +684,10 @@ MonoBehaviour:
   canvas: {fileID: 251547190821975516}
   startConnectionLinePrefab: {fileID: 181909880706479413, guid: 1adfd50394d76344eaa32ee7d9ba93bb, type: 3}
   connectionLinePrefab: {fileID: 181909880706479413, guid: 56cdd2c24bae984448272bbb0d053763, type: 3}
-  audioSource: {fileID: 0}
-  openNodeScreenSound: {fileID: 0}
-  clickNodeSound: {fileID: 0}
-  connectSuccessSound: {fileID: 0}
+  audioSource: {fileID: 673713864195198967}
+  openNodeScreenSound: {fileID: 8300000, guid: 721eb3c85315b544ea736996b167d854, type: 3}
+  clickNodeSound: {fileID: 8300000, guid: 721eb3c85315b544ea736996b167d854, type: 3}
+  connectSuccessSound: {fileID: 8300000, guid: f5e76d1566542c849995f3f982bd6b1e, type: 3}
 --- !u!225 &4344798093625208196
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -830,7 +830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00002002716, y: 0.000016129594}
+  m_AnchoredPosition: {x: -0.00002002716, y: 0.00010440453}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &251547190993988646
@@ -1075,7 +1075,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 251547189606324509}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999897
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
