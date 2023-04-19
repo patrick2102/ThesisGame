@@ -78,7 +78,7 @@ public class AnimationControllerScript : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Emote playing: " + happyEmote.isPlaying);
+        //Debug.Log("Emote playing: " + happyEmote.isPlaying);
 
         if (emoting)
         {

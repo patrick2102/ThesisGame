@@ -18,12 +18,16 @@ public class TurnMonsterAI : MonoBehaviour
     // provate GameObject robotObject;
 
     private bool FacingTarget;
+    private bool monsterTriggered = true;
 
     private Rigidbody2D turnMonsterRB2D;
     private Transform childSprite;
 
     // This could inherit from a more general sort of monster class, but since we have no other yet
     // i'll just make it non-general for now and adapt it should we find a good case for generality
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip monsterYell;
 
     private void Awake()
     {
@@ -88,7 +92,16 @@ public class TurnMonsterAI : MonoBehaviour
 
         if (closestDistance < 99)
         {
+            //if (!monsterTriggered)
+            //{
+            //    audioSource.PlayOneShot(monsterYell);
+            //    monsterTriggered = true;
+            //}
             TurnToTargetThenMove(objectWithClosestDistance.transform.position);
+        } 
+        else
+        {
+            //monsterTriggered = false;
         }
     }
 

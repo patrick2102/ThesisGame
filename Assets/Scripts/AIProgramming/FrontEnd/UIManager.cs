@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static Cinemachine.CinemachineFreeLook;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,6 +17,11 @@ public class UIManager : MonoBehaviour
 
     private bool withinRangeOfInteractable;
     private CircuitNode selectedNode;
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip openNodeScreenSound;
+    [SerializeField] private AudioClip clickNodeSound;
+    [SerializeField] private AudioClip connectSuccessSound;
 
     public enum UIState
     {
@@ -99,11 +102,16 @@ public class UIManager : MonoBehaviour
 
     private void UpdateUIVisibility()
     {
+        //Play sound if nodescreen is opened
+        if (currentState == UIState.nodeScreen)
+        {
+            audioSource.PlayOneShot(openNodeScreenSound);
+        }
+
         menuView.SetActive(currentState == UIState.menuScreen);
         commandView.SetActive(currentState == UIState.nodeScreen);
         nodesView.SetActive(currentState == UIState.nodeScreen);
         interactView.SetActive(currentState == UIState.interactScreen);
-        //tutorialView.SetActive(currentState == UIState.tutorialScreen);
     }
 
     private void UpdateCameraView()
@@ -130,6 +138,7 @@ public class UIManager : MonoBehaviour
     {
         if (currentState == UIState.nodeScreen)
         {
+            audioSource.PlayOneShot(connectSuccessSound);
             startConnectionLine.gameObject.SetActive(true);
             startConnectionLine.SetPosition(0, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
             currentState = UIState.connectingNodes;
@@ -149,10 +158,12 @@ public class UIManager : MonoBehaviour
 
             if (node.neighbours.Contains(selectedNode))
             {
+                audioSource.PlayOneShot(connectSuccessSound);
                 ConnectNodes(node);
             }
             else
             {
+                audioSource.PlayOneShot(clickNodeSound);
                 DisconnectNodes(node);
             }
 
@@ -182,6 +193,7 @@ public class UIManager : MonoBehaviour
 
     public void ChangeCommand(CommandButton commandButton)
     {
+        audioSource.PlayOneShot(connectSuccessSound);
         selectedNode.ChangeCommand(commandButton.command);
 
         selectedNode = null;
