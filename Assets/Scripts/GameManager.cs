@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    public GameObject robotExplosionPrefab;
+
     [SerializeField] private AIProgram aiProgramPrefab;
     private GameObject player;
     private GameObject robot;
@@ -145,8 +147,23 @@ public class GameManager : MonoBehaviour
 
     public void RobotDeath()
     {
-        Debug.Log("Robot should break down?");
-        //Restart();
+        var currentRobotPosition = robot.transform.position;
+        currentRobotPosition.x = currentRobotPosition.x + 0.2f;
+        currentRobotPosition.y = currentRobotPosition.y + 0.5f;
+        var currentRobotRotation = robot.transform.rotation;
+
+        var explo = Instantiate(robotExplosionPrefab, currentRobotPosition, currentRobotRotation);
+
+        Destroy(robot);
+
+        for (int i = 0; i < playerTargetGroup.m_Targets.Length; i++)
+        {
+            playerTargetGroup.RemoveMember(playerTargetGroup.m_Targets[i].target);
+        }
+        playerTargetGroup.AddMember(player.transform, 4, 3);
+        playerTargetGroup.AddMember(explo.transform, 4, 5);
+
+        GameObject.FindGameObjectWithTag(GameObjectTags.RunButton.ToString()).SetActive(false);
     }
 
     public void TriggerCheckpoint(CheckpointTrigger newCheckpoint)
