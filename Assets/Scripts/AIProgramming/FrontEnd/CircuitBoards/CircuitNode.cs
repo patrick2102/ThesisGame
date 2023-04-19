@@ -83,7 +83,7 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 
     public void ChangeCommand(AICommand newCommand)
     {
-        Destroy(command);
+        Destroy(command.gameObject);
 
         command = Instantiate(newCommand);
         command.transform.SetParent(transform);
