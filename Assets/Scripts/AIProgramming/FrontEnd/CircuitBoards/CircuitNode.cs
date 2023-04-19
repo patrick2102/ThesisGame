@@ -13,6 +13,7 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     [SerializeField] private CircuitNode nextNode;
     [SerializeField] private AICommand command;
     [SerializeField] private TMP_Text nodeText;
+    [SerializeField] private Image nodeImage;
     [SerializeField] private TMP_InputField sliderValue;
     [SerializeField] private LineRenderer nodeConnectionPrefab;
     [SerializeField] private Slider slider;
@@ -83,10 +84,12 @@ public class CircuitNode : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     public void ChangeCommand(AICommand newCommand)
     {
         Destroy(command);
+
         command = Instantiate(newCommand);
         command.transform.SetParent(transform);
 
         nodeText.text = newCommand.name;
+        nodeImage.sprite = newCommand.commandImage.sprite;
     }
 
     public AICommand GetCommand()

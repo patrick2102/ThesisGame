@@ -16,6 +16,7 @@ public class CommandScreen : MonoBehaviour
             var button = Instantiate(buttonPrefab);
             button.command = command;
             button.commandButtonText.text = command.name;
+            button.commandButtonImage.sprite = command.commandImage.sprite;
             button.transform.SetParent(content, false);
         }
     }
