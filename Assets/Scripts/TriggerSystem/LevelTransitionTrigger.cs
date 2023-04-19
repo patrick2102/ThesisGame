@@ -9,6 +9,8 @@ public class LevelTransitionTrigger : TriggerBase
 
     public int nextLevel;
 
+    public bool needRobot = true;
+
     public override void HandleTriggerEnter(string tag)
     {
         switch (tag)
@@ -42,7 +44,7 @@ public class LevelTransitionTrigger : TriggerBase
 
     public void ChangeLevel() 
     {
-        if (playerTriggered && robotTriggered)
+        if ((playerTriggered && robotTriggered) || (playerTriggered && !needRobot))
         {
             GameManager.instance.ChangeLevel(nextLevel);
         }

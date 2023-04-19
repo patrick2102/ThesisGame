@@ -14,7 +14,7 @@ public class AnimationControllerScript : MonoBehaviour
     }
 
     public enum Direction
-    { 
+    {
         Left, Right, Up, Down
     }
 
@@ -60,6 +60,7 @@ public class AnimationControllerScript : MonoBehaviour
     public AudioClip happySound;
     public AudioClip angrySound;
     public AudioClip sadSound;
+    public AudioClip distractSound;
 
     private void Start()
     {
@@ -112,7 +113,7 @@ public class AnimationControllerScript : MonoBehaviour
         Vector2 direction = rb.velocity;
         Direction newDirection = currentDirection;
 
-        
+
         animator.SetFloat("Speed", direction.magnitude);
 
         if (direction.magnitude > directionChangeThreshold)
@@ -174,7 +175,6 @@ public class AnimationControllerScript : MonoBehaviour
                     break;
             }
         }
-
     }
 
     public void ChangeSprite(RobotSprites sprite)
@@ -190,31 +190,39 @@ public class AnimationControllerScript : MonoBehaviour
 
     public void TriggerHappyAnimation()
     {
-        emoting = true;
-        ChangeSprite(RobotSprites.happySprites);
-        happyEmote.gameObject.SetActive(true);
-        happyEmote.Play();
-        audioSource.PlayOneShot(happySound);
+        if (GameManager.emotionVersion)
+        {
+            emoting = true;
+            ChangeSprite(RobotSprites.happySprites);
+            happyEmote.gameObject.SetActive(true);
+            happyEmote.Play();
+            audioSource.PlayOneShot(happySound);
+        }
         //happyEmote.
     }
 
     public void TriggerSadAnimation()
     {
-
-        emoting = true;
-        ChangeSprite(RobotSprites.sadSprites);
-        sadEmote.gameObject.SetActive(true);
-        sadEmote.Play();
-        audioSource.PlayOneShot(sadSound);
+        if (GameManager.emotionVersion)
+        {
+            emoting = true;
+            ChangeSprite(RobotSprites.sadSprites);
+            sadEmote.gameObject.SetActive(true);
+            sadEmote.Play();
+            audioSource.PlayOneShot(sadSound);
+        }
     }
 
     public void TriggerAngryAnimation()
     {
-        emoting = true;
-        ChangeSprite(RobotSprites.angrySprites);
-        angryEmote.gameObject.SetActive(true);
-        angryEmote.Play();
-        audioSource.PlayOneShot(angrySound);
+        if (GameManager.emotionVersion)
+        {
+            emoting = true;
+            ChangeSprite(RobotSprites.angrySprites);
+            angryEmote.gameObject.SetActive(true);
+            angryEmote.Play();
+            audioSource.PlayOneShot(angrySound);
+        }
     }
 
     public void TriggerDistractAnimation(float time)
@@ -222,6 +230,6 @@ public class AnimationControllerScript : MonoBehaviour
         emoting = true;
         ChangeSprite(RobotSprites.distractSprites);
         animationTime = animationTimeMax - time;
-        audioSource.PlayOneShot(happySound);
+        audioSource.PlayOneShot(distractSound);
     }
 }
