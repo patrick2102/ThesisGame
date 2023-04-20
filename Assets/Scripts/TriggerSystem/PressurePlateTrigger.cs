@@ -43,13 +43,16 @@ public class PressurePlateTrigger : TriggerBase
                     audioSource.Play();
                     break;
                 case nameof(GameObjectTags.Robot):
-                    if (doorCollider != null && !moveOverTime)
-                        doorCollider.enabled = false;
-                    StartCoroutine(MoveDoorToPosition());
-                    if (objectToRemove != null)
-                        objectToRemove.SetActive(false);
-                    robotEmotionStateHandler.SwitchRobotEmotionState(RobotEmotionStateHandler.EmotionState.happy);
-                    audioSource.Play();
+                    if (this.name != "RobotShouldNotTrigger")
+                    {
+                        if (doorCollider != null && !moveOverTime)
+                            doorCollider.enabled = false;
+                        StartCoroutine(MoveDoorToPosition());
+                        if (objectToRemove != null)
+                            objectToRemove.SetActive(false);
+                        robotEmotionStateHandler.SwitchRobotEmotionState(RobotEmotionStateHandler.EmotionState.happy);
+                        audioSource.Play();
+                    }
                     break;
                 case nameof(GameObjectTags.Monster):
                     // Temporary reference to the current scene.
