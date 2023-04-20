@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Final/Lvl6-Monster.unity
     guid: 42801d876edc75b4fb2aec3ae3f4ca8c
   - enabled: 1
+    path: Assets/Scenes/Final/L2-RemoteProgramming.unity
+    guid: b151728b220a78a41bd1d3125cfe9488
+  - enabled: 1
     path: Assets/Scenes/Final/RobotDeathScene.unity
     guid: 9219ab13478230e44a8f87a5b9890f62
   m_configObjects: {}

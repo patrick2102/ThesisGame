@@ -738,7 +738,7 @@ MonoBehaviour:
   happySound: {fileID: 8300000, guid: e696050808333d747b5679a4bc00dd03, type: 3}
   angrySound: {fileID: 8300000, guid: ac33a05ce2ad34e409351f0552381858, type: 3}
   sadSound: {fileID: 8300000, guid: 31c4d8d0ae421f34dbfba275fabe0292, type: 3}
-  distractSound: {fileID: 8300000, guid: 9927daf370ac85542b950b0a6f7510e5, type: 3}
+  distractSound: {fileID: 8300000, guid: fe80621bda9c5e14a93513eb37200930, type: 3}
 --- !u!114 &3487205323991921901
 MonoBehaviour:
   m_ObjectHideFlags: 0

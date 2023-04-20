@@ -59,7 +59,7 @@ public class PressurePlateTrigger : TriggerBase
                     string sceneName = currentScene.name;
 
                     // This is just to ensure only the RobotDeath scene is affected by this code. Other scenes should not have monsters triggering pressure plates
-                    if (sceneName == "RobotDeath")
+                    if (sceneName == "RobotDeathScene")
                     {
                         if (doorCollider != null && !moveOverTime)
                             doorCollider.enabled = false;
@@ -113,6 +113,8 @@ public class PressurePlateTrigger : TriggerBase
     {
         //if (checkpoint != null && !checkpoint.checkpointTriggered)
         //{
+        triggerOnlyOnce = true; // This is to reset correctly
+
         if (doorCollider != null)
             doorCollider.enabled = true;
 
