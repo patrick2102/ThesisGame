@@ -6,27 +6,30 @@ public class CircuitInterpreter : MonoBehaviour
 {
     public static void WriteString()
     {
-        string path = Application.dataPath + "/txt-level-files/4x4.txt";
+        //string path = Application.dataPath + "/txt-level-files/4x4.txt";
         //Write some text to the test.txt file
-        StreamWriter writer = new StreamWriter(path, true);
-        writer.WriteLine("Test");
-        writer.Close();
-        StreamReader reader = new StreamReader(path);
+        //StreamWriter writer = new StreamWriter(path, true);
+        //writer.WriteLine("Test");
+        //writer.Close();
+        //StreamReader reader = new StreamReader(path);
         //Print the text from the file
-        Debug.Log(reader.ReadToEnd());
-        reader.Close();
+        //Debug.Log(reader.ReadToEnd());
+        //reader.Close();
     }
 
     public static NodeType[,] ReadString()
     {
-        string path = Application.dataPath + "/txt-level-files/3x3.txt";
-        //Read the text directly from the test.txt file
-        StreamReader reader = new StreamReader(path);
+        //string path = Application.dataPath + "/txt-level-files/3x3.txt";
+        ////Read the text directly from the test.txt file
+        //StreamReader reader = new StreamReader(path);
         
-        String txtLevel = reader.ReadToEnd();
+        //String oldTxtFileSolution = reader.ReadToEnd();
+
+        // BELOW IS A SOLUTION TO HARD-CODE A 3X3 CIRCUIT BOARD INTO THE GAME - WITH THIS WE CAN MAKE A BUILD THAT IS NOT DEPENDENT ON OUTSIDE FILES
+        String hardCoded3X3Level = "XNNN\r\nINNN\r\nXNNN";
 
         // This does not function on Unix systems, as they have different line endings
-        var array = txtLevel.Split('\n');
+        var array = hardCoded3X3Level.Split('\n');
 
         var xLength = array[0].Length -1; //Minus 1 to not count the "\r" character
 
@@ -67,7 +70,7 @@ public class CircuitInterpreter : MonoBehaviour
             }
         }
 
-        reader.Close();
+        //reader.Close();
 
         return gridRepresentation;
     }

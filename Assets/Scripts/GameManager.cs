@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     //TargetGroups
     [SerializeField] private CinemachineTargetGroup playerTargetGroup;
 
-    public static bool emotionVersion = true;
+    public static bool emotionVersion = false;
 
     private float robotDeathResetTimeCounter = 0.0f;
     private float robotDeathResetTime = 2.0f;
