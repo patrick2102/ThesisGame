@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,7 +20,6 @@ public class PressurePlateTrigger : TriggerBase
 
     [SerializeField] private AudioClip triggerSound;
     [SerializeField] private AudioSource audioSource;
-
 
     public void Awake()
     {
@@ -111,15 +111,17 @@ public class PressurePlateTrigger : TriggerBase
 
     public void ResetTrigger()
     {
-        if (checkpoint != null && !checkpoint.checkpointTriggered)
-        {
-            if (doorCollider != null)
-                doorCollider.enabled = true;
+        //if (checkpoint != null && !checkpoint.checkpointTriggered)
+        //{
+        if (doorCollider != null)
+            doorCollider.enabled = true;
 
-            if (objectToRemove != null)
-                objectToRemove.SetActive(true);
+        if (objectToRemove != null)
+            objectToRemove.SetActive(true);
 
-            door.transform.position = originalDoorPosition;
-        }
+        StopAllCoroutines();
+
+        door.transform.position = originalDoorPosition;
+        //}
     }
 }
