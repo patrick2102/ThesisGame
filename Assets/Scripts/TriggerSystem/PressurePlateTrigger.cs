@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,7 +20,6 @@ public class PressurePlateTrigger : TriggerBase
 
     [SerializeField] private AudioClip triggerSound;
     [SerializeField] private AudioSource audioSource;
-
 
     public void Awake()
     {
@@ -59,7 +59,7 @@ public class PressurePlateTrigger : TriggerBase
                     string sceneName = currentScene.name;
 
                     // This is just to ensure only the RobotDeath scene is affected by this code. Other scenes should not have monsters triggering pressure plates
-                    if (sceneName == "RobotDeath")
+                    if (sceneName == "RobotDeathScene")
                     {
                         if (doorCollider != null && !moveOverTime)
                             doorCollider.enabled = false;
@@ -111,15 +111,19 @@ public class PressurePlateTrigger : TriggerBase
 
     public void ResetTrigger()
     {
-        if (checkpoint != null && !checkpoint.checkpointTriggered)
-        {
-            if (doorCollider != null)
-                doorCollider.enabled = true;
+        //if (checkpoint != null && !checkpoint.checkpointTriggered)
+        //{
+        triggerOnlyOnce = true; // This is to reset correctly
 
-            if (objectToRemove != null)
-                objectToRemove.SetActive(true);
+        if (doorCollider != null)
+            doorCollider.enabled = true;
 
-            door.transform.position = originalDoorPosition;
-        }
+        if (objectToRemove != null)
+            objectToRemove.SetActive(true);
+
+        StopAllCoroutines();
+
+        door.transform.position = originalDoorPosition;
+        //}
     }
 }
