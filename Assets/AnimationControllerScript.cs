@@ -231,5 +231,6 @@ public class AnimationControllerScript : MonoBehaviour
         ChangeSprite(RobotSprites.distractSprites);
         animationTime = animationTimeMax - time;
         audioSource.PlayOneShot(distractSound);
+        animator.SetBool("IsHorizontal", false);
     }
 }
