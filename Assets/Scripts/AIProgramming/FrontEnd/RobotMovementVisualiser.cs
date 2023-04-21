@@ -11,7 +11,6 @@ public class RobotMovementVisualiser : MonoBehaviour
     private RobotController robotController;
     private Rigidbody2D robotRB;
     public static RobotMovementVisualiser instance;
-    private bool updatePath = false;
     private List<Transform> pathPositions = new List<Transform>();
 
     private void Awake()
@@ -98,7 +97,7 @@ public class RobotMovementVisualiser : MonoBehaviour
             for (int i = 1; i < count; i++)
             {
                 var dist = (pathPositions[i].position - pathPositions[i - 1].position).magnitude;
-                if (dist > threshold)
+                if (dist > threshold || i == 1)
                 {
                     robotPath.positionCount = index + 1;
                     robotPath.SetPosition(index++, pathPositions[i].position);
