@@ -64,6 +64,7 @@ public class PressurePlateTrigger : TriggerBase
                     // This is just to ensure only the RobotDeath scene is affected by this code. Other scenes should not have monsters triggering pressure plates
                     if (sceneName == "RobotDeathScene")
                     {
+                        GameObject.FindGameObjectWithTag(GameObjectTags.Monster.ToString()).GetComponent<RobotKillMonsterAI>().alwaysFollowRobot = true;
                         if (doorCollider != null && !moveOverTime)
                             doorCollider.enabled = false;
                         StartCoroutine(MoveDoorToPosition());
