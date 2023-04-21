@@ -22,6 +22,8 @@ public class RobotKillMonsterAI : MonoBehaviour
     private Rigidbody2D turnMonsterRB2D;
     private Transform childSprite;
 
+    public bool alwaysFollowRobot = false;
+
     // This could inherit from a more general sort of monster class, but since we have no other yet
     // i'll just make it non-general for now and adapt it should we find a good case for generality
 
@@ -64,7 +66,7 @@ public class RobotKillMonsterAI : MonoBehaviour
             switch (col.gameObject.tag)
             {
                 case "Robot":
-                    if (RobotController.instance.behaviorState == RobotController.RobotBehaviourState.distracting)
+                    if (RobotController.instance.behaviorState == RobotController.RobotBehaviourState.distracting || alwaysFollowRobot)
                     {
                         closestDistance = temp;
                         objectWithClosestDistance = col.gameObject;

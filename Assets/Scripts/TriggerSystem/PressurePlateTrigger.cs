@@ -43,13 +43,16 @@ public class PressurePlateTrigger : TriggerBase
                     audioSource.Play();
                     break;
                 case nameof(GameObjectTags.Robot):
-                    if (doorCollider != null && !moveOverTime)
-                        doorCollider.enabled = false;
-                    StartCoroutine(MoveDoorToPosition());
-                    if (objectToRemove != null)
-                        objectToRemove.SetActive(false);
-                    robotEmotionStateHandler.SwitchRobotEmotionState(RobotEmotionStateHandler.EmotionState.happy);
-                    audioSource.Play();
+                    if (this.name != "RobotShouldNotTrigger")
+                    {
+                        if (doorCollider != null && !moveOverTime)
+                            doorCollider.enabled = false;
+                        StartCoroutine(MoveDoorToPosition());
+                        if (objectToRemove != null)
+                            objectToRemove.SetActive(false);
+                        robotEmotionStateHandler.SwitchRobotEmotionState(RobotEmotionStateHandler.EmotionState.happy);
+                        audioSource.Play();
+                    }
                     break;
                 case nameof(GameObjectTags.Monster):
                     // Temporary reference to the current scene.
@@ -61,6 +64,7 @@ public class PressurePlateTrigger : TriggerBase
                     // This is just to ensure only the RobotDeath scene is affected by this code. Other scenes should not have monsters triggering pressure plates
                     if (sceneName == "RobotDeathScene")
                     {
+                        GameObject.FindGameObjectWithTag(GameObjectTags.Monster.ToString()).GetComponent<RobotKillMonsterAI>().alwaysFollowRobot = true;
                         if (doorCollider != null && !moveOverTime)
                             doorCollider.enabled = false;
                         StartCoroutine(MoveDoorToPosition());
